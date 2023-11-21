@@ -1,7 +1,9 @@
 const { Product } = require('../models/product');
+
 const db = require('../models/index'); 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 
 
 

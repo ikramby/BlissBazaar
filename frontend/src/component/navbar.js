@@ -82,6 +82,16 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
+            <Link href='/' sx={{color:'white'}}>
+           HOME
+         </Link>
+          </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
             <Link href='/login' sx={{color:'white'}}>
            LOGIN
          </Link>
