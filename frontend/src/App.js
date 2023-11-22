@@ -3,14 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/home';
 import SignUp from './pages/register';
 import SignInSide from './pages/login';
+import SearchAppBar from './component/navbar'
 
 function App() {
   return (
     <Router>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/register">Register</Link>
-        <Link to="/login">Login</Link>
+       <SearchAppBar />
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
