@@ -15,8 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+
 
 
 function Copyright(props) {
@@ -36,14 +35,6 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
- function BasicAlerts() {
-  return (
-    <Stack sx={{ width: '100%' }} spacing={2}>
-  
-      <Alert severity="success">Login successufull !</Alert>
-    </Stack>
-  );
-}
 
 export default function SignInSide() {
   const navigate = useNavigate();
