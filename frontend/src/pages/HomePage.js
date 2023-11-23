@@ -112,7 +112,7 @@ const HomePage = () => {
             </Typography>
             <Button variant="contained" color="primary" className={classes.button}>
             <Link href='/AboutUs' sx={{color:'white'}}>
-            About Us
+            About Us!
             </Link>
             </Button>
           </div>
