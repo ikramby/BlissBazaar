@@ -72,7 +72,7 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           TECKstore
+           TechBazar  
           </Typography>
           <Typography
             variant="h6"
@@ -95,7 +95,16 @@ export default function SearchAppBar() {
          </Link>
          </Typography>
            
-          
+         <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+         <Link href='/AboutUs' sx={{color:'white'}}>
+            About Us
+         </Link>
+         </Typography>
          
           <Search>
             <SearchIconWrapper>

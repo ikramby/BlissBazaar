@@ -99,9 +99,8 @@ function Copyright(props) {
       description: ['Privacy policy', 'Terms of use'],
     },
   ];
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const cards = [1, 2, 3, 4, 5, 6];
 
-  // TODO remove, this demo shouldn't need to reset the theme.
   const defaultTheme = createTheme();
   
   return (
@@ -109,47 +108,7 @@ function Copyright(props) {
       <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          TechBazar
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Home
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Product
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Support
-            </Link>
-          </nav>
-          <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+   
       {/* Hero unit */}
       <br></br> <br></br>
       <Container>
@@ -170,7 +129,7 @@ function Copyright(props) {
         TechBazar is your one-stop destination for all your IT needs. We specialize in offering a wide range of top-notch IT equipment, including laptops and desktop PCs, tablets, smartphones, and cameras. With the convenience of online ordering, TechBazar makes it easy for you to find and purchase the latest and most reliable technology products. Explore our diverse selection and stay ahead in the world of digital innovation with TechBazar.
      </p>
       </Typography>
-    </Container><br></br><br></br><br></br><br></br>
+    </Container><br></br><br></br>
       {/* End hero unit */}
      
 
@@ -183,14 +142,14 @@ function Copyright(props) {
           At TechBazar, we specialize in providing cutting-edge solutions for your computer hardware needs. Our dedicated team is committed to offering a curated selection of top-quality components, ensuring that you have access to the latest and most reliable hardware. Whether you're building a high-performance PC or upgrading your existing system, we've got you covered. Explore our extensive range of processors, graphics cards, motherboards, and more, and experience the power of precision and performance with TechBazar.          </p>
         </div>
         <div className="section-image">
-          <img src="https://via.placeholder.com/324x397" alt="Placeholder" />
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr0IOBdW--s6pPpI6poGwjW4ejsqQmjq8-T6KxASO77IF7026tNl8OzrxUjQ5BEmn_FTE&usqp=CAU" alt="Placeholder" />
         </div>
       </div>
 
     
       <div className="section section-right" >
         <div className="section-image">
-          <img src="https://via.placeholder.com/324x397" alt="Placeholder" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7KcdbAFNCEl_D3i1bfwNmQZHo14nzRRBkxfdtNDGoIaMl2eqkAHVOiUlP4mWzQ_R95_o&usqp=CAU" alt="Placeholder" />
         </div>
         <div className="section-content" style={{ marginLeft: '20px' }}>
           <h1 className="section-title">When We Started</h1>
@@ -231,15 +190,14 @@ function Copyright(props) {
                      
                       pt: '100%',
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image="https://us.123rf.com/450wm/wrightstudio/wrightstudio1702/wrightstudio170200920/72556437-femme-utilise-une-tablette-presse-sur-%C3%A9cran-virtuel-et-s%C3%A9lection-best-seller.jpg?ver=6"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      Seller
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                    Sellers on TechBazaar, our valued partners, showcase innovative tech products, providing customers with a diverse range of cutting-edge solutions to meet their digital needs.
                     </Typography>
                   </CardContent>
                  
