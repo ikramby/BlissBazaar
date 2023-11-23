@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     category: {
       type: DataTypes.ENUM(
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     
     status: {
