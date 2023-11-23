@@ -50,7 +50,7 @@ export default function SignUp() {
         event.preventDefault();
     
         try {
-          const response = await axios.post('http://localhost:7000/register', user);
+          const response = await axios.post('http://localhost:7000/tech/register', user);
           console.log('Registration successful', response.data);
           // Redirect or show success message
         } catch (error) {

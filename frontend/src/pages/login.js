@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import '../index.css';
 
 
 
@@ -54,7 +55,7 @@ export default function SignInSide() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:7000/login', { email, password });
+      const response = await axios.post('http://localhost:7000/tech/login', { email, password });
       console.log('Login successful', response.data);
       alert('Logged in successfully!');
 
@@ -139,6 +140,20 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+              <h4 className='or'>or </h4>
+            
+              
+              <div className='btnGoogle'>
+              <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+<div class="google-btn">
+  <div class="google-icon-wrapper">
+    <img class="google-icon" src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt='img'/>
+  </div>
+  <p class="btn-text"><b>SIGN IN WITH GOOGLE</b></p>
+</div>
+</div>
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
