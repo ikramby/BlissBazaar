@@ -1,7 +1,7 @@
 .about-us-container {
     font-family: 'SF Pro Display', Arial, sans-serif;
     color: white;
-    background: linear-gradient(123deg, #7E7E7E 0%, #40435C 63%);
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
   }
   
   .section {
@@ -19,7 +19,7 @@
   .section-left {
     background: white;
     justify-content: space-between;
-    background: linear-gradient(123deg, #7E7E7E 0%, #40435C 63%);
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
 
   }
   

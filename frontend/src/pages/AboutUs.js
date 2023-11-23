@@ -99,9 +99,42 @@ function Copyright(props) {
       description: ['Privacy policy', 'Terms of use'],
     },
   ];
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  // TODO remove, this demo shouldn't need to reset the theme.
+  const cardMediaImages = [
+    'https://www.apple.com/v/ipad-10.9/c/images/overview/hero/hero__ecv967jz1y82_large_2x.jpg',
+    'https://www.hp.com/content/dam/sites/worldwide/homepage/images/Mask-Group-279@2x.png',
+    'https://www.toshiba-storage.com/wp-content/uploads/2017/09/feature_2-1.png',
+    'https://images.samsung.com/is/image/samsung/assets/fr/watches/Watch_PCD_WatchNew_Watch6Classic_pc.png?$376_376_PNG$',
+    'https://www.nokia.com/sites/default/files/styles/c5_media_100_ratio_1_1/public/2023-01/microsoftteams-image-2_0.png.webp',
+    'https://www.logicom-europe.com/5841-large_default/xtrem-30.jpg',
+  ];
+
+  const cardContentData = [
+    {
+      title: 'Apple',
+      description: 'Step into the future of computing with Apple where innovation meets featherweight design. Experience the lightest and most efficient computer that redefines your digital journey.',
+    },
+    {
+      title: 'HP',
+      description: ' Elevate your expectations with HP where trust meets innovation. Experience the reliability of a brand renowned for delivering exceptional products and services.',
+    },
+    {
+      title: 'Toshiba',
+      description: ' Transform your computing setup with Toshiba. Explore and enhance your experience with a range of top-notch computer accessories, because perfection is in the details.',
+    },
+    {
+      title: 'Samsung',
+      description: 'Unlock a new perspective on time with Samsung. Redefine your experience and witness time in a whole new light.',
+    },
+    {
+      title: 'Nokia',
+      description: 'Elevate your experience with Nokia where you can access the latest AI technologies, showcasing unparalleled innovation and efficiency in the realm of automation.',
+    },
+    {
+      title: 'Logicom',
+      description: 'Embark on an adventurous journey with the latest shockproof technology from Logicom, ensuring durability and innovation every step of the way.',
+    },
+  ];
   const defaultTheme = createTheme();
   
   return (
@@ -109,47 +142,7 @@ function Copyright(props) {
       <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          TechBazar
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Home
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Product
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Support
-            </Link>
-          </nav>
-          <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+   
       {/* Hero unit */}
       <br></br> <br></br>
       <Container>
@@ -170,7 +163,7 @@ function Copyright(props) {
         TechBazar is your one-stop destination for all your IT needs. We specialize in offering a wide range of top-notch IT equipment, including laptops and desktop PCs, tablets, smartphones, and cameras. With the convenience of online ordering, TechBazar makes it easy for you to find and purchase the latest and most reliable technology products. Explore our diverse selection and stay ahead in the world of digital innovation with TechBazar.
      </p>
       </Typography>
-    </Container><br></br><br></br><br></br><br></br>
+    </Container><br></br><br></br>
       {/* End hero unit */}
      
 
@@ -183,14 +176,14 @@ function Copyright(props) {
           At TechBazar, we specialize in providing cutting-edge solutions for your computer hardware needs. Our dedicated team is committed to offering a curated selection of top-quality components, ensuring that you have access to the latest and most reliable hardware. Whether you're building a high-performance PC or upgrading your existing system, we've got you covered. Explore our extensive range of processors, graphics cards, motherboards, and more, and experience the power of precision and performance with TechBazar.          </p>
         </div>
         <div className="section-image">
-          <img src="https://via.placeholder.com/324x397" alt="Placeholder" />
+        <img src="https://www.scoopearth.com/wp-content/uploads/2022/11/Benefits-and-Drawbacks-of-Starting-An-Online-Store-Tycoonstory.jpg" alt="Placeholder" />
         </div>
       </div>
 
     
       <div className="section section-right" >
         <div className="section-image">
-          <img src="https://via.placeholder.com/324x397" alt="Placeholder" />
+          <img src="https://www.wofs.com/wp-content/uploads/2018/06/jump-start.jpg" alt="Placeholder" />
         </div>
         <div className="section-content" style={{ marginLeft: '20px' }}>
           <h1 className="section-title">When We Started</h1>
@@ -217,32 +210,38 @@ function Copyright(props) {
       We believe in the entrepreneurial spirit of our makers, offering a seamless and supportive environment to connect with tech enthusiasts worldwide. Join TechBazar as a seller, and let your creations become part of the digital revolution, shaping the future of IT excellence.</Typography>
       </Container>
       
-      <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
+        
+          <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {cardMediaImages.map((image, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
                   <CardMedia
                     component="div"
                     sx={{
-                     
                       pt: '100%',
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image={image}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
+                    {cardContentData[index] ? ( // Check if data at index exists
+                      <>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {cardContentData[index].title}
+                        </Typography>
+                        <Typography>
+                          {cardContentData[index].description}
+                        </Typography>
+                      </>
+                    ) : (
+                      <Typography>
+                        Data not available for index {index}.
+                      </Typography>
+                    )}
                   </CardContent>
-                 
                 </Card>
               </Grid>
             ))}
