@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 // import  HomePage from './pages/HomePage';
 import SignUp from './pages/register';
 import SignInSide from './pages/login';
-import SearchAppBar from './component/navbar'
+import SearchAppBar from './component/navbar';
 
 function App() {
   return (
