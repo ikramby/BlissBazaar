@@ -1,0 +1,64 @@
+.about-us-container {
+    font-family: 'SF Pro Display', Arial, sans-serif;
+    color: white;
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
+  }
+  
+  .section {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+
+    
+  }
+  
+  .section-center {
+    text-align: center;
+  }
+  
+  .section-left {
+    background: white;
+    justify-content: space-between;
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
+
+  }
+  
+  .section-right {
+    justify-content: space-between;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  
+  .section-paragraph {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .section-content {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .section-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .makers-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
