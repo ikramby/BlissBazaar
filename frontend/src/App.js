@@ -1,6 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import  HomePage from './pages/HomePage';
+import  HomePage from './pages/HomePage';
 import SignUp from './pages/register';
 import SignInSide from './pages/login';
 import AboutUs from './pages/AboutUs';
@@ -14,7 +14,7 @@ function App() {
        <SearchAppBar />
       </nav>
       <Routes>
-        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/home" element={<HomePage />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />
