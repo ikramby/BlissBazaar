@@ -1,8 +1,11 @@
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import  HomePage from './pages/HomePage';
-import SignUp from './pages/register';
-import SignInSide from './pages/login';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import SignUp from "./pages/register";
+import SignInSide from "./pages/login";
+import React from "react";
+import EditProfile from "./pages/EditProfile";
+
 
 import AboutUs from './pages/AboutUs';
 import NewProductForm from './pages/Newproduct';
@@ -13,7 +16,6 @@ function App() {
   return (
     <Router>
       <nav>
-      {/* test */}
        <SearchAppBar />
       </nav>
       <Routes>
@@ -22,6 +24,8 @@ function App() {
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/NewProduct" element={<NewProductForm />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+
       </Routes>
     </Router>
   );
