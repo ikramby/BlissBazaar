@@ -11,7 +11,7 @@ const routeApp=require("./routes/route")
 
 
 
-  app.use('/products', productroute);
+  // app.use('/products', productroute);
 
 
 app.use("/tech",routeApp)
