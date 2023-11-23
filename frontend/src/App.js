@@ -14,7 +14,7 @@ function App() {
        <SearchAppBar />
       </nav>
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />

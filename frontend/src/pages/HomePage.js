@@ -1,17 +1,11 @@
 import React from 'react';
 import '../index.css'
 import {
-//  AppBar,
-//  Toolbar,
-//  IconButton,
  Typography,
-//  InputBase,
-//  Paper,
  Grid,
  Button,
 } from '@material-ui/core';
 import Link from '@mui/material/Link';
-// import { Search, Home, Face, ArrowForward } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,35 +56,6 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* <AppBar position="static" className={classes.navbar}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <Home />
-          </IconButton>
-          <div className={classes.searchBar}>
-            <div className={classes.searchIcon}>
-              <Search />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <Button variant="contained" color="primary" className={classes.button}>
-            Profile
-          </Button>
-          <IconButton edge="end" color="inherit">
-            <Home />
-          </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Face />
-          </IconButton>
-        </Toolbar>
-      </AppBar> */}
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Button variant="contained" color="primary" className={classes.button}>
