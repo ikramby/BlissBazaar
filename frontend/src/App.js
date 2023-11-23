@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import SignUp from './pages/register';
 import SignInSide from './pages/login';
 import AboutUs from './pages/AboutUs';
-
+import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar'
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/NewProduct" element={<NewProductForm />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,6 @@
 const express = require ("express");
 const app = express();
+const router = express.Router();
 const cors = require ("cors");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -16,7 +17,9 @@ db.sequelize.sync()
     console.error("Failed to sync database: ", err);
     process.exit(1); 
   });
+  const productroute = require('./route/product')
 
+  app.use('/products', productroute);
 
   app.post('/register', async (req, res) => {
     try {
