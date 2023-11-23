@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 
 function Copyright(props) {
@@ -33,6 +35,15 @@ function Copyright(props) {
 
 
 const defaultTheme = createTheme();
+
+ function BasicAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+  
+      <Alert severity="success">Login successufull !</Alert>
+    </Stack>
+  );
+}
 
 export default function SignInSide() {
   const navigate = useNavigate();
@@ -54,13 +65,16 @@ export default function SignInSide() {
     try {
       const response = await axios.post('http://localhost:7000/login', { email, password });
       console.log('Login successful', response.data);
+      alert('Logged in successfully!');
+
       navigate('/home');
       // Store the received token, and redirect or do something else
       // For example, using local storage to store the token (not recommended for production)
       localStorage.setItem('token', response.data.token);
       // Redirect to home page or dashboard
     } catch (error) {
-      console.error('Login error:', error)
+      console.error('Login error:', error);
+      alert('Email or password is incorrect. Please try again.')
       // Show error message to the user
     }
   };
