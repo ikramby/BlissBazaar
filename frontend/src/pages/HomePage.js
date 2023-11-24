@@ -78,7 +78,7 @@ const cardContentData = [
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
             <StyledTypography variant="h4" component="h4">
-              Welcome to TechBazaar!
+              Welcome to TechBazaar! 
             </StyledTypography>
             <StyledTypography variant="body1" component="p">
               TechBazar is your one-stop destination for all your IT needs. We specialize in offering a wide range of top-notch IT equipment, inclu...
