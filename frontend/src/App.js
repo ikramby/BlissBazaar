@@ -5,15 +5,15 @@ import SignUp from "./pages/register";
 import SignInSide from "./pages/login";
 import React from "react";
 import EditProfile from "./pages/EditProfile";
-
-
 import AboutUs from './pages/AboutUs';
 import NewProductForm from './pages/Newproduct';
-import SearchAppBar from './component/navbar'
+import SearchAppBar from './component/navbar';
+import { AuthProvider } from './component/AuthContext';
 
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <nav>
        <SearchAppBar />
@@ -28,6 +28,7 @@ function App() {
 
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

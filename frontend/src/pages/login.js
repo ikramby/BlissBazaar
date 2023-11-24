@@ -16,8 +16,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../index.css';
-
-
+import { useContext } from 'react';
+import { AuthContext } from '../component/AuthContext';
 
 function Copyright(props) {
   return (
@@ -42,6 +42,8 @@ export default function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setAuth } = useContext(AuthContext);
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -53,23 +55,23 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       const response = await axios.post('http://localhost:7000/tech/login', { email, password });
       console.log('Login successful', response.data);
-      alert('Logged in successfully!');
-
-      navigate('/home');
-      // Store the received token, and redirect or do something else
-      // For example, using local storage to store the token (not recommended for production)
+  
+      // Store the token in local storage
       localStorage.setItem('token', response.data.token);
-      // Redirect to home page or dashboard
+  
+      alert('Logged in successfully!');
+      setAuth(true);
+      navigate('/');
     } catch (error) {
       console.error('Login error:', error);
-      alert('Email or password is incorrect. Please try again.')
-      // Show error message to the user
+      alert('Email or password is incorrect. Please try again.');
     }
   };
+  ;
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>

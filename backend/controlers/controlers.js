@@ -9,7 +9,7 @@ db.sequelize.sync()
     console.error("Failed to sync database: ", err);
     process.exit(1); 
   });
-
+ 
 
 module.exports = {
     
@@ -47,10 +47,35 @@ module.exports = {
               }
           
               const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+              res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
               res.json({ message: "Logged in successfully", token });
             } catch (error) {
               res.status(500).send(error.message);
             }
-          }
+          },
+
+        // Create a middleware function to verify JWT tokens
+ verifyToken :(req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token is not valid' });
+    }
+
+    // You can access the user ID with decoded.id if needed
+
+    next();
+  })
+}
+
+
+
+          
+        
 
 }
