@@ -54,8 +54,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1 } } >
+      <AppBar position="static" color="transparent">
+
         <Toolbar>
           <IconButton
             size="large"
@@ -72,7 +73,8 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           TechBazar  
+            <Link href='/login' sx={{color:'white'}}>  TechBazar</Link>
+           
           </Typography>
           <Typography
             variant="h6"

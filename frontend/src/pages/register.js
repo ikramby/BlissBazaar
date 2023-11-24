@@ -62,7 +62,9 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{backgroundColor:'white',
+      borderRadius:'15px', opacity:'0.9', marginBottom:'10vh' , height:'92vh'
+      }}>
         <CssBaseline />
         <Box
           sx={{
@@ -72,7 +74,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 2, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -126,12 +128,7 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+             
             </Grid>
             <Button
               type="submit"
@@ -150,7 +147,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mb: 5}} />
       </Container>
     </ThemeProvider>
   );

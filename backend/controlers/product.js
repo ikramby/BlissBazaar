@@ -1,5 +1,17 @@
 const { Product } = require('../models/product');
 
+const db = require('../models/index'); 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+// db.sequelize.sync()
+//   .then(() => console.log("Database synced"))
+//   .catch(err => {
+//     console.error("Failed to sync database: ", err);
+//     process.exit(1); 
+//   });
+
+
 const productController = {
   getAllProducts: async (req, res) => {
     try {
