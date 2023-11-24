@@ -75,16 +75,6 @@ const cardContentData = [
     <div>
          <MainFeaturedPost post={mainFeaturedPost} />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <StyledButton variant="contained" color="primary">
-            Main Collection
-          </StyledButton>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <StyledButton variant="contained" color="primary">
-            View All Products
-          </StyledButton>
-        </Grid>
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
             <StyledTypography variant="h4" component="h4">
@@ -168,7 +158,9 @@ const cardContentData = [
               showing products..
             </StyledTypography>
             <StyledButton variant="contained" color="primary">
+            <Link href='/products' sx={{color:'white'}}>
               See All Products
+              </Link>
             </StyledButton>
           </div>
         </Grid>
@@ -181,7 +173,9 @@ const cardContentData = [
               If you have any questions or concerns, please call us on 01481 238565 between 09.00 and 16.30. For general enquiries, you can also email health@msg.gg.
             </StyledTypography>
             <StyledButton variant="contained" color="primary">
-              About Us
+              <Link href='/AboutUs' sx={{color:'white'}}>
+                About Us
+              </Link>
             </StyledButton>
           </div>
         </Grid>
