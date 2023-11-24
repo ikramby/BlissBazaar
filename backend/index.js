@@ -12,6 +12,13 @@ const productroute = require('./route/product');
 
 
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+
+
+
+
   app.use('/products', productroute);
 
 
