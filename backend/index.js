@@ -7,11 +7,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 const port = 7000;
 app.use(cors());
-const routeApp=require("./routes/route")
+const routeApp=require("./route/singin");
+const productroute = require('./route/product');
 
 
 
-  // app.use('/products', productroute);
+  app.use('/products', productroute);
 
 
 app.use("/tech",routeApp)

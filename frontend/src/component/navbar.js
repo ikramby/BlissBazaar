@@ -73,7 +73,7 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href='/login' sx={{color:'white'}}>  TechBazar</Link>
+            <Link href='/' sx={{color:'white'}}>  TechBazar</Link>
            
           </Typography>
           <Typography
