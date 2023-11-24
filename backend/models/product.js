@@ -1,4 +1,3 @@
-// models/product.js
 
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
@@ -8,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     category: {
       type: DataTypes.ENUM(
@@ -33,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     
     status: {
@@ -42,47 +41,14 @@ module.exports = (sequelize, DataTypes) => {
       values: ['available', 'out of stock'],
     },
     color: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: true,
-      values: [
-        'Beige',
-        'White',
-        'Blue',
-        'Gold',
-        'Gray',
-        'Black',
-        'Orange',
-        'Pink',
-        'Red',
-        'Silver',
-        'Green',
-        'Purple',
-      ],
     },
     manufacturer: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: true,
-      values: [
-        'Apple',
-        'benco',
-        'Honor',
-        'Huawei',
-        'IKU',
-        'Infinix',
-        'IPLUS',
-        'Itel mobile',
-        'Lenovo',
-        'LOGICOM',
-        'Nokia',
-        'Oppo',
-        'Hp',
-        'realme',
-        'Samsung',
-        'SCHNEIDER',
-        'Toshiba',
-        'Sagem',
-      ],
     },
+    
     onSale: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
