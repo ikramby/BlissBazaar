@@ -14,6 +14,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 
 const mainFeaturedPost = {
@@ -24,18 +25,60 @@ const mainFeaturedPost = {
   imageText: 'main image description',
 };
 
-const StyledButton = styled(Button)({
-  margin: theme => theme.spacing(1),
-});
+//const StyledButton = styled(Button)({
+  //margin: theme => theme.spacing(1),
+//});
 
 const StyledTypography = styled(Typography)({
+  color: 'white',
 });
 
 const StyledLink = styled(Link)({
-  color: 'white', 
+  color: 'white',
 });
 
+const StyledButton = styled(Button)({
+  color: 'white',
+  margin: theme => theme.spacing(1),
+});
+ 
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+       TechBazaar
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
+const footers = [
+  {
+    title: 'TechBazar',
+    description: ['Team', 'History', 'Contact us', 'Locations'],
+  },
+  {
+    title: 'Features',
+    description: [
+      'Cool stuff',
+      'Random feature',
+      'Team feature',
+      'Developer stuff',
+      'Another one',
+    ],
+  },
+  {
+    title: 'Resources',
+    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+  },
+  {
+    title: 'Legal',
+    description: ['Privacy policy', 'Terms of use'],
+  },
+];
 const cardMediaImages = [
   'https://www.apple.com/v/ipad-10.9/c/images/overview/hero/hero__ecv967jz1y82_large_2x.jpg',
   'https://www.hp.com/content/dam/sites/worldwide/homepage/images/Mask-Group-279@2x.png',
@@ -44,6 +87,7 @@ const cardMediaImages = [
   'https://www.nokia.com/sites/default/files/styles/c5_media_100_ratio_1_1/public/2023-01/microsoftteams-image-2_0.png.webp',
   'https://www.logicom-europe.com/5841-large_default/xtrem-30.jpg',
 ];
+
 
 const cardContentData = [
   {
@@ -70,40 +114,86 @@ const cardContentData = [
     title: 'Logicom',
     description: 'Embark on an adventurous journey with the latest shockproof technology from Logicom, ensuring durability and innovation every step of the way.',
   },
-];const HomePage = () => {
+];
+
+const cardSold = [
+  'https://www.jbhifi.com.au/cdn/shop/products/621604-Product-0-I-638096365749912894.jpg?v=1687310774',
+  'https://www.tunisianet.com.tn/174879-large/pc-portable-hp-pavilion-gaming-15-ec0003nk-ryzen-5-32-go-sim-orange-offerte-60-go.jpg',
+  'https://gamextreme.ph/cdn/shop/products/1_9ca1ec46-81e4-4f29-b0af-592b8ebd48d8_1024x1024.png?v=1617604331',
+ 
+];
+const cardContentSold = [
+  {
+    title: 'Apple 20% Sale',
+    description: 'Apple MacBook Pro 14-inch with M2 Pro Chip/ 512GB SSD',
+  },
+  {
+    title: 'HP 25% Sale  ',
+    description: ' PAVILION GAMING 15-EC0003NK / RYZEN 5 / 32 GO',
+  },
+  {
+    title: 'Toshiba 30% Sale ',
+    description: ' Portable External Hard Drive 1TB USB 3.0 ',
+  },
+
+];
+
+const HomePage = () => {
   return (
     <div>
          <MainFeaturedPost post={mainFeaturedPost} />
+
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <StyledButton variant="contained" color="primary">
-            Main Collection
-          </StyledButton>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <StyledButton variant="contained" color="primary">
-            View All Products
-          </StyledButton>
-        </Grid>
+
+     {/*
+<Grid item xs={12} md={6}>
+  <StyledButton variant="contained" color="primary">
+    Main Collection
+  </StyledButton>
+</Grid>
+<Grid item xs={12} md={6}>
+  <StyledButton variant="contained" color="primary">
+    View All Products
+  </StyledButton>
+</Grid>
+*/}
+
+
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
             <StyledTypography variant="h4" component="h4">
               Welcome to TechBazaar!
             </StyledTypography>
             <StyledTypography variant="body1" component="p">
-              TechBazar is your one-stop destination for all your IT needs. We specialize in offering a wide range of top-notch IT equipment, inclu...
+              TechBazar is your one-stop destination for all your IT needs. 
+              We specialize in offering a wide range of top-notch IT equipment.
             </StyledTypography>
           
           </div>
         </Grid>
         <Grid item xs={12}>
          
-        <div className="section section-right" >        <div className="section-content">
+        <div className="section section-right" >       
+        <div className="section-content" style={{ color: 'white' }}>
           <h1 className="section-title">Best-selling</h1>
           <p className="section-paragraph">
           Ready to expand your smart home? We're bringing you the best deals of 2023 on the retailer's best-selling smart devices, from Echo Echo Shows and Fire tablets to Kindle Paperwhites and Fire TVs. Here are the best gadgets to splurge (and save) on this year.              </p>
         </div>
-        <div className="section-image">
+       
+            {/*
+             <CardMedia
+                    component="div"
+                    sx={{
+                      // 16:9
+                      pt: '56.25%',
+                    }}
+                    image="https://source.unsplash.com/random?wallpapers"
+                  />
+
+             */} 
+       
+
+  <div className="section-image">
         <img src="https://s.yimg.com/ny/api/res/1.2/AOV6Vht2w3tfT6Q3Ad5hXg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg7Y2Y9d2VicA--/https://media.zenfs.com/en/variety.com/ff63100ca96fbaed74ca655bf2cfee61" alt="Placeholder" />
         </div>
       </div>
@@ -113,7 +203,8 @@ const cardContentData = [
         <div className="section-image">
           <img src="https://metapod.com/cdn/shop/articles/tech-gift-for-him-2022-metapod.webp?v=1660778620&width=600" alt="Placeholder" />
         </div>
-        <div className="section-content" style={{ marginLeft: '20px' }}>
+
+        <div className="section-content" style={{ marginLeft: '20px' ,color: 'white' }}>
           <h1 className="section-title">Technology Device</h1>
           <p className="section-paragraph">
           Explore the world of cutting-edge technology devices, a seamless blend of innovation and functionality designed to enhance your digital lifestyle.
@@ -121,13 +212,23 @@ const cardContentData = [
                   </p>
         </div>
       </div>
+      
       <div style={{ marginTop: "50px", textAlign: "center" }}>
-            <StyledTypography variant="h4" component="h4">
-              Products..
-            </StyledTypography>
-               {/* End hero unit */}
+      <StyledTypography variant="h4" component="h4">
+    Our Partner            </StyledTypography><br></br>
+      <div className="section-image">
+        <img src=" https://techguided.com/wp-content/uploads/2019/03/Best-Laptop-Brand.jpg" alt="Placeholder" />
+      {/*
+      https://hotdealszone.in/wp-content/uploads/2017/01/online-mobiles-brands.png 
+      https://www.91laptop.com/in/wp-content/uploads/2022/08/best-laptop-brands-in-india-1024x394.jpg*/}  
+        </div> <br></br> <br></br>
+    
+          
         
           <Container sx={{ py: 8 }} maxWidth="md">
+          <StyledTypography variant="h4" component="h4">
+            New Device
+            </StyledTypography><br></br>
           <Grid container spacing={4}>
             {cardMediaImages.map((image, index) => (
               <Grid item key={index} xs={12} sm={6} md={4}>
@@ -142,7 +243,7 @@ const cardContentData = [
                     image={image}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    {cardContentData[index] ? ( // Check if data at index exists
+                    {cardContentData[index] ? ( 
                       <>
                         <Typography gutterBottom variant="h5" component="h2">
                           {cardContentData[index].title}
@@ -161,15 +262,60 @@ const cardContentData = [
               </Grid>
             ))}
           </Grid>
-        </Container>
-      
-      {/* Footer */}
-            <StyledTypography variant="body1" component="p">
+          <StyledTypography variant="body1" component="p">
               showing products..
             </StyledTypography>
             <StyledButton variant="contained" color="primary">
               See All Products
             </StyledButton>
+        </Container>
+
+        <StyledTypography variant="h4" component="h4">
+        Sale!           
+         </StyledTypography>
+        
+          <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
+            {cardSold.map((image, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                  <CardMedia
+                    component="div"
+                    sx={{
+                      pt: '100%',
+                    }}
+                    image={image}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    {cardContentSold[index] ? ( 
+                      <>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {cardContentSold[index].title}
+                        </Typography>
+                        <Typography>
+                          {cardContentSold[index].description}
+                        </Typography>
+                      </>
+                    ) : (
+                      <Typography>
+                        Data not available for index {index}.
+                      </Typography>
+                    )}
+                  </CardContent>
+                  <CardActions style={{ justifyContent: 'center' }}>
+  <Button size="small">View</Button>
+</CardActions>
+
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+
+      {/* Footer */}
+           
           </div>
         </Grid>
         <Grid item xs={12}>
@@ -178,16 +324,14 @@ const cardContentData = [
               Need Some Help!
             </StyledTypography>
             <StyledTypography variant="body1" component="p">
-              If you have any questions or concerns, please call us on 01481 238565 between 09.00 and 16.30. For general enquiries, you can also email health@msg.gg.
+              If you have any questions or concerns, please call us on 71 000 000 or send us your questions.
             </StyledTypography>
-            <StyledButton variant="contained" color="primary">
-              About Us
-            </StyledButton>
+           <br></br>
           </div>
         </Grid>
       </Grid>
       <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom  style={{ color: 'white' }}>
         Frequently Asked Questions
       </Typography>
       <Grid container spacing={4}>
@@ -199,6 +343,7 @@ const cardContentData = [
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            style={{ color: 'white' }}
           />
         </Grid>
         <Grid item xs={5} sm={5}>
@@ -209,7 +354,8 @@ const cardContentData = [
             label="Question 2"
             fullWidth
             variant="standard"
-          />
+            style={{ color: 'white' }}
+            />
         </Grid>
         <Grid item xs={5} sm={5}>
           <TextField
@@ -239,8 +385,44 @@ const cardContentData = [
               <StyledLink href='/AboutUs'>
                Submit
               </StyledLink>
-            </StyledButton>
-    </React.Fragment>
+            </StyledButton><br></br>
+            
+    </React.Fragment><br></br>
+
+     {/* Footer */}
+
+     <Container
+        maxWidth="md"
+        component="footer"
+        sx={{
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 8,
+          py: [3, 6],
+        }}
+      >
+        <Grid container spacing={4} justifyContent="space-evenly">
+          {footers.map((footer) => (
+            <Grid item xs={6} sm={3} key={footer.title}>
+              <Typography variant="h6" color="text.primary" gutterBottom>
+                {footer.title}
+              </Typography>
+              <ul>
+                {footer.description.map((item) => (
+                  <li key={item}>
+                    <Link href="#" variant="subtitle1" color="text.secondary">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Grid>
+          ))}
+        </Grid>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+
+     
+      {/* End footer */}
     </div>
   );
 };
