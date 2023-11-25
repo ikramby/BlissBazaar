@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: {
@@ -36,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     
     status: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: true,
       values: ['available', 'out of stock'],
     },
