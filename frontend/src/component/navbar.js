@@ -77,6 +77,11 @@ export default function SearchAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  
+      // Remove the token from local storage and mark the user as not authenticated
+      localStorage.removeItem('token');
+      setAuth(false);
+    
   };
 
   return (
@@ -102,16 +107,7 @@ export default function SearchAppBar() {
             <Link href='/' sx={{color:'white'}}>  TechBazar</Link>
            
           </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            <Link href='/' sx={{color:'white'}}>
-           HOME
-         </Link>
-          </Typography>
+          
           {!auth && 
           (<>
             <Typography
@@ -150,6 +146,17 @@ export default function SearchAppBar() {
          </Link>
         
          </Typography>
+         <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+         <Link href='/allproduct' sx={{color:'white'}}>
+            All products
+         </Link>
+        
+         </Typography>
 
          {auth && (
             <div>
@@ -178,8 +185,8 @@ export default function SearchAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Log out</MenuItem>
+               
               </Menu>
             </div>
           )}
