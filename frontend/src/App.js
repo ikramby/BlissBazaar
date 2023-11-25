@@ -14,6 +14,7 @@ import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 
 
+
 function App() {
   return (
     <AuthProvider>
@@ -33,7 +34,7 @@ function App() {
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
-
+      
 
         TermsOfUse
       </Routes>

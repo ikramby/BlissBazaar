@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
 }
 
 
@@ -16,7 +17,7 @@ body{
     margin-top: 20px;
     justify-content: space-between;
     
-    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
+    /* background: linear-gradient(123deg, #4682B4 0%, #40435C 63%); */
   
 
     

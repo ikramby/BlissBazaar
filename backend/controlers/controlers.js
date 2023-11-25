@@ -15,7 +15,7 @@ module.exports = {
     
       register: async (req, res) => {
             try {
-              const { email, password,firstName,lastName } = req.body;
+              const { email, password,firstName,lastName, purpose} = req.body;
               console.log(email);
               const hashedPassword = await bcrypt.hash(password, 10);
           
@@ -23,7 +23,8 @@ module.exports = {
                 email,
                 firstName,
                 lastName,
-                password: hashedPassword
+                password: hashedPassword,
+                purpose
               });
           
               res.json({ message: "User registered", userId: newUser.id });
