@@ -51,7 +51,8 @@ const productController = {
         onSale,
       } = req.body;
 console.log(req.body)
-      const newProduct = await Product.create({
+
+      const newProduct = await db.products.create({
         name,
         description,
         price,
@@ -63,8 +64,8 @@ console.log(req.body)
         manufacturer,
         onSale,
       });
-
-      res.json(newProduct);
+      res.json({ message: "created new product", newProduct });
+      //res.json(newProduct);
     } catch (error) {
       res.status(500).send(error.message);
     }
