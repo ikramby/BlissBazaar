@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 
@@ -34,6 +35,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',
@@ -52,12 +54,15 @@ export default function SignUp() {
         try {
           const response = await axios.post('http://localhost:7000/tech/register', user);
           console.log('Registration successful', response.data);
+          alert('Registration successfully!');
+          navigate('/login')
           // Redirect or show success message
         } catch (error) {
           console.error('Registration error:',error.message);
    
         }
       };
+    
     
 
   return (

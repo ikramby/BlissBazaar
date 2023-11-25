@@ -1,0 +1,113 @@
+body{
+    margin: 0;
+}
+
+
+#container-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container-all {
+    display: flex;
+    min-width: 95%;
+    min-height: 90vh;
+    margin-top: 20px;
+    justify-content: space-between;
+    
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
+  
+
+    
+}
+
+#filter{
+   
+    min-width: none;width: 20%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color:hsla(0, 0%, 100%, 0.1);
+    opacity: 0.9;
+    box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+
+
+}
+#allProduct-detail{
+  
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+   
+    margin-right: 3vh;
+    border-radius: 10px;
+    background-color:hsla(0, 0%, 100%, 0.1);
+    opacity: 0.9;
+    box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 52px 0px rgba(0,0,0,0.75);
+
+}
+#allProduct-component{
+    min-width: 100%;
+    min-height: 90vh;
+   
+    margin-top: 6vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+#items{
+    float: right;
+    padding: 1vh;
+}
+
+#filterlabel{
+    color: white;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 600;
+    word-wrap: break-word;
+    Width:80%;
+    margin-left: 10px;
+}
+
+#totalItems{
+    color: rgba(255, 255, 255, 0.80); 
+    font-size: 16px; 
+    font-family: Poppins; 
+    font-weight: 400; 
+    word-wrap: break-word
+}
+#filter select{
+    border: none;
+    border-bottom: 1px solid beige;
+    padding: 0px;
+    margin: 5px;
+   background-color: transparent;
+   color: beige;
+}
+#allProduct-detail select{
+   
+    border: 1px solid beige;
+    padding: 2Opx;
+    margin: 5px;
+   background-color: transparent;
+   color: beige;
+   min-width: 10%;
+}
+#filter i{
+    margin-right: 3px;
+}
+#filter span{
+    margin-left: 5px;
+}

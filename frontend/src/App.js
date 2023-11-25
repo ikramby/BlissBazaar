@@ -5,15 +5,18 @@ import SignUp from "./pages/register";
 import SignInSide from "./pages/login";
 import React from "react";
 import EditProfile from "./pages/EditProfile";
-
-
 import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermOfUse from './pages/TermOfUse'; 
 import NewProductForm from './pages/Newproduct';
-import SearchAppBar from './component/navbar'
+import SearchAppBar from './component/navbar';
+import { AuthProvider } from './component/AuthContext';
+import AllProduct from './pages/allProduct';
 
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <nav>
        <SearchAppBar />
@@ -26,8 +29,16 @@ function App() {
         <Route path="/NewProduct" element={<NewProductForm />} />
         <Route path="/edit-profile" element={<EditProfile />} />
 
+        <Route path="/allproduct" element={<AllProduct />} />
+
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/TermOfUse" element={<TermOfUse />} />
+
+
+        TermsOfUse
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

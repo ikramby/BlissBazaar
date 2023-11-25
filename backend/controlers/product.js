@@ -3,7 +3,7 @@ const db = require('../models/index');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-<<<<<<< Updated upstream
+
 // db.sequelize.sync()
 //   .then(() => console.log("Database synced"))
 //   .catch(err => {
@@ -11,9 +11,6 @@ const jwt = require('jsonwebtoken');
 //     process.exit(1); 
 //   });
 
-
-=======
->>>>>>> Stashed changes
 const productController = {
   getAllProducts: async (req, res) => {
     try {
