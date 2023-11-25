@@ -9,6 +9,7 @@ import AboutUs from './pages/AboutUs';
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
+import AllProduct from './pages/allProduct';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/NewProduct" element={<NewProductForm />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/allproduct" element={<AllProduct />} />
 
       </Routes>
     </Router>
