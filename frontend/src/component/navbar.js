@@ -146,6 +146,17 @@ export default function SearchAppBar() {
          </Link>
         
          </Typography>
+         <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+         <Link href='/allproduct' sx={{color:'white'}}>
+            All products
+         </Link>
+        
+         </Typography>
 
          {auth && (
             <div>
