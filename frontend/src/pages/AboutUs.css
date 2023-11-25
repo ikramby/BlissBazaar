@@ -89,7 +89,8 @@ body {
 }
 
 .drops {
-  color: white;
+  /* Adjust the color to ensure visibility */
+  color: #333;
   font-size: 16px;
   font-weight: 600;
 }
