@@ -73,12 +73,13 @@ body{
 
 #filterlabel{
     color: white;
-    font-size: 15px;
+    font-size: 17px;
     font-family: Poppins;
     font-weight: 600;
     word-wrap: break-word;
     Width:80%;
     margin-left: 10px;
+    padding: 10px;
 }
 
 #totalItems{
@@ -91,8 +92,8 @@ body{
 #filter select{
     border: none;
     border-bottom: 1px solid beige;
-    padding: 0px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
    background-color: transparent;
    color: beige;
 }
@@ -109,5 +110,5 @@ body{
     margin-right: 3px;
 }
 #filter span{
-    margin-left: 5px;
+    margin-left: 10px;
 }
