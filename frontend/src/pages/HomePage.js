@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-
+import Footer from './Footer'; 
 
 const mainFeaturedPost = {
   title: ' Welcome to TechBazaar, your ultimate destination for cutting-edge technology! ',
@@ -42,43 +42,6 @@ const StyledButton = styled(Button)({
   margin: theme => theme.spacing(1),
 });
  
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-       TechBazaar
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const footers = [
-  {
-    title: 'TechBazar',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
-  },
-  {
-    title: 'Features',
-    description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one',
-    ],
-  },
-  {
-    title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
-  },
-  {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use'],
-  },
-];
 const cardMediaImages = [
   'https://www.apple.com/v/ipad-10.9/c/images/overview/hero/hero__ecv967jz1y82_large_2x.jpg',
   'https://www.hp.com/content/dam/sites/worldwide/homepage/images/Mask-Group-279@2x.png',
@@ -171,6 +134,8 @@ const HomePage = () => {
           
           </div>
         </Grid>
+
+
         <Grid item xs={12}>
          
         <div className="section section-right" >       
@@ -314,10 +279,27 @@ const HomePage = () => {
           </Grid>
         </Container>
 
-      {/* Footer */}
+   
            
           </div>
         </Grid>
+        <Grid item xs={12}>
+          <div style={{ marginTop: "50px", textAlign: "center" }}>
+            <StyledTypography variant="h4" component="h4">
+            Order your computer hardware at competitive prices at TechBazaar!             </StyledTypography>
+            <StyledTypography variant="body1" component="p">
+            TechBazaar is your trusted partner for all your computer hardware needs in Tunisia. Since 2008, we have offered our customers, whether professionals or individuals, a wide range of IT items, including laptops, desktop PCs, tablets, printers, accessories such as screens, keyboards , mice, headsets and cables.
+
+As representatives of major brands, we guarantee competitive prices on the market, accompanied by quality after-sales service. We are proud to offer you personalized advice to help you make the best choice. In addition, we are committed to providing free delivery throughout Tunisia.
+
+At TechBazaar, we simplify your online shopping experience. You can place an order and benefit from advantageous discounts directly on our merchant site. Thanks to our professional logistics partners, you benefit from free home delivery, with cash on delivery.
+
+Trust TechBazaar for all your computer hardware needs. We do everything we can to offer you an easy online shopping experience, with the best prices on the market and fast and efficient after-sales service.
+            </StyledTypography>
+          
+          </div>
+        </Grid>
+
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
             <StyledTypography variant="h4" component="h4">
@@ -389,6 +371,9 @@ const HomePage = () => {
             
     </React.Fragment><br></br>
 
+
+
+
      {/* Footer */}
 
      <Container
@@ -400,25 +385,8 @@ const HomePage = () => {
           py: [3, 6],
         }}
       >
-        <Grid container spacing={4} justifyContent="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="text.primary" gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid>
-        <Copyright sx={{ mt: 5 }} />
+        <Footer />
+
       </Container>
 
      
