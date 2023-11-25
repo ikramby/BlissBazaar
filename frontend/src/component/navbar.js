@@ -146,20 +146,20 @@ export default function SearchAppBar() {
          </Link>
         
          </Typography>
-
-         {auth && (
-          <>
-          <Typography
+         <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-         <Link href='/products' sx={{color:'white'}}>
-            All Products
+         <Link href='/allproduct' sx={{color:'white'}}>
+            All products
          </Link>
+        
          </Typography>
-         <div>
+
+         {auth && (
+            <div>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -189,9 +189,6 @@ export default function SearchAppBar() {
                
               </Menu>
             </div>
-
-          </>
-           
           )}
          
           <Search>
