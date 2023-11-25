@@ -21,7 +21,7 @@ const footers = [
       { label: 'About Us', url: '/AboutUs' },
       { label: 'Contact Us', url: '/ContactUs' },
       { label: 'Privacy Policy', url: '/PrivacyPolicy' },
-      { label: 'Terms of Use', url: '/TermsOfUse' },
+      { label: 'Terms of Use', url: '/TermOfUse' },
     ],
   },
   {
