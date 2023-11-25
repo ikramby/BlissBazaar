@@ -11,6 +11,7 @@ import TermOfUse from './pages/TermOfUse';
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
+import AllProduct from './pages/allProduct';
 
 
 function App() {
@@ -27,8 +28,12 @@ function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/NewProduct" element={<NewProductForm />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+
+        <Route path="/allproduct" element={<AllProduct />} />
+
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
+
 
         TermsOfUse
       </Routes>
