@@ -1,9 +1,9 @@
 const { Product } = require('../models/product');
-
-const db = require('../models/index'); 
+const db = require('../models/index');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+<<<<<<< Updated upstream
 // db.sequelize.sync()
 //   .then(() => console.log("Database synced"))
 //   .catch(err => {
@@ -12,6 +12,8 @@ const jwt = require('jsonwebtoken');
 //   });
 
 
+=======
+>>>>>>> Stashed changes
 const productController = {
   getAllProducts: async (req, res) => {
     try {
@@ -26,7 +28,7 @@ const productController = {
     try {
       const { id } = req.params;
       const product = await Product.findByPk(id);
-      
+
       if (!product) {
         return res.status(404).send('Product not found');
       }
@@ -39,13 +41,30 @@ const productController = {
 
   createProduct: async (req, res) => {
     try {
-      const { name, description, price, imageUrl, /* other attributes */ } = req.body;
+      const {
+        name,
+        description,
+        price,
+        imageUrl,
+        category,
+        quantity,
+        status,
+        color,
+        manufacturer,
+        onSale,
+      } = req.body;
+console.log(req.body)
       const newProduct = await Product.create({
         name,
         description,
         price,
         imageUrl,
-        // ... other attributes
+        category,
+        quantity,
+        status,
+        color,
+        manufacturer,
+        onSale,
       });
 
       res.json(newProduct);
