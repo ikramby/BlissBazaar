@@ -16,6 +16,8 @@ export default function AllProduct() {
   const [productCount, setProductCount] = useState(0);
   const [colorProductCount, setColorProductCount] = useState(0);
   const [manufacturerProductCount, setManufacturerProductCount] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState('');
+  const [priceProductCount, setPriceProductCount] = useState(0);
 
   const categories = [
     'computers',
@@ -62,6 +64,7 @@ export default function AllProduct() {
     'Purple',
   ];
 
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -73,20 +76,49 @@ export default function AllProduct() {
           url = `http://localhost:7000/products/color/${selectedColor}`;
         } else if (selectedManufacturer) {
           url = `http://localhost:7000/products/manufacturer/${selectedManufacturer}`;
+        } else if (selectedPrice) {
+          url = `http://localhost:7000/products/price/${selectedPrice}`;
         }
 
         const response = await axios.get(url);
         setProducts(response.data);
         setProductCount(response.data.length);
-        setColorProductCount(response.data.length);
-        setManufacturerProductCount(response.data.length);
+
+        // Fetch count for color
+        if (selectedColor) {
+          const colorCountResponse = await axios.get(`http://localhost:7000/products/color/${selectedColor}`);
+          setColorProductCount(colorCountResponse.data.length);
+        }
+
+        // Fetch count for manufacturer
+        if (selectedManufacturer) {
+          const manufacturerCountResponse = await axios.get(`http://localhost:7000/products/manufacturer/${selectedManufacturer}`);
+          setManufacturerProductCount(manufacturerCountResponse.data.length);
+        }
+
+    // Fetch count for price range
+    if (selectedPrice) {
+     const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
+     setPriceProductCount(priceCountResponse.data.length);
+    }
+
+
       } catch (error) {
         console.error('Error fetching products', error);
       }
     };
 
     fetchProducts();
-  }, [selectedCategory, selectedColor, selectedManufacturer]);
+  }, [selectedCategory, selectedColor, selectedManufacturer, selectedPrice]);
+
+  const handlePriceChange = (e) => {
+    setSelectedPrice(e.target.value);
+    setSelectedCategory('');
+    setSelectedColor('');
+    setSelectedManufacturer('');
+  };
+
+
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -145,10 +177,15 @@ export default function AllProduct() {
         ))}
       </select>
 
-           <select name="price" id="price" >
-            <option value='price' selected>Price</option>
-           </select>
-         
+      <select name="price" id="price" value={selectedPrice} onChange={handlePriceChange}>
+  <option value='' > Price</option>
+  <option value='0-1000' style={{ color: 'blue' }}>0-1000 DT</option>
+  <option value='1000-2000' style={{ color: 'blue' }}>1000-2000 DT</option>
+  <option value='2000-3000' style={{ color: 'blue' }}>2000-3000 DT</option>
+  <option value='3000-4000' style={{ color: 'blue' }}>3000-4000 DT</option>
+  <option value='4000-5000' style={{ color: 'blue' }}>4000-5000 DT</option>
+  <option value='5000-6000' style={{ color: 'blue' }}>5000-6000 DT</option>
+</select>
           
            <select name="on sale" id="on sale" >
             <option value='on sale' selected>On Sale</option>
@@ -159,11 +196,12 @@ export default function AllProduct() {
 
           <div id="items">
         
-          <Typography variant="body2" color="white">
-              {selectedCategory ? `Total products: ${productCount}` : ''}
-              {selectedColor ? `Total products by color: ${colorProductCount}` : ''}
-              {selectedManufacturer ? `Total products by manufacturer: ${manufacturerProductCount}` : ''}
-            </Typography>
+             <Typography variant="body2" color="white">
+             {selectedCategory ? `Total products: ${productCount}` : ''}
+             {selectedColor ? `Total products by color: ${colorProductCount}` : ''}
+             {selectedManufacturer ? `Total products by manufacturer: ${manufacturerProductCount}` : ''}
+             {selectedPrice ? `Total products by price range: ${priceProductCount}` : ''}
+              </Typography>
           <Link to="/NewProduct">
             <Button size="small" style={{ color: 'white', fontSize: '15px' }}>New Product</Button>
           </Link>

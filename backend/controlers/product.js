@@ -2,14 +2,9 @@ const { Product } = require('../models/product');
 const db = require('../models/index');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 
 
-// db.sequelize.sync()
-//   .then(() => console.log("Database synced"))
-//   .catch(err => {
-//     console.error("Failed to sync database: ", err);
-//     process.exit(1); 
-//   });
 
 const productController = {
 
@@ -152,7 +147,27 @@ console.log(req.body)
     }
   },
 
-
+  getProductsByPrice: async (req, res) => {
+    try {
+      const { price } = req.params;
+      const [minPrice, maxPrice] = price.split('-');
+  
+      const products = await db.products.findAll({
+        where: {
+          price: {
+            [Op.gte]: Number(minPrice),
+            [Op.lte]: Number(maxPrice),
+          },
+        },
+      });
+  
+      res.json(products);
+    } catch (error) {
+      console.error('Error fetching products by price', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  
 };
 
 module.exports = productController;
