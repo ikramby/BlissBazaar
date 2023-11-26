@@ -108,6 +108,20 @@ console.log(req.body)
       res.status(500).send(error.message);
     }
   },
+  getProductsByCategory: async (req, res) => {
+    try {
+      const { category } = req.params;
+
+      const products = await db.products.findAll({
+        where: { category },
+      });
+
+      res.json(products);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
 };
 
 module.exports = productController;

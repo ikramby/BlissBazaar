@@ -67,11 +67,12 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         <Typography variant="body2" color="white">
         {description}
         </Typography>
+        <Typography variant="body2" color="white">
+         price:   {price}
+        </Typography>
       </CardContent>
       <CardActions>
-      <Typography variant="body2" color="white">
-      price:   {price}
-        </Typography>
+   
        {/*
        <Button size="small" style={{ color: 'black', fontSize:'20px' }} >price:   {price}</Button>
        */} 
