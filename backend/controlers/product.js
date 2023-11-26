@@ -122,6 +122,37 @@ console.log(req.body)
     }
   },
 
+  getProductsByColor: async (req, res) => {
+    try {
+      const { color } = req.params;
+      const products = await db.products.findAll({
+        where: {
+          color: color,
+        },
+      });
+
+      res.json(products);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
+  getProductsByManufacturer: async (req, res) => {
+    try {
+      const { manufacturer } = req.params;
+      const products = await db.products.findAll({
+        where: {
+          manufacturer: manufacturer,
+        },
+      });
+
+      res.json(products);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
+
 };
 
 module.exports = productController;
