@@ -31,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
         'wearables',
         'accessories'  
         ),
-    //  defaultValue: 'electronics',
     },
     quantity: {
       type: DataTypes.INTEGER,

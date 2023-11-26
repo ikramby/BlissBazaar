@@ -192,7 +192,7 @@ export default function AllProduct() {
            </select>
         </div>
         <div id="allProduct-detail">
-   { /* <div id="totalItems">23,344,420 items</div>    */}  
+        { /* <div id="totalItems">23,344,420 items</div>    */}  
 
           <div id="items">
         

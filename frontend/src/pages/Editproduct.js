@@ -30,7 +30,6 @@ const EditProductForm = ({ productId, name, description, imageUrl, price, catego
   const [onSalePercentage, setOnSalePercentage] = useState('');
 
   useEffect(() => {
-    // Check if paramProductId is defined before using it
     if (paramProductId) {
       const fetchProduct = async () => {
         try {

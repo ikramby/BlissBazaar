@@ -170,4 +170,5 @@ console.log(req.body)
   
 };
 
+
 module.exports = productController;
