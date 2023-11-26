@@ -14,8 +14,7 @@ import {
 } from '@mui/material';
 
 import InputAdornment from '@mui/material/InputAdornment';
-
-// ... (rest of your code)
+import CardMedia from '@mui/material/CardMedia';
 
 const NewProductForm = ({ addNewProduct }) => {
   const [name, setName] = useState('');
@@ -139,6 +138,7 @@ const onChangeOnSalePercentage = (e) => {
           margin="normal"
         />
          <FormControl fullWidth variant="outlined" margin="normal">
+         <InputLabel id="color-label">Color</InputLabel>
          <Select
             labelId="color-label"
             id="color"
@@ -160,6 +160,10 @@ const onChangeOnSalePercentage = (e) => {
 
   </Select>
 </FormControl>
+  {/* Conditionally render CardMedia if imageUrl is not empty */}
+  {imageUrl && (
+          <CardMedia sx={{ height: 500, width: '100%' }} image={imageUrl} title={name} />
+        )}
         <TextField
           label="Image URL"
           variant="outlined"
@@ -193,8 +197,8 @@ const onChangeOnSalePercentage = (e) => {
         <br></br>
        
 
-        <br></br>
-        <br></br>
+   
+       
         <FormControl fullWidth variant="outlined" margin="normal">
           <InputLabel id="manufacturer-label">Manufacturer</InputLabel>
           <Select
