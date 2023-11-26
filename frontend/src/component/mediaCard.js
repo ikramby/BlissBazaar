@@ -48,11 +48,11 @@ export default function MediaCard({ productId,name, description, imageUrl, price
       
 
   return (
-    <Card sx={{ maxWidth: 345, backgroundColor: 'transparent', border:'1px solid black' , 
-    borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)',
+    <Card sx={{ maxWidth: 390, backgroundColor: 'transparent', border:'1px solid black' , 
+    borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)'
     
      }} style={shadowStyle}>
-            <CardMedia sx={{ height: 240 }} image={imageUrl} title={name} />
+            <CardMedia style={{ minHeight: '50vh', maxHeight:'50vh'  }} image={imageUrl} title={name} />
 
      {/*<CardMedia
         sx={{ height: 240 }}
@@ -64,7 +64,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         <Typography gutterBottom variant="h5" component="div" color="white">
         {name}
         </Typography>
-        <Typography variant="body2" color="white">
+        <Typography variant="body2" color="white" style={{maxHeight:'10vh', minHeight:'10vh'}}>
         {description}
         </Typography>
         <Typography variant="body2" color="white">

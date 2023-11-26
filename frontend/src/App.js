@@ -13,7 +13,7 @@ import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
-
+// import ConnectPlus from "./pages/dashboard-page/page/mainDashboard";
 
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
-      
+        {/* <Route path="/dashboard" element={<ConnectPlus />} /> */}
 
         TermsOfUse
       </Routes>
