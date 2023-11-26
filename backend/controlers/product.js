@@ -12,9 +12,11 @@ const jwt = require('jsonwebtoken');
 //   });
 
 const productController = {
+
+
   getAllProducts: async (req, res) => {
     try {
-      const products = await Product.findAll();
+      const products = await  db.products.findAll();
       res.json(products);
     } catch (error) {
       res.status(500).send(error.message);
@@ -24,7 +26,7 @@ const productController = {
   getProductById: async (req, res) => {
     try {
       const { id } = req.params;
-      const product = await Product.findByPk(id);
+      const product = await db.products.findByPk(id);
 
       if (!product) {
         return res.status(404).send('Product not found');
@@ -74,25 +76,18 @@ console.log(req.body)
   updateProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, description, price, imageUrl, /* other attributes */ } = req.body;
-
-      const product = await Product.findByPk(id);
-
+      const product = await db.products.findByPk(id);
+  
       if (!product) {
-        return res.status(404).send('Product not found');
+        return res.status(404).json({ error: 'Product not found' });
       }
-
-      await product.update({
-        name,
-        description,
-        price,
-        imageUrl,
-        // ... other attributes
-      });
-
+  
+      await product.update(req.body);
+  
       res.json({ message: 'Product updated successfully' });
     } catch (error) {
-      res.status(500).send(error.message);
+      console.error('Error updating product:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 
@@ -100,7 +95,7 @@ console.log(req.body)
     try {
       const { id } = req.params;
 
-      const product = await Product.findByPk(id);
+      const product = await  db.products.findByPk(id);
 
       if (!product) {
         return res.status(404).send('Product not found');
