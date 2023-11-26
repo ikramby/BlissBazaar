@@ -158,7 +158,7 @@ const HomePage = () => {
 
             <div className="section-image">
               <img
-                src="https://s.yimg.com/ny/api/res/1.2/AOV6Vht2w3tfT6Q3Ad5hXg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg7Y2Y9d2VicA--/https://media.zenfs.com/en/variety.com/ff63100ca96fbaed74ca655bf2cfee61"
+                src="/images/HomePage1.jpg"
                 alt="Placeholder"
               />
             </div>
@@ -167,7 +167,7 @@ const HomePage = () => {
           <div className="section section-right">
             <div className="section-image">
               <img
-                src="https://metapod.com/cdn/shop/articles/tech-gift-for-him-2022-metapod.webp?v=1660778620&width=600"
+                src="/images/HomePage2.jpg"
                 alt="Placeholder"
               />
             </div>
@@ -195,7 +195,7 @@ const HomePage = () => {
             <br></br>
             <div className="section-image">
               <img
-                src=" https://techguided.com/wp-content/uploads/2019/03/Best-Laptop-Brand.jpg"
+                src=" /images/OurPartner.jpg"
                 alt="Placeholder"
               />
               {/*
