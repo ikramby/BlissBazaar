@@ -50,6 +50,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         try {
           // Send a POST request to addToCart endpoint
           await axios.post('http://localhost:7000/cart/addToCart', {
+            imageUrl,
             name,
             price,
             quantity: 1, // You may adjust the quantity as needed
