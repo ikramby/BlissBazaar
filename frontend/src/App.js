@@ -14,6 +14,7 @@ import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
+import Seller from "./pages/seller";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/EditProduct/:productId" element={<EditProductForm />} />
 
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/seller" element={<Seller />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
 

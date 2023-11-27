@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-
+import  { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
+import './navbar.css'; 
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -83,6 +84,24 @@ export default function SearchAppBar() {
       setAuth(false);
     
   };
+  const [showCategories, setShowCategories] = useState(false);
+
+  // List of categories
+  const categories = [
+    'computers',
+    'phones',
+    'electronics',
+    'laptops',
+    'tablets',
+    'smartphones',
+    'wearables',
+    'accessories',
+  ];
+
+  // Function to toggle the visibility of categories
+  const toggleCategories = () => {
+    setShowCategories(!showCategories);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 } } >
@@ -95,7 +114,10 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={toggleCategories}
+
           >
+    
             <MenuIcon />
           </IconButton>
           <Typography
@@ -215,7 +237,15 @@ export default function SearchAppBar() {
             />
           </Search>
         </Toolbar>
+  
       </AppBar>
+      {showCategories && (
+        <ul className="categories-list">
+        {categories.map((category) => (
+          <li key={category}>{category}</li>
+        ))}
+      </ul>
+      )}
     </Box>
   );
 }
