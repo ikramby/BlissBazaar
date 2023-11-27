@@ -1,93 +1,158 @@
-import React from 'react';
-import { Container, Typography, Link, Grid } from '@mui/material';
+import React, { memo } from "react";
+import {
+  Container,
+  Typography,
+  Link,
+  Grid,
+  IconButton,
+  Box,
+} from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { styled } from "@mui/material/styles";
 
+// Copyright function
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="primary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://techbazaar.com/">
+    <Typography variant="body2" color="white" align="center" {...props}>
+      {"Copyright © "}
+      <Link color="inherit" href="/">
         TechBazaar
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
-const footers = [
-  {
-    title: 'TechBazaar',
-    description: [
-      { label: 'About Us', url: '/AboutUs' },
-      { label: 'Contact Us', url: '/ContactUs' },
-      { label: 'Privacy Policy', url: '/PrivacyPolicy' },
-      { label: 'Terms of Use', url: '/TermOfUse' },
-    ],
-  },
-  {
-    title: 'Categories',
-    description: [
-        { label: 'Computers', url: '/Computers' },
-        { label: 'Phones', url: '/Phones' },
-        { label: 'Electronics', url: '/Electronics' },
-        { label: 'Laptops', url: '/Laptops' },
-   //   'Computers', 'Phones', 'Electronics', 'Laptops', 'Tablets', 'Smartphones', 'Wearables'
-    ],
-  },
-  {
-    title: 'YOUR ACCOUNT',
-    description: [
-        { label: 'Personal informations', url: '/profile' },
-        { label: 'Order', url: '/Order' },
-       // { label: 'Toshiba', url: '/Toshiba' },
-       // { label: 'Samsung', url: '/Samsung' },
-    //  'Apple', 'HP', 'Toshiba', 'Samsung', 'Nokia', 'Logicom', 'and more...'
-    ],
-  },
-  {
-    title: 'Follow Us',
-    
-    description: [
-        { label: 'Facebook', url: '/Facebook' },
-        { label: 'Twitter', url: '/Twitter' },
-        { label: 'Instagram', url: '/Instagram' },
-        { label: 'LinkedIn', url: '/LinkedIn' },
-      //  'Facebook', 'Twitter', 'Instagram', 'LinkedIn'
-    ],
-  },
-];
+// Styled Footer Box
+const FooterBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  padding: theme.spacing(6, 2),
+  marginTop: theme.spacing(8),
+  width: "100vw",
+  boxSizing: "border-box",
+  marginLeft: "-50vw",
+  position: "relative",
+  left: "50%",
+}));
 
+// Footer Content (Memoized)
+const FooterContent = memo(() => (
+  <Grid container spacing={4}>
+    {/* About Section */}
+    <Grid item xs={12} sm={4}>
+      <Typography variant="h6" gutterBottom>
+        <Link href="/" color="inherit">
+          TechBazaar
+        </Link>
+      </Typography>
+      <Typography variant="body2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sclerisque
+        donec non pellentesque ut.
+      </Typography>
+    </Grid>
+
+    {/* Additional Links */}
+    <Grid item xs={12} sm={2}>
+      <Typography variant="h6" gutterBottom>
+        About
+      </Typography>
+      <Link href="/AboutUs" color="inherit">
+        About Us
+      </Link>
+      <br />
+      <Link href="#" color="inherit">
+        Product
+      </Link>
+      <br />
+      <Link href="/TermOfUse" color="inherit">
+        Terms & Condition
+      </Link>
+      <br />
+      <Link href="#" color="inherit">
+        FAQ
+      </Link>
+    </Grid>
+
+    {/* Company Section */}
+    <Grid item xs={12} sm={2}>
+      <Typography variant="h6" gutterBottom>
+        Company
+      </Typography>
+      <Link href="#" color="inherit">
+        Our Team
+      </Link>
+      <br />
+      <Link href="#" color="inherit">
+        Partner With Us
+      </Link>
+      <br />
+      <Link href="/PrivacyPolicy" color="inherit">
+        Privacy & Policy
+      </Link>
+      <br />
+      <Link href="#" color="inherit">
+        Features
+      </Link>
+    </Grid>
+
+    {/* Contact Section */}
+    <Grid item xs={12} sm={4}>
+      <Typography variant="h6" gutterBottom>
+        Contact
+      </Typography>
+      <Typography variant="body2">+216 123456789</Typography>
+      <Typography variant="body2">anis@polyglot-digital.com</Typography>
+      <IconButton color="inherit">
+        <FacebookIcon />
+      </IconButton>
+      <IconButton color="inherit">
+        <TwitterIcon />
+      </IconButton>
+      <IconButton color="inherit">
+        <InstagramIcon />
+      </IconButton>
+    </Grid>
+  </Grid>
+));
+
+// Footer Component
 const Footer = () => {
   return (
-    <Container
-      maxWidth="md"
-      component="footer"
-      sx={{
-        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-        mt: 8,
-        py: [3, 6],
-      }}
-    >
-      <Grid container spacing={4} justifyContent="space-evenly">
-        {footers.map((footer) => (
-          <Grid item xs={6} sm={3} key={footer.title}>
-            <Typography variant="h6" color="primary" gutterBottom>
-              {footer.title}
-            </Typography>
-            <ul>
-              {footer.description.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.url} variant="subtitle1" color="primary">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Grid>
-        ))}
-      </Grid>
-      <Copyright sx={{ mt: 5 }} />
-    </Container>
+    <>
+      <FooterBox>
+        <Container maxWidth={false} disableGutters>
+          <FooterContent />
+        </Container>
+      </FooterBox>
+
+      {/* Additional Footer Section */}
+      <Box
+        component="footer"
+        sx={{
+          backgroundColor: "#333",
+          padding: "20px 0",
+          width: "100vw",
+          boxSizing: "border-box",
+          marginLeft: "-50vw",
+          position: "relative",
+          left: "50%",
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="white"
+          component="p"
+        >
+          TechBazaar. All rights reserved.
+        </Typography>
+        <Copyright />
+      </Box>
+    </>
   );
 };
 
