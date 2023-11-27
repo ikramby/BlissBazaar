@@ -222,7 +222,7 @@ const HomePage = () => {
       https://www.91laptop.com/in/wp-content/uploads/2022/08/best-laptop-brands-in-india-1024x394.jpg*/}
             </div>{" "}
       
-      
+  
          {/*  div get all product */}
          <br></br>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
