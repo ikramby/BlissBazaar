@@ -83,7 +83,7 @@ export default function PageLayout() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            BlissBazaar
+            TechBazaar
           </Typography>
           <Search>
             <SearchIconWrapper>
