@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Card,
@@ -8,61 +8,95 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  InputAdornment,
   Typography,
   Container,
 } from "@mui/material";
-
-import InputAdornment from "@mui/material/InputAdornment";
+import { useParams, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
 
-const NewProductForm = ({ addNewProduct }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [status, setStatus] = useState([]);
-  const [color, setColor] = useState([]);
-  const [manufacturer, setManufacturer] = useState([]);
-  const [onSale, setOnSale] = useState(false);
-  const [quantity, setQuantity] = useState("");
+const EditProductForm = ({
+  productId,
+  name,
+  description,
+  imageUrl,
+  price,
+  category,
+  color,
+  manufacturer,
+  onSale,
+}) => {
+  const navigate = useNavigate();
+  const { productId: paramProductId } = useParams();
+  console.log("id", paramProductId);
+  const [nameInput, setName] = useState(name || "");
+  const [descriptionInput, setDescription] = useState(description || "");
+  const [imageUrlInput, setImageUrl] = useState(imageUrl || "");
+  const [priceInput, setPrice] = useState(price || "");
+  const [categoryInput, setCategory] = useState(category || "");
+  const [colorInput, setColor] = useState(color || "");
+  const [manufacturerInput, setManufacturer] = useState(manufacturer || "");
+  const [onSaleInput, setOnSale] = useState(onSale || false);
+  const [quantityInput, setQuantity] = useState("");
+  const [onSalePercentage, setOnSalePercentage] = useState("");
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (paramProductId) {
+      const fetchProduct = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:7000/products/${paramProductId}`
+          );
+          const productData = response.data;
+
+          setName(productData.name || "");
+          setDescription(productData.description || "");
+          setImageUrl(productData.imageUrl || "");
+          setPrice(productData.price || "");
+          setCategory(productData.category || "");
+          setColor(productData.color || "");
+          setManufacturer(productData.manufacturer || "");
+          setOnSale(productData.onSale || false);
+          setQuantity(productData.quantity || "");
+        } catch (error) {
+          console.error("Error fetching product", error);
+        }
+      };
+
+      fetchProduct();
+    }
+  }, [paramProductId]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      name,
-      description,
-      imageUrl,
-      price,
-      category,
-      status,
-      color,
-      manufacturer,
-      onSale,
-      quantity,
-    };
-    console.log("new product", newProduct);
-    axios
-      .post("http://localhost:7000/products/", newProduct)
-      .then((response) => {
-        console.log("Operation completed successfully", response);
-      })
-      .catch((error) => {
-        console.error("Error adding product", error);
-      });
 
-    setName("");
-    setDescription("");
-    setImageUrl("");
-    setPrice("");
-    setCategory("");
-    setStatus([]);
-    setColor([]);
-    setManufacturer([]);
-    setOnSale(false);
-    setQuantity("");
+    const updatedProduct = {
+      paramProductId,
+      name: nameInput,
+      description: descriptionInput,
+      imageUrl: imageUrlInput,
+      price: priceInput,
+      category: categoryInput,
+      color: colorInput,
+      manufacturer: manufacturerInput,
+      onSale: onSaleInput,
+      quantity: quantityInput,
+    };
+
+    try {
+      await axios.put(
+        `http://localhost:7000/products/${paramProductId}`,
+        updatedProduct
+      );
+
+      console.log("Product updated successfully");
+      navigate(`/allproduct`);
+    } catch (error) {
+      console.error("Error updating product", error);
+    }
   };
+
   const onChangeCategory = (e) => {
     console.log(e.target.value);
     setCategory(e.target.value);
@@ -77,8 +111,6 @@ const NewProductForm = ({ addNewProduct }) => {
     console.log(e.target.value);
     setManufacturer(e.target.value);
   };
-
-  const [onSalePercentage, setOnSalePercentage] = useState("");
 
   const onChangeOnSalePercentage = (e) => {
     setOnSalePercentage(e.target.value);
@@ -96,23 +128,22 @@ const NewProductForm = ({ addNewProduct }) => {
           }}
         >
           <Typography variant="h5" component="div">
-            Add New Product
+            Edit Product
           </Typography>
           <TextField
             label="Product Name"
             variant="outlined"
-            value={name}
+            value={nameInput}
             onChange={(e) => setName(e.target.value)}
             fullWidth
             margin="normal"
           />
-
           <FormControl fullWidth variant="outlined" margin="normal">
             <InputLabel id="category-label">Category</InputLabel>
             <Select
               labelId="category-label"
               id="category"
-              value={category}
+              value={categoryInput}
               onChange={onChangeCategory}
               label="Category"
             >
@@ -126,11 +157,10 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="accessories">accessories</MenuItem>
             </Select>
           </FormControl>
-
           <TextField
             label="Description"
             variant="outlined"
-            value={description}
+            value={descriptionInput}
             onChange={(e) => setDescription(e.target.value)}
             fullWidth
             multiline
@@ -138,11 +168,10 @@ const NewProductForm = ({ addNewProduct }) => {
             margin="normal"
           />
           <FormControl fullWidth variant="outlined" margin="normal">
-            <InputLabel id="color-label">Color</InputLabel>
             <Select
               labelId="color-label"
               id="color"
-              value={color}
+              value={colorInput}
               onChange={onChangeColor}
               label="Color"
             >
@@ -159,18 +188,15 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
-          {/* Conditionally render CardMedia if imageUrl is not empty */}
-          {imageUrl && (
-            <CardMedia
-              sx={{ height: 500, width: "100%" }}
-              image={imageUrl}
-              title={name}
-            />
-          )}
+          <CardMedia
+            sx={{ height: 500, width: "100%" }}
+            image={imageUrlInput}
+            title={name}
+          />
           <TextField
             label="Image URL"
             variant="outlined"
-            value={imageUrl}
+            value={imageUrlInput}
             onChange={(e) => setImageUrl(e.target.value)}
             fullWidth
             margin="normal"
@@ -178,7 +204,7 @@ const NewProductForm = ({ addNewProduct }) => {
           <TextField
             label="Price"
             variant="outlined"
-            value={price}
+            value={priceInput}
             InputProps={{
               endAdornment: <InputAdornment position="end">DT</InputAdornment>,
             }}
@@ -190,21 +216,20 @@ const NewProductForm = ({ addNewProduct }) => {
           <TextField
             label="Quantity"
             variant="outlined"
-            value={quantity}
+            value={quantityInput}
             onChange={(e) => setQuantity(e.target.value)}
             fullWidth
             type="number"
             margin="normal"
           />
-
           <br></br>
-
+          <br></br>
           <FormControl fullWidth variant="outlined" margin="normal">
             <InputLabel id="manufacturer-label">Manufacturer</InputLabel>
             <Select
               labelId="manufacturer-label"
               id="manufacturer"
-              value={manufacturer}
+              value={manufacturerInput}
               onChange={onChangeManufacturer}
               label="Manufacturer"
             >
@@ -228,9 +253,7 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Sagem">Sagem</MenuItem>
             </Select>
           </FormControl>
-
           <br></br>
-
           <TextField
             label="On Sale (%)"
             variant="outlined"
@@ -243,7 +266,6 @@ const NewProductForm = ({ addNewProduct }) => {
             fullWidth
             margin="normal"
           />
-
           <br></br>
           <Button
             type="submit"
@@ -251,7 +273,7 @@ const NewProductForm = ({ addNewProduct }) => {
             color="primary"
             style={{ marginTop: "20px" }}
           >
-            Add Product
+            Update Product
           </Button>
         </Card>
       </form>
@@ -274,4 +296,4 @@ const NewProductForm = ({ addNewProduct }) => {
   );
 };
 
-export default NewProductForm;
+export default EditProductForm;

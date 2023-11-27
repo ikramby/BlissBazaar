@@ -10,6 +10,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Footer from "./Footer";
+import MediaCustomer from '../component/mediaCustomer';
+import axios from 'axios';
+import  { useState, useEffect } from 'react';
 
 const mainFeaturedPost = {
   title:
@@ -101,6 +104,22 @@ const cardContentSold = [
 ];
 
 const HomePage = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:7000/products/');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products', error);
+      }
+    };
+  
+    fetchProducts();
+  }, []);
+
+
   return (
     <div>
       <MainFeaturedPost post={mainFeaturedPost} />
@@ -158,7 +177,7 @@ const HomePage = () => {
 
             <div className="section-image">
               <img
-                src="https://s.yimg.com/ny/api/res/1.2/AOV6Vht2w3tfT6Q3Ad5hXg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg7Y2Y9d2VicA--/https://media.zenfs.com/en/variety.com/ff63100ca96fbaed74ca655bf2cfee61"
+                src="/images/HomePage1.jpg"
                 alt="Placeholder"
               />
             </div>
@@ -167,7 +186,7 @@ const HomePage = () => {
           <div className="section section-right">
             <div className="section-image">
               <img
-                src="https://metapod.com/cdn/shop/articles/tech-gift-for-him-2022-metapod.webp?v=1660778620&width=600"
+                src="/images/HomePage2.jpg"
                 alt="Placeholder"
               />
             </div>
@@ -195,19 +214,51 @@ const HomePage = () => {
             <br></br>
             <div className="section-image">
               <img
-                src=" https://techguided.com/wp-content/uploads/2019/03/Best-Laptop-Brand.jpg"
+                src=" /images/OurPartner.jpg"
                 alt="Placeholder"
               />
               {/*
       https://hotdealszone.in/wp-content/uploads/2017/01/online-mobiles-brands.png 
       https://www.91laptop.com/in/wp-content/uploads/2022/08/best-laptop-brands-in-india-1024x394.jpg*/}
             </div>{" "}
+      
+  
+         {/*  div get all product */}
+         <br></br>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+      {products.map((product) => (
+        <MediaCustomer
+          key={product.id}
+          productId={product.id}
+          name={product.name}
+          description={product.description}
+          imageUrl={product.imageUrl}
+          price={product.price}
+          category={product.categories}
+          color={product.color}
+          manufacturer={product.manufacturer}
+          onSale={product.onSale}
+        />
+      ))}
+    </div>
+         {/* end div get all product */}
+
+
+         
             <br></br> <br></br>
             <Container sx={{ py: 8 }} maxWidth="md">
               <StyledTypography variant="h4" component="h4">
                 New Device
               </StyledTypography>
               <br></br>
+             
+
+
+
+            
+             
+             
+             
               <Grid container spacing={4}>
                 {cardMediaImages.map((image, index) => (
                   <Grid item key={index} xs={12} sm={6} md={4}>
@@ -307,6 +358,9 @@ const HomePage = () => {
             </Container>
           </div>
         </Grid>
+
+    
+
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
             <StyledTypography variant="h4" component="h4">

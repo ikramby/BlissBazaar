@@ -15,6 +15,8 @@ import AllProduct from './pages/allProduct';
 import BasketCard from "./pages/basketCard";
 
 
+import EditProductForm from './pages/Editproduct';
+import Dashboard from './pages/dashboard'
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/NewProduct" element={<NewProductForm />} />
+        <Route path="/EditProduct/:productId" element={<EditProductForm />} />
+
         <Route path="/edit-profile" element={<EditProfile />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
@@ -36,7 +40,8 @@ function App() {
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
-      
+        <Route path="/dashboard" element={<Dashboard />} />
+        
 
         TermsOfUse
       </Routes>

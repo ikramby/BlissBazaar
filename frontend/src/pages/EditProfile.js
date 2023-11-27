@@ -12,16 +12,13 @@ import {
   Avatar,
   Button,
   Container,
-  Grid,
-  Link,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import WalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
+
+import Footer from "./Footer";
 
 // AppBar styles
 const Search = styled("div")(({ theme }) => ({
@@ -72,14 +69,6 @@ const UserProfileCard = styled(Card)({
   position: "relative",
   zIndex: 1,
 });
-
-// Footer styles
-const FooterBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper, 
-  color: theme.palette.text.primary,
-  padding: theme.spacing(6, 2),
-  marginTop: theme.spacing(8),
-}));
 
 export default function PageLayout() {
   // State and handlers for menu items
@@ -166,78 +155,21 @@ export default function PageLayout() {
         </UserProfileCard>
       </Container>
 
-      {/* Footer section */}
-      <FooterBox>
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={4}>
-              <Typography variant="h6" gutterBottom>
-                BlissBazaar
-              </Typography>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sclerisque donec non pellentesque ut.
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <Typography variant="h6" gutterBottom>
-                About
-              </Typography>
-              <Link href="#" color="inherit">
-                Product
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                Resource
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                Terms & Condition
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                FAQ
-              </Link>
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <Typography variant="h6" gutterBottom>
-                Company
-              </Typography>
-              <Link href="#" color="inherit">
-                Our Team
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                Partner With Us
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                Privacy & Policy
-              </Link>
-              <br />
-              <Link href="#" color="inherit">
-                Features
-              </Link>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Typography variant="h6" gutterBottom>
-                Contact
-              </Typography>
-              <Typography variant="body2">+216 123456789</Typography>
-              <Typography variant="body2">anis@polyglot-digital.com</Typography>
-              <IconButton color="inherit">
-                <FacebookIcon />
-              </IconButton>
-              <IconButton color="inherit">
-                <TwitterIcon />
-              </IconButton>
-              <IconButton color="inherit">
-                <InstagramIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-        </Container>
-      </FooterBox>
+      {/* Footer */}
+
+      <Container
+        maxWidth="md"
+        component="footer"
+        sx={{
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 8,
+          py: [3, 6],
+        }}
+      >
+        <Footer />
+      </Container>
+
+      {/* End footer */}
     </>
   );
 }

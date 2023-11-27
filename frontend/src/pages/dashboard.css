@@ -1,0 +1,123 @@
+#body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(123deg, #4682B4 0%, #40435C 63%);
+
+    
+    
+}
+
+.dashboard-container{
+    width: 90%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+  
+    padding: 15px 25px 15px 25px;
+    
+    border-radius: 15px;
+    border: 1px solid black;
+    -webkit-box-shadow: 0px 0px 19px 8px rgba(0,0,0,0.59); 
+box-shadow: 0px 0px 19px 8px rgba(0,0,0,0.59);
+   
+}
+
+#dashboard-title{
+   
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh;
+    
+}
+
+#dhashboard-filter{
+   
+    display: flex;
+   
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh;
+    padding: 3vh;
+    margin: 1vh;
+    
+}
+#market-place-performance{
+   
+   
+    width: 9%;
+    padding: 1.7vh;
+    background: var(--Primary-Color, linear-gradient(214deg, #B75CFF 6.04%, #671AE4 92.95%));
+    color: #FFF;
+    font-family: SF Pro Display;
+    font-size: 14 px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 5px;
+    
+}
+
+#dhashboard-filter select{
+  
+   
+   width: 50%;
+   margin-right: 3vh;
+   padding: 0.5vh;
+  
+}
+#select{
+    width: 20%;
+    display: flex;
+    justify-content: space-around; 
+    color: white;
+    border: #FFF;
+    
+}
+.dashboard-tab{
+
+    height: 80vh;
+    width: 100%;
+    margin-top: 5vh;
+}
+.title  {
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh;
+  
+   
+}
+.collection{
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+}
+.collec{
+  
+    margin-left: 1vh;
+    width: 5%;
+}
+.dhaboard-row{
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+
+    padding: 3vh;
+    
+}
+
+.brand{
+    width: 50px;
+height: 50px;
+flex-shrink: 0;
+display: inline;
+border-bottom: 1px solid white;
+}
+

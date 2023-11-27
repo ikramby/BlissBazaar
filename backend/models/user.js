@@ -1,3 +1,4 @@
+const { Sequelize, DataTypes } = require('sequelize');
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -25,8 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       }
      
     });
-  
-    
+
+  //User.hasMany(sequelize.models.Cart);
+
     return User;
   };
   
