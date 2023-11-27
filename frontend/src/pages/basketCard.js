@@ -1,17 +1,29 @@
 import React from 'react';
+import { useCart } from '../component/cartContext'; // Update the path
 
-const BasketCard = ({ product }) => {
+const BasketCard = () => {
+  const { cart } = useCart();
+
+  // Calculate the total price
+  const totalPrice = cart.reduce((total, product) => total + product.price * product.quantity, 0);
+
   return (
-    <div></div>
-    // <div style={styles.card}>
-    //   <img src={product.imageUrl} alt={product.name} style={styles.image} />
-    //   <div style={styles.details}>
-    //     <h3>{product.name}</h3>
-    //     <p>Price: ${product.price}</p>
-    //     <p>Quantity: {product.quantity}</p>
-    //     <p>Total: ${product.price * product.quantity}</p>
-    //   </div>
-    // </div>
+    <div>
+      {cart.map((product) => (
+        <div key={product.productId} style={styles.card}>
+          <img src={product.imageUrl} alt={product.name} style={styles.image} />
+          <div style={styles.details}>
+            <h3>{product.name}</h3>
+            <p>Price: ${product.price}</p>
+            <p>Quantity: {product.quantity}</p>
+            <p>Total: ${product.price * product.quantity}</p>
+          </div>
+        </div>
+      ))}
+      <div style={styles.total}>
+        <p>Total Price: ${totalPrice}</p>
+      </div>
+    </div>
   );
 };
 
@@ -31,6 +43,10 @@ const styles = {
   },
   details: {
     flex: 1,
+  },
+  total: {
+    textAlign: 'right',
+    marginTop: '10px',
   },
 };
 

@@ -1,3 +1,5 @@
+const { Sequelize, DataTypes } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: {
@@ -17,41 +19,80 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     category: {
-      type: DataTypes.ENUM(
-        'computers',
+      type: DataTypes.STRING,
+      allowNull: true,
+     type: DataTypes.ENUM(
+      'computers',
         'phones',
         'electronics',
-        'laptops',
+       'laptops',
         'tablets',
         'smartphones',
         'wearables',
-        // Add more device categories as needed
-      ),
-      defaultValue: 'electronics',
+        'accessories'  
+        ),
+    //  defaultValue: 'electronics',
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
     
-    status: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      values: ['available', 'out of stock'],
-    },
+  //  status: {
+    //  type: DataTypes.STRING,
+      //allowNull: true,
+     // values: ['available', 'out of stock'],
+    //},
     color: {
       type: DataTypes.STRING,
       allowNull: true,
+      type: DataTypes.ENUM(
+
+      'Beige',
+      'White',
+      'Blue',
+      'Gold',
+      'Gray',
+      'Black',
+      'Orange',
+      'Pink',
+      'Red',
+      'Silver',
+      'Green',
+      'Purple',
+      ),
+
     },
     manufacturer: {
       type: DataTypes.STRING,
       allowNull: true,
+      type: DataTypes.ENUM(
+
+      'Apple',
+      'benco',
+      'Honor',
+      'Huawei',
+      'IKU',
+      'Infinix',
+      'IPLUS',
+      'Itel mobile',
+      'Lenovo',
+      'LOGICOM',
+      'Nokia',
+      'Oppo',
+      'Hp',
+      'realme',
+      'Samsung',
+      'SCHNEIDER',
+      'Toshiba',
+      'Sagem',
+  ),
+
     },
     
     onSale: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: false,
     },
   });
 

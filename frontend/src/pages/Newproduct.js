@@ -13,64 +13,76 @@ import {
   Typography,
 } from '@mui/material';
 
+import InputAdornment from '@mui/material/InputAdornment';
+import CardMedia from '@mui/material/CardMedia';
+
 const NewProductForm = ({ addNewProduct }) => {
-  const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    imageUrl: '',
-    price: '',
-    category: 'electronics',
-    status: [],
-    color: [],
-    manufacturer: [],
-    onSale: false,
-    quantity: '', 
-
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setNewProduct({
-      ...newProduct,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const handleCheckboxChange = (name) => (e) => {
-    const { value, checked } = e.target;
-    setNewProduct({
-      ...newProduct,
-      [name]: checked
-        ? [...newProduct[name], value]
-        : newProduct[name].filter((item) => item !== value),
-    });
-  };
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [status, setStatus] = useState([]);
+  const [color, setColor] = useState([]);
+  const [manufacturer, setManufacturer] = useState([]);
+  const [onSale, setOnSale] = useState(false);
+  const [quantity, setQuantity] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newProduct = {
+      name,
+      description,
+      imageUrl,
+      price,
+      category,
+      status,
+      color,
+      manufacturer,
+      onSale,
+      quantity,
+    };
+console.log("new product",newProduct)
     axios
-      .post('http://localhost:7000/products/addproduct', newProduct)
+      .post('http://localhost:7000/products/', newProduct)
       .then((response) => {
         console.log('Operation completed successfully', response);
-        // You may want to update your state or trigger a refresh here
       })
       .catch((error) => {
         console.error('Error adding product', error);
       });
 
-    setNewProduct({
-      name: '',
-      description: '',
-      imageUrl: '',
-      price: '',
-      category: 'electronics',
-      status: [],
-      color: [],
-      manufacturer: [],
-      onSale: false,
-      quantity: '', 
-    });
+    setName('');
+    setDescription('');
+    setImageUrl('');
+    setPrice('');
+    setCategory('');
+    setStatus([]);
+    setColor([]);
+    setManufacturer([]);
+    setOnSale(false);
+    setQuantity('');
   };
+  const onChangeCategory = (e) => {
+    console.log(e.target.value);
+    setCategory(e.target.value);
+  };
+
+  const onChangeColor = (e) => {
+    console.log(e.target.value);
+    setColor(e.target.value);
+  };
+
+  const onChangeManufacturer = (e) => {
+    console.log(e.target.value);
+    setManufacturer(e.target.value);
+  };
+
+const [onSalePercentage, setOnSalePercentage] = useState('');
+
+const onChangeOnSalePercentage = (e) => {
+  setOnSalePercentage(e.target.value);
+};
 
   return (
     <form onSubmit={handleSubmit}>
@@ -88,157 +100,154 @@ const NewProductForm = ({ addNewProduct }) => {
         <TextField
           label="Product Name"
           variant="outlined"
-          name="name"
-          value={newProduct.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           fullWidth
           margin="normal"
         />
+        
+<FormControl fullWidth variant="outlined" margin="normal">
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            id="category"
+            value={category}
+            onChange={onChangeCategory}
+            label="Category"
+          >
+    <MenuItem value="computers">Computers</MenuItem>
+    <MenuItem value="Phones">Phones</MenuItem>
+    <MenuItem value="electronics">electronics</MenuItem>
+    <MenuItem value="laptops">laptops</MenuItem>
+    <MenuItem value="tablets">tablets</MenuItem>
+    <MenuItem value="smartphones">smartphones</MenuItem>
+    <MenuItem value="wearables">wearables</MenuItem>
+    <MenuItem value="accessories">accessories</MenuItem>
+
+  </Select>
+</FormControl>
+
         <TextField
           label="Description"
           variant="outlined"
-          name="description"
-          value={newProduct.description}
-          onChange={handleChange}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           fullWidth
           multiline
           rows={4}
           margin="normal"
         />
+         <FormControl fullWidth variant="outlined" margin="normal">
+         <InputLabel id="color-label">Color</InputLabel>
+         <Select
+            labelId="color-label"
+            id="color"
+            value={color}
+            onChange={onChangeColor}
+            label="Color"
+          >
+    <MenuItem value="White">White</MenuItem>
+    <MenuItem value="Black">Black</MenuItem>
+    <MenuItem value="Red">Red</MenuItem>
+    <MenuItem value="Gold">Gold</MenuItem>
+    <MenuItem value="Silver">Silver</MenuItem>
+    <MenuItem value="Gray">Gray</MenuItem>
+    <MenuItem value="Beige">Beige</MenuItem>
+    <MenuItem value="Blue">Blue</MenuItem>
+    <MenuItem value="Orange">Orange</MenuItem>
+    <MenuItem value="Green">Green</MenuItem>
+    <MenuItem value="Purple">Purple</MenuItem>
+
+  </Select>
+</FormControl>
+  {/* Conditionally render CardMedia if imageUrl is not empty */}
+  {imageUrl && (
+          <CardMedia sx={{ height: 500, width: '100%' }} image={imageUrl} title={name} />
+        )}
         <TextField
           label="Image URL"
           variant="outlined"
-          name="imageUrl"
-          value={newProduct.imageUrl}
-          onChange={handleChange}
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
           fullWidth
           margin="normal"
         />
         <TextField
           label="Price"
           variant="outlined"
-          name="price"
-          value={newProduct.price}
-          onChange={handleChange}
+          value={price}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">DT</InputAdornment>,
+          }}
+          onChange={(e) => setPrice(e.target.value)}
           fullWidth
           type="number"
           margin="normal"
         />
         <TextField
-  label="Quantity"
-  variant="outlined"
-  name="quantity"
-  value={newProduct.quantity}
-  onChange={handleChange}
-  fullWidth
-  type="number"
-  margin="normal"
-/>
+          label="Quantity"
+          variant="outlined"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          fullWidth
+          type="number"
+          margin="normal"
+        />
 
-        <FormControl fullWidth>
-          <InputLabel>Category</InputLabel>
+        <br></br>
+       
+
+   
+       
+        <FormControl fullWidth variant="outlined" margin="normal">
+          <InputLabel id="manufacturer-label">Manufacturer</InputLabel>
           <Select
-            label="Category"
-            name="category"
-            value={newProduct.category}
-            onChange={handleChange}
-          >
-           <MenuItem value="computers">Computers</MenuItem>
-    <MenuItem value="phones">Phones</MenuItem>
-    <MenuItem value="electronics">Electronics</MenuItem>
-    <MenuItem value="laptops">Laptops</MenuItem>
-    <MenuItem value="tablets">Tablets</MenuItem>
-    <MenuItem value="smartphones">Smartphones</MenuItem>
-    <MenuItem value="wearables">Wearables</MenuItem>
-          </Select>
-        </FormControl> <br></br>
-        <FormControl fullWidth><br></br>
-          <InputLabel>Status</InputLabel>
-          <Select
-            label="Status"
-            name="status"
-            multiple
-            value={newProduct.status}
-            onChange={handleCheckboxChange('status')}
-          >
-            <MenuItem value="available">Available</MenuItem>
-            <MenuItem value="out of stock">Out of Stock</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth><br></br>
-          <InputLabel>Color</InputLabel>
-          <Select
-            label="Color"
-            name="color"
-            multiple
-            value={newProduct.color}
-            onChange={handleCheckboxChange('color')}
-          >
-                       {[
-              'Beige',
-              'White',
-              'Blue',
-              'Gold',
-              'Gray',
-              'Black',
-              'Orange',
-              'Pink',
-              'Red',
-              'Silver',
-              'Green',
-              'Purple',
-            ].map((color) => (
-              <MenuItem key={color} value={color}>
-                {color}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth><br></br>
-          <InputLabel>Manufacturer</InputLabel>
-          <Select
+            labelId="manufacturer-label"
+            id="manufacturer"
+            value={manufacturer}
+            onChange={onChangeManufacturer}
             label="Manufacturer"
-            name="manufacturer"
-            multiple
-            value={newProduct.manufacturer}
-            onChange={handleCheckboxChange('manufacturer')}
           >
-                {[
-              'Apple',
-              'benco',
-              'Honor',
-              'Huawei',
-              'IKU',
-              'Infinix',
-              'IPLUS',
-              'Itel mobile',
-              'Lenovo',
-              'LOGICOM',
-              'Nokia',
-              'Oppo',
-              'Hp',
-              'realme',
-              'Samsung',
-              'SCHNEIDER',
-              'Toshiba',
-              'Sagem',
-            ].map((manufacturer) => (
-              <MenuItem key={manufacturer} value={manufacturer}>
-                {manufacturer}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={newProduct.onSale}
-              onChange={handleChange}
-              name="onSale"
-            />
-          }
-          label="On Sale"
-        /><br></br>
+        <MenuItem value="Hp">Hp</MenuItem>
+        <MenuItem value="Toshiba">Toshiba</MenuItem>
+        <MenuItem value="Samsung">Samsung</MenuItem>
+    <MenuItem value="Apple">Apple</MenuItem>
+    <MenuItem value="Benco">Benco</MenuItem>
+    <MenuItem value="Honor">Honor</MenuItem>
+    <MenuItem value="Huawei">Huawei</MenuItem>
+    <MenuItem value="IKU">IKU</MenuItem>
+    <MenuItem value="Infinix">Infinix</MenuItem>
+    <MenuItem value="IPLUS">IPLUS</MenuItem>
+    <MenuItem value="Itel mobile">Itel mobile</MenuItem>
+    <MenuItem value="Lenovo">Lenovo</MenuItem>
+    <MenuItem value="LOGICOM">LOGICOM</MenuItem>
+    <MenuItem value="Nokia">Nokia</MenuItem>
+    <MenuItem value="Oppo">Oppo</MenuItem>
+    <MenuItem value="realme">realme</MenuItem>
+    <MenuItem value="SCHNEIDER">SCHNEIDER</MenuItem>
+    <MenuItem value="Sagem">Sagem</MenuItem>
+
+
+
+  </Select>
+</FormControl>
+
+        <br></br>
+
+        <TextField
+          label="On Sale (%)"
+          variant="outlined"
+          type="number"
+          value={onSalePercentage}
+          onChange={onChangeOnSalePercentage}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+          }}
+          fullWidth
+          margin="normal"
+        />
+
+        <br></br>
         <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
           Add Product
         </Button>

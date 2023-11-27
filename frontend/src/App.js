@@ -13,6 +13,7 @@ import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 import BasketCard from "./pages/basketCard";
+import EditProductForm from './pages/Editproduct';
 
 
 
@@ -29,6 +30,8 @@ function App() {
         <Route path="/login" element={<SignInSide />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/NewProduct" element={<NewProductForm />} />
+        <Route path="/EditProduct/:productId" element={<EditProductForm />} />
+
         <Route path="/edit-profile" element={<EditProfile />} />
 
         <Route path="/allproduct" element={<AllProduct />} />

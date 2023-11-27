@@ -253,7 +253,9 @@ const HomePage = () => {
                 showing products..
               </StyledTypography>
               <StyledButton variant="contained" color="primary">
+               <Link href='/allproduct' sx={{color:'white'}}>
                 See All Products
+               </Link>               
               </StyledButton>
             </Container>
             <StyledTypography variant="h4" component="h4">
