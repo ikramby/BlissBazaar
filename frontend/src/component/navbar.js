@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -130,6 +131,7 @@ export default function SearchAppBar() {
            
           </Typography>
           
+          
           {!auth && 
           (<>
             <Typography
@@ -168,6 +170,7 @@ export default function SearchAppBar() {
          </Link>
         
          </Typography>
+
          <Typography
             variant="h6"
             noWrap
@@ -177,7 +180,6 @@ export default function SearchAppBar() {
          <Link href='/allproduct' sx={{color:'white'}}>
             All products
          </Link>
-        
          </Typography>
 
          <Typography
@@ -191,6 +193,13 @@ export default function SearchAppBar() {
          </Link>
         
          </Typography>
+
+
+         <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
+           <IconButton color="inherit">
+           <ShoppingCartIcon />
+           </IconButton>
+         </Link>
 
 
          {auth && (

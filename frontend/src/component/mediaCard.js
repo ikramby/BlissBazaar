@@ -45,6 +45,21 @@ export default function MediaCard({ productId,name, description, imageUrl, price
           }
         }
       };
+
+      const handleBuyClick = async () => {
+        try {
+          // Send a POST request to addToCart endpoint
+          await axios.post('http://localhost:7000/cart/addToCart', {
+            name,
+            price,
+            quantity: 1, // You may adjust the quantity as needed
+          });
+    
+          console.log('Product added to cart successfully');
+        } catch (error) {
+          console.error('Error adding product to cart', error);
+        }
+      };
       
 
   return (
@@ -81,6 +96,9 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         </Button>      
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleDeleteClick}>
           Delete
+        </Button>
+        <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleBuyClick}>
+          Buy
         </Button>
       </CardActions>
     </Card>

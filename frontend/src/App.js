@@ -12,6 +12,9 @@ import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
+import BasketCard from "./pages/basketCard";
+
+
 import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
@@ -35,6 +38,7 @@ function App() {
         <Route path="/seller" element={<Seller />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
+        <Route path="/basket" element={<BasketCard/>} />
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />

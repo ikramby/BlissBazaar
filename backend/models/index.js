@@ -1,4 +1,3 @@
-// models/index.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -20,5 +19,6 @@ db.cart = require('./cart')(sequelize, DataTypes);
 db.users = require('./user')(sequelize, DataTypes);
 
 db.cart.belongsTo(db.users, { foreignKey: 'iduser' });
+db.Cart = db.cart; 
 
 module.exports = db;
