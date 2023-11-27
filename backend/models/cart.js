@@ -18,6 +18,5 @@ const { Sequelize, DataTypes } = require('sequelize');module.exports = (sequeliz
        // field: 'iduser', // Specify the column name in the database
       //},
  //   });
-  
-    return Cart;
+      return Cart;
   };
