@@ -15,8 +15,11 @@ module.exports = {
     
       register: async (req, res) => {
             try {
-              const { email, password,firstName,lastName, purpose} = req.body;
+              const { email, password, confirmPassword, firstName,lastName, purpose} = req.body;
               console.log(email);
+              if (password !== confirmPassword) {
+                return res.status(400).send("Passwords do not match.");
+              }
               const hashedPassword = await bcrypt.hash(password, 10);
           
               const newUser = await db.users.create({

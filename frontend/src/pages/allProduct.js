@@ -5,8 +5,15 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+
+import { Container, Typography } from "@mui/material";
+
+
+import Footer from "./Footer";
+
 import Typography from '@mui/material/Typography';
 import Data from './Data.json'
+
 
 
 export default function AllProduct() {
@@ -238,7 +245,23 @@ export default function AllProduct() {
  
         </div>
     </div>
+          {/* Footer */}
+
+          <Container
+        maxWidth="md"
+        component="footer"
+        sx={{
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 8,
+          py: [3, 6],
+        }}
+      >
+        <Footer />
+      </Container>
+
+      {/* End footer */}
     </>
+    
   )
 }
 
