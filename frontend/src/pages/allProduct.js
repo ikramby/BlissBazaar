@@ -5,13 +5,19 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+
 import { Container, Typography } from "@mui/material";
 
 
 import Footer from "./Footer";
 
+import Typography from '@mui/material/Typography';
+import Data from './Data.json'
+
+
 
 export default function AllProduct() {
+  const [data,setData] = useState(Data)
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -220,7 +226,7 @@ export default function AllProduct() {
           </div>
           <div id="allProduct-component">
               {/* Map through the products and render a MediaCard for each */}
-              {products.map((product) => (
+              {data.map((product) => (
                  <MediaCard
                  key={product.id} 
                  productId={product.id} // Pass the product ID as a prop
@@ -228,10 +234,10 @@ export default function AllProduct() {
                  description={product.description}
                  imageUrl={product.imageUrl}
                  price={product.price}
-                 category={product.category}
-                 color={product.color}
-                 manufacturer={product.manufacturer}
-                 onSale={product.onSale}
+                 category={product.categories}
+                //  color={product.color}
+                //  manufacturer={product.manufacturer}
+                //  onSale={product.onSale}
                />
               ))}
             </div>

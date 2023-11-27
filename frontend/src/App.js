@@ -13,8 +13,7 @@ import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
-
-
+import Dashboard from './pages/dashboard'
 
 function App() {
   return (
@@ -37,7 +36,8 @@ function App() {
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
-      
+        <Route path="/dashboard" element={<Dashboard />} />
+        
 
         TermsOfUse
       </Routes>
