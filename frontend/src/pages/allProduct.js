@@ -7,11 +7,7 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 import { Container, Typography } from "@mui/material";
-
-
 import Footer from "./Footer";
-
-import Typography from '@mui/material/Typography';
 import Data from './Data.json'
 
 
@@ -201,7 +197,7 @@ export default function AllProduct() {
            </select>
         </div>
         <div id="allProduct-detail">
-        { /* <div id="totalItems">23,344,420 items</div>    */}  
+      { /* <div id="totalItems">23,344,420 items</div>    */}  
 
           <div id="items">
         
