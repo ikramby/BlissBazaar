@@ -48,7 +48,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
       
 
   return (
-    <Card sx={{ maxWidth: 390, backgroundColor: 'transparent', border:'1px solid black' , 
+    <Card sx={{ maxWidth: 360, backgroundColor: 'transparent', border:'1px solid black' , 
     borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)'
     
      }} style={shadowStyle}>
