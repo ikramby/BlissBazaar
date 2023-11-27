@@ -75,8 +75,25 @@ module.exports = {
 
     next();
   })
-}
-
+},
+    getMyInformation: async (req, res) => {
+      try {
+        const userId = req.params.userId; 
+    
+        // Find the user in the database based on the user ID
+        const user = await db.users.findByPk(userId, {
+          attributes: ['firstName', 'lastName', 'email', 'password', 'purpose'],
+        });
+    
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
+        res.json(user);
+      } catch (error) {
+        res.status(500).send(error.message);
+      }
+    },
 
 
           
