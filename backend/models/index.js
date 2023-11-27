@@ -17,7 +17,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.products = require('./product')(sequelize, DataTypes);
-
+db.cart = require('./cart')(sequelize, DataTypes);
 db.users = require('./user')(sequelize, DataTypes);
 
 
