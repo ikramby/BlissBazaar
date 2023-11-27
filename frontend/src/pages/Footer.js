@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import {
   Container,
   Typography,
@@ -11,6 +11,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { styled } from "@mui/material/styles";
+
+import { AuthContext } from "../component/AuthContext";
 
 // Copyright function
 function Copyright(props) {
@@ -25,7 +27,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
 // Styled Footer Box
 const FooterBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -39,85 +40,89 @@ const FooterBox = styled(Box)(({ theme }) => ({
   left: "50%",
 }));
 
-// Footer Content (Memoized)
-const FooterContent = memo(() => (
-  <Grid container spacing={4}>
-    {/* About Section */}
-    <Grid item xs={12} sm={4}>
-      <Typography variant="h6" gutterBottom>
-        <Link href="/" color="inherit">
-          TechBazaar
+const FooterContent = () => {
+  const email = localStorage.getItem("email");
+  //const { email } = useContext(AuthContext);
+  console.log("email", email);
+  return (
+    <Grid container spacing={4}>
+      {/* About Section */}
+      <Grid item xs={12} sm={4}>
+        <Typography variant="h6" gutterBottom>
+          <Link href="/" color="inherit">
+            TechBazaar
+          </Link>
+        </Typography>
+        <Typography variant="body2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sclerisque
+          donec non pellentesque ut.
+        </Typography>
+      </Grid>
+
+      {/* Additional Links */}
+      <Grid item xs={12} sm={2}>
+        <Typography variant="h6" gutterBottom>
+          About
+        </Typography>
+        <Link href="/AboutUs" color="inherit">
+          About Us
         </Link>
-      </Typography>
-      <Typography variant="body2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sclerisque
-        donec non pellentesque ut.
-      </Typography>
-    </Grid>
+        <br />
+        <Link href="#" color="inherit">
+          Product
+        </Link>
+        <br />
+        <Link href="/TermOfUse" color="inherit">
+          Terms & Condition
+        </Link>
+        <br />
+        <Link href="#" color="inherit">
+          FAQ
+        </Link>
+      </Grid>
 
-    {/* Additional Links */}
-    <Grid item xs={12} sm={2}>
-      <Typography variant="h6" gutterBottom>
-        About
-      </Typography>
-      <Link href="/AboutUs" color="inherit">
-        About Us
-      </Link>
-      <br />
-      <Link href="#" color="inherit">
-        Product
-      </Link>
-      <br />
-      <Link href="/TermOfUse" color="inherit">
-        Terms & Condition
-      </Link>
-      <br />
-      <Link href="#" color="inherit">
-        FAQ
-      </Link>
-    </Grid>
+      {/* Company Section */}
+      <Grid item xs={12} sm={2}>
+        <Typography variant="h6" gutterBottom>
+          Company
+        </Typography>
+        <Link href="#" color="inherit">
+          Our Team
+        </Link>
+        <br />
+        <Link href="#" color="inherit">
+          Partner With Us
+        </Link>
+        <br />
+        <Link href="/PrivacyPolicy" color="inherit">
+          Privacy & Policy
+        </Link>
+        <br />
+        <Link href="#" color="inherit">
+          Features
+        </Link>
+      </Grid>
 
-    {/* Company Section */}
-    <Grid item xs={12} sm={2}>
-      <Typography variant="h6" gutterBottom>
-        Company
-      </Typography>
-      <Link href="#" color="inherit">
-        Our Team
-      </Link>
-      <br />
-      <Link href="#" color="inherit">
-        Partner With Us
-      </Link>
-      <br />
-      <Link href="/PrivacyPolicy" color="inherit">
-        Privacy & Policy
-      </Link>
-      <br />
-      <Link href="#" color="inherit">
-        Features
-      </Link>
+      {/* Contact Section */}
+      <Grid item xs={12} sm={4}>
+        <Typography variant="h6" gutterBottom>
+          Contact
+        </Typography>
+        <Typography variant="body2">+216 123456789</Typography>
+        <Typography variant="body2">{email}</Typography>
+        <IconButton color="inherit">
+          <FacebookIcon />
+        </IconButton>
+        <IconButton color="inherit">
+          <TwitterIcon />
+        </IconButton>
+        <IconButton color="inherit">
+          <InstagramIcon />
+        </IconButton>
+      </Grid>
     </Grid>
-
-    {/* Contact Section */}
-    <Grid item xs={12} sm={4}>
-      <Typography variant="h6" gutterBottom>
-        Contact
-      </Typography>
-      <Typography variant="body2">+216 123456789</Typography>
-      <Typography variant="body2">anis@polyglot-digital.com</Typography>
-      <IconButton color="inherit">
-        <FacebookIcon />
-      </IconButton>
-      <IconButton color="inherit">
-        <TwitterIcon />
-      </IconButton>
-      <IconButton color="inherit">
-        <InstagramIcon />
-      </IconButton>
-    </Grid>
-  </Grid>
-));
+  );
+};
 
 // Footer Component
 const Footer = () => {
