@@ -19,6 +19,9 @@ export default function AllProduct() {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [priceProductCount, setPriceProductCount] = useState(0);
 
+  const [addToBuy,setAddToBuy] = useState([])
+ 
+
   const categories = [
     'computers',
     'phones',
@@ -229,6 +232,7 @@ export default function AllProduct() {
                  color={product.color}
                  manufacturer={product.manufacturer}
                  onSale={product.onSale}
+                 setAddToBuy={setAddToBuy}    ///////
                />
               ))}
             </div>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,19 +7,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from './cartContext'
+import { useCart } from '../component/cartContext';
 
+export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale ,setAddTobuy }) {
+ 
+  const navigate = useNavigate();
 
-export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- console.log("id",productId)
- const { addToCart } = useCart();
   const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
       };
-
-      const navigate = useNavigate();
+      
+      const { addToCart } = useCart()
       const handleBuyClick = () => {
         const product = {
           productId,
@@ -31,11 +31,16 @@ export default function MediaCard({ productId,name, description, imageUrl, price
           color,
           manufacturer,
           onSale,
-          quantity: 1, // You can set an initial quantity
         };
     
+        console.log('product',product)
         addToCart(product);
+        console.log(addToCart(product),'addToCart')
+        setAddTobuy([...product]) ////
+        
       };
+      
+
       const handleEditClick = () => {
         navigate(`/EditProduct/${productId}`, {
           state: {
@@ -64,7 +69,8 @@ export default function MediaCard({ productId,name, description, imageUrl, price
           }
         }
       };
-      
+
+     
 
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: 'transparent', border:'1px solid black' , 
@@ -73,7 +79,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
      }} style={shadowStyle}>
             <CardMedia sx={{ height: 240 }} image={imageUrl} title={name} />
 
-     {/*<CardMedia
+     {/* <CardMedia
         sx={{ height: 240 }}
         image="https://cdn.thewirecutter.com/wp-content/media/2023/06/laptops-2048px-5607.jpg?auto=webp&quality=75&crop=1.91:1&width=1200"
         title="green iguana"
@@ -102,10 +108,9 @@ export default function MediaCard({ productId,name, description, imageUrl, price
           Delete
         </Button>
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleBuyClick}>
-        Buy
+          Buy
         </Button>
       </CardActions>
     </Card>
-    
   );
 }

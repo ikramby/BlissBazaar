@@ -11,6 +11,7 @@ import TermOfUse from './pages/TermOfUse';
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
 import { AuthProvider } from './component/AuthContext';
+import { CartProvider } from './component/cartContext';
 import AllProduct from './pages/allProduct';
 import BasketCard from "./pages/basketCard";
 import EditProductForm from './pages/Editproduct';
@@ -20,7 +21,9 @@ import EditProductForm from './pages/Editproduct';
 function App() {
   return (
     <AuthProvider>
-    <Router>
+      
+      <Router>
+      <CartProvider>
       <nav>
        <SearchAppBar />
       </nav>
@@ -43,7 +46,10 @@ function App() {
 
         TermsOfUse
       </Routes>
+      </CartProvider>
     </Router>
+      
+   
     </AuthProvider>
   );
 }

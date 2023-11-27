@@ -1,53 +1,28 @@
 import React from 'react';
-import { useCart } from '../component/cartContext'; // Update the path
+import { useCart } from '../component/cartContext';
 
 const BasketCard = () => {
-  const { cart } = useCart();
-
-  // Calculate the total price
-  const totalPrice = cart.reduce((total, product) => total + product.price * product.quantity, 0);
+  const { products } = useCart(); // Provide a default value if products is undefined
 
   return (
     <div>
-      {cart.map((product) => (
-        <div key={product.productId} style={styles.card}>
-          <img src={product.imageUrl} alt={product.name} style={styles.image} />
-          <div style={styles.details}>
+      <h2>Your Basket</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product.productId}>
             <h3>{product.name}</h3>
-            <p>Price: ${product.price}</p>
-            <p>Quantity: {product.quantity}</p>
-            <p>Total: ${product.price * product.quantity}</p>
-          </div>
-        </div>
-      ))}
-      <div style={styles.total}>
-        <p>Total Price: ${totalPrice}</p>
-      </div>
+            <p>{product.description}</p>
+            <img src={product.imageUrl} alt={product.name} />
+            <p>Price: {product.price} DT</p>
+            <p>Category: {product.category}</p>
+            <p>Color: {product.color}</p>
+            <p>Manufacturer: {product.manufacturer}</p>
+            <p>On Sale: {product.onSale ? 'Yes' : 'No'}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
-
-const styles = {
-  card: {
-    display: 'flex',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    margin: '10px',
-    padding: '10px',
-  },
-  image: {
-    width: '100px',
-    height: '100px',
-    objectFit: 'cover',
-    marginRight: '10px',
-  },
-  details: {
-    flex: 1,
-  },
-  total: {
-    textAlign: 'right',
-    marginTop: '10px',
-  },
 };
 
 export default BasketCard;

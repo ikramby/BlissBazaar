@@ -1,45 +1,38 @@
-// CartContext.js
 
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-// Define your initial state, reducer, and actions
-const initialState = {
-  cart: [],
-};
-
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TO_CART':
-      return {
-        ...state,
-        cart: [...state.cart, action.payload],
-      };
-    // Add other cases for modifying the cart state
-    default:
-      return state;
-  }
-};
-
-// Create the context
 const CartContext = createContext();
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
-
-
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [cart, setCart] = useState([]);
+  const [addedProducts, setAddedProducts] = useState([]);
 
   const addToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
+    setCart((prevCart) => [...prevCart, product]);
+    setAddedProducts((prevAddedProducts) => [...prevAddedProducts, product]);
   };
 
- 
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((product) => product.productId !== productId));
+    setAddedProducts((prevAddedProducts) => prevAddedProducts.filter((product) => product.productId !== productId));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    setAddedProducts([]);
+  };
 
   return (
-    <CartContext.Provider value={{ cart: state.cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, addedProducts, products: cart }}>
       {children}
     </CartContext.Provider>
   );
+};
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider');
+  }
+  return context;
 };
