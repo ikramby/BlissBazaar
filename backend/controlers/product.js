@@ -45,7 +45,7 @@ const productController = {
         status,
         color,
         manufacturer,
-        onSale,
+     //   onSale,
       } = req.body;
 console.log(req.body)
 
@@ -59,7 +59,7 @@ console.log(req.body)
         status,
         color,
         manufacturer,
-        onSale,
+     //   onSale,
       });
       res.json({ message: "created new product", newProduct });
       //res.json(newProduct);

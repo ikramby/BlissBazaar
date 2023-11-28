@@ -230,8 +230,8 @@ const NewProductForm = ({ addNewProduct }) => {
           </FormControl>
 
           <br></br>
-
-          <TextField
+{/*
+ <TextField
             label="On Sale (%)"
             variant="outlined"
             type="number"
@@ -243,6 +243,8 @@ const NewProductForm = ({ addNewProduct }) => {
             fullWidth
             margin="normal"
           />
+*/}
+         
 
           <br></br>
           <Button
