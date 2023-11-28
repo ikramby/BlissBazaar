@@ -6,20 +6,48 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const savedFirstName = localStorage.getItem("firstName");
+    const savedLastName = localStorage.getItem("lastName");
+    console.log("FirstName in Context: ", firstName);
+    console.log("lastName in Context: ", lastName);
+
+
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     console.log('Token:', token);
+
     if (token) {
       const decoded = jwt_decode(token);
       console.log('Decoded Token:', decoded);
       setEmail(decoded.email);
       setAuth(true);
+
+      setFirstName(savedFirstName || "");
+      setLastName(savedLastName || "");
+
       setUserRole(decoded.role);
+
     } else {
       setAuth(false);
     }
+
+  }, [firstName, lastName]);
+
+  const login = (token, userEmail, userFirstName, userLastName) => {
+    // Store the token in local storage and mark the user as authenticated
+    localStorage.setItem("token", token);
+    setEmail(userEmail);
+    setFirstName(userFirstName);
+    setLastName(userLastName);
+
   }, []);
   
 
@@ -36,6 +64,27 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     setEmail('');
     setAuth(false);
+
+    setFirstName("");
+    setLastName("");
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        auth,
+        setAuth,
+        email,
+        setEmail,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        login,
+        logout,
+      }}
+    >
+
     setUserRole(null);
     console.log('Logged out');
   };
@@ -51,6 +100,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, email, login, logout, userRole, isAdmin  }}>
+
       {children}
     </AuthContext.Provider>
   );

@@ -23,6 +23,7 @@ import Dashboard from './pages/dashboard';
 import Seller from './pages/seller';
 import ProtectedRoute from './component/ProtectedRoute'; // Import ProtectedRoute
 
+
 function App() {
   return (
     <AuthProvider>
