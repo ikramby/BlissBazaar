@@ -8,6 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -15,7 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Autocomplete from "@mui/material/Autocomplete";
-
+import MenuItem from "@mui/material/MenuItem";
 function Copyright(props) {
   return (
     <Typography
@@ -46,6 +47,7 @@ export default function SignUp() {
     confirmPassword: "",
     purpose: "", // Added purpose property to the user state
   });
+  const [manufacturer, setManufacturer] = useState(""); // Set default value
 
   const userType = [{ label: "Buying" }, { label: "Selling" }];
 
@@ -74,6 +76,8 @@ export default function SignUp() {
         password: user.password,
         confirmPassword :user.confirmPassword,
         purpose: user.purpose,
+        manufacturer: user.manufacturer,
+
       });
 
       if (response.status === 200) {
@@ -90,6 +94,10 @@ export default function SignUp() {
       // Handle registration error here
     }
   };
+  const onChangeManufacturer = (event) => {
+    setManufacturer(event.target.value);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container
@@ -185,23 +193,59 @@ export default function SignUp() {
               </Grid>
 
               <Grid item xs={12}>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={userType}
-                  fullWidth
-                  value={
-                    user.purpose
-                      ? userType.find((option) => option.label === user.purpose)
-                      : null
-                  }
-                  onChange={handleChange} // Use the same handleChange function for Autocomplete
-                  renderInput={(params) => (
-                    <TextField {...params} label="Purpose" />
-                  )}
-                />
+              <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={userType}
+              fullWidth
+              value={
+                user.purpose
+                  ? userType.find((option) => option.label === user.purpose)
+                  : null
+              }
+              onChange={handleChange}
+              renderInput={(params) => (
+                <TextField {...params} label="Purpose" />
+              )}
+            />
               </Grid>
+
+              </Grid>
+              {user.purpose === "Selling" && (
+            <Grid item xs={12}>
+              <Select
+                labelId="manufacturer-label"
+                id="manufacturer"
+                value={manufacturer}
+                onChange={onChangeManufacturer}
+                label="Manufacturer"
+                fullWidth
+                autoComplete="shipping country"
+                variant="standard"
+              >
+                 <MenuItem value="Hp">Hp</MenuItem>
+              <MenuItem value="Toshiba">Toshiba</MenuItem>
+              <MenuItem value="Samsung">Samsung</MenuItem>
+              <MenuItem value="Apple">Apple</MenuItem>
+              <MenuItem value="Benco">Benco</MenuItem>
+              <MenuItem value="Honor">Honor</MenuItem>
+              <MenuItem value="Huawei">Huawei</MenuItem>
+              <MenuItem value="IKU">IKU</MenuItem>
+              <MenuItem value="Infinix">Infinix</MenuItem>
+              <MenuItem value="IPLUS">IPLUS</MenuItem>
+              <MenuItem value="Itel mobile">Itel mobile</MenuItem>
+              <MenuItem value="Lenovo">Lenovo</MenuItem>
+              <MenuItem value="LOGICOM">LOGICOM</MenuItem>
+              <MenuItem value="Nokia">Nokia</MenuItem>
+              <MenuItem value="Oppo">Oppo</MenuItem>
+              <MenuItem value="realme">realme</MenuItem>
+              <MenuItem value="SCHNEIDER">SCHNEIDER</MenuItem>
+              <MenuItem value="Sagem">Sagem</MenuItem>
+              </Select>
             </Grid>
+          )}
+
+             
             <Button
               type="submit"
               fullWidth

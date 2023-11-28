@@ -23,7 +23,34 @@ module.exports = (sequelize, DataTypes) => {
       purpose: {
         type: DataTypes.STRING,
         allowNull: true
+      },
+      manufacturer: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        type: DataTypes.ENUM(
+  
+        'Apple',
+        'benco',
+        'Honor',
+        'Huawei',
+        'IKU',
+        'Infinix',
+        'IPLUS',
+        'Itel mobile',
+        'Lenovo',
+        'LOGICOM',
+        'Nokia',
+        'Oppo',
+        'Hp',
+        'realme',
+        'Samsung',
+        'SCHNEIDER',
+        'Toshiba',
+        'Sagem',
+    ),
+  
       }
+      
      
     });
 
