@@ -67,7 +67,7 @@ export default function SearchAppBar() {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, isAdmin } = useContext(AuthContext);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -144,6 +144,7 @@ export default function SearchAppBar() {
            LOGIN
          </Link>
           </Typography>
+
           <Typography
             variant="h6"
             noWrap
@@ -182,17 +183,19 @@ export default function SearchAppBar() {
          </Link>
          </Typography>
 
-         <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-         <Link href='/dashboard' sx={{color:'white'}}>
-            Dashboard
-         </Link>
-        
-         </Typography>
+       
+         {(auth && isAdmin()) && (
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              <Link href='/dashboard' sx={{color:'white'}}>
+                Dashboard
+              </Link>
+            </Typography>
+          )}
 
 
          <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
