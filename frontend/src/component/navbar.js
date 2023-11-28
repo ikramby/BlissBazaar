@@ -15,6 +15,7 @@ import Menu from "@mui/material/Menu";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import { Link as RouterLink } from "react-router-dom";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

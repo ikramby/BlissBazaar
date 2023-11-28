@@ -60,19 +60,19 @@ module.exports = {
           },
 
         // Create a middleware function to verify JWT tokens
- verifyToken :(req, res, next) => {
-  const token = req.cookies.token;
+// verifyToken :(req, res, next) => {
+//  const token = req.cookies.token;
 
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
+//  if (!token) {
+//    return res.status(401).json({ message: 'Unauthorized' });
+//  }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token is not valid' });
+//  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+ //   if (err) {
+ //     return res.status(401).json({ message: 'Token is not valid' });
 
-    }
-  },
+ //   }
+ // },
 
   login: async (req, res) => {
     try {
