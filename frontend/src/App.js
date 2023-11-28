@@ -1,10 +1,9 @@
-
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SignUp from "./pages/register";
-import SignInSide from "./pages/login";
-import React from "react";
-import EditProfile from "./pages/EditProfile";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SignUp from './pages/register';
+import SignInSide from './pages/login';
+import EditProfile from './pages/EditProfile';
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import FAQ from './pages/faq';
@@ -19,47 +18,39 @@ import FeaturesPage from "./pages/feature";
 import PartnerWithUsPage from './pages/partner';
 import OurTeamPage from './pages/teams';
 
-
 import EditProductForm from './pages/Editproduct';
-import Dashboard from './pages/dashboard'
-import Seller from "./pages/seller";
+import Dashboard from './pages/dashboard';
+import Seller from './pages/seller';
+import ProtectedRoute from './component/ProtectedRoute'; // Import ProtectedRoute
 
 
 function App() {
   return (
     <AuthProvider>
-    <Router>
-      <nav>
-       <SearchAppBar />
-      </nav>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<SignInSide />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/NewProduct" element={<NewProductForm />} />
-        <Route path="/EditProduct/:productId" element={<EditProductForm />} />
-        <Route path="/products/:productId" element={<MediaCustomer />} />
+      <Router>
+        <nav>
+          <SearchAppBar />
+        </nav>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<SignInSide />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/TermOfUse" element={<TermOfUse />} />
+          <Route path="/allproduct" element={<AllProduct />} />
+          <Route path="/basket" element={<BasketCard />} />
 
+          {/* Protected Routes */}
+          <Route path="/dashboard" element={ <Dashboard /> } />
+          <Route path="/seller" element={<ProtectedRoute element={<Seller />} allowedRoles={['seller']} />} />
+          <Route path="/NewProduct" element={<ProtectedRoute element={<NewProductForm />} allowedRoles={['seller']} />} />
+          <Route path="/EditProduct/:productId" element={<ProtectedRoute element={<EditProductForm />} allowedRoles={['seller']} />} />
+          <Route path="/edit-profile" element={<ProtectedRoute element={<EditProfile />} allowedRoles={['user', 'seller']} />} />
 
-        <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/seller" element={<Seller />} />
-
-        <Route path="/allproduct" element={<AllProduct />} />
-        <Route path="/basket" element={<BasketCard/>} />
-        <Route path="/FAQ" element={<FAQ />} />
-        <Route path="/Feature" element={<FeaturesPage />} />
-        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-        <Route path="/Team" element={<OurTeamPage />} />
-
-        <Route path="/OurPartner" element={<PartnerWithUsPage />} />
-        <Route path="/TermOfUse" element={<TermOfUse />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        
-
-        TermsOfUse
-      </Routes>
-    </Router>
+          {/* Add other routes as needed */}
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }

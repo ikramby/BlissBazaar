@@ -59,7 +59,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { auth, setAuth } = useContext(AuthContext);
+
+
+  const { auth, setAuth, isAdmin } = useContext(AuthContext);
+
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -136,6 +139,7 @@ export default function SearchAppBar() {
               About Us
             </Link>
           </Typography>
+
           <Typography
             variant="h6"
             noWrap
@@ -157,6 +161,29 @@ export default function SearchAppBar() {
               Dashboard
             </Link>
           </Typography>
+
+       
+         {(auth && isAdmin()) && (
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              <Link href='/dashboard' sx={{color:'white'}}>
+                Dashboard
+              </Link>
+            </Typography>
+          )}
+
+
+         <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
+           <IconButton color="inherit">
+           <ShoppingCartIcon />
+           </IconButton>
+         </Link>
+
+n
 
           {auth && (
             <div>
