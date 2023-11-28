@@ -1,19 +1,21 @@
-import React from 'react';
-import './allProduct.css';
-import MediaCard from '../component/mediaCard';
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import MediaCard from '../component/mediaCard';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-
 import { Container, Typography } from "@mui/material";
 import Footer from "./Footer";
-import Data from './Data.json'
+
+import './allProduct.css';
+// import Data from './Data.json'
+// import  { useState, useEffect } from 'react';
+
+
 
 
 
 export default function AllProduct() {
-  const [data,setData] = useState(Data)
+  const [data,setData] = useState([])
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -73,8 +75,8 @@ export default function AllProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = 'http://localhost:7000/products/';
-
+        let url = 'http://localhost:7000/products';
+  
         if (selectedCategory) {
           url = `http://localhost:7000/products/category/${selectedCategory}`;
         } else if (selectedColor) {
@@ -84,37 +86,37 @@ export default function AllProduct() {
         } else if (selectedPrice) {
           url = `http://localhost:7000/products/price/${selectedPrice}`;
         }
-
+  
         const response = await axios.get(url);
+        setData(response.data);
         setProducts(response.data);
         setProductCount(response.data.length);
-
+  
         // Fetch count for color
         if (selectedColor) {
           const colorCountResponse = await axios.get(`http://localhost:7000/products/color/${selectedColor}`);
           setColorProductCount(colorCountResponse.data.length);
         }
-
+  
         // Fetch count for manufacturer
         if (selectedManufacturer) {
           const manufacturerCountResponse = await axios.get(`http://localhost:7000/products/manufacturer/${selectedManufacturer}`);
           setManufacturerProductCount(manufacturerCountResponse.data.length);
         }
-
-    // Fetch count for price range
-    if (selectedPrice) {
-     const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
-     setPriceProductCount(priceCountResponse.data.length);
-    }
-
-
+  
+        // Fetch count for price range
+        if (selectedPrice) {
+          const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
+          setPriceProductCount(priceCountResponse.data.length);
+        }
       } catch (error) {
         console.error('Error fetching products', error);
       }
     };
-
+  
     fetchProducts();
   }, [selectedCategory, selectedColor, selectedManufacturer, selectedPrice]);
+  
 
   const handlePriceChange = (e) => {
     setSelectedPrice(e.target.value);
@@ -142,6 +144,7 @@ export default function AllProduct() {
     setSelectedCategory('');
     setSelectedColor('');
   };
+  console.log(data,'data')
   return (
     <>
         <div id="container-body">
