@@ -15,7 +15,7 @@ module.exports = {
     
       register: async (req, res) => {
             try {
-              const { email, password, confirmPassword, firstName,lastName, purpose} = req.body;
+              const { email, password, confirmPassword, firstName,lastName, purpose, manufacturer} = req.body;
               console.log(email);
               if (password !== confirmPassword) {
                 return res.status(400).send("Passwords do not match.");
@@ -27,7 +27,8 @@ module.exports = {
                 firstName,
                 lastName,
                 password: hashedPassword,
-                purpose
+                purpose,
+                manufacturer: manufacturer,
               });
           
               res.json({ message: "User registered", userId: newUser.id });
@@ -76,26 +77,53 @@ module.exports = {
     next();
   })
 },
-    getMyInformation: async (req, res) => {
-      try {
-        const userId = req.params.userId; 
-    
-        // Find the user in the database based on the user ID
-        const user = await db.users.findByPk(userId, {
-          attributes: ['firstName', 'lastName', 'email', 'password', 'purpose'],
-        });
-    
-        if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-    
-        res.json(user);
-      } catch (error) {
-        res.status(500).send(error.message);
-      }
-    },
+getMyInformation: async (req, res) => {
+  try {
+    const email = req.params.email;
+    console.log("email",email)
+    const user = await db.users.findOne({
+      where: { email },
+      attributes: ['firstName', 'lastName', 'email', 'password', 'purpose', 'manufacturer'],
+    });
+   // console.log("password",password)
 
+   // if (!user) {
+   //   return res.status(404).json({ message: 'User not found' });
+    //}
 
+    res.json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+},
+
+updateUserInfo: async (req, res) => {
+  try {
+    const email = req.params.email;
+    const { firstName, lastName, purpose, manufacturer } = req.body;
+
+    const user = await db.users.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update user information
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.purpose = purpose || user.purpose;
+    user.manufacturer = manufacturer || user.manufacturer;
+
+    await user.save();
+
+    res.json({ message: 'User information updated successfully' });
+  } catch (error) {
+    console.error('Error updating user information:', error);
+    res.status(500).send(error.message);
+  }
+},
           
         
 

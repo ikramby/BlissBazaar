@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- console.log("id",productId)
+ 
   const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
@@ -17,6 +17,23 @@ export default function MediaCard({ productId,name, description, imageUrl, price
       };
 
       const navigate = useNavigate();
+      const handleViewClick = () => {
+        navigate(`/products/${productId}`, {
+          state: {
+            productId,
+            name,
+            description,
+            imageUrl,
+            price,
+            category,
+            color,
+            manufacturer,
+            onSale,
+          },
+        });
+      };
+      
+
       const handleEditClick = () => {
         navigate(`/EditProduct/${productId}`, {
           state: {
@@ -97,6 +114,9 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         </Button>      
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleDeleteClick}>
           Delete
+        </Button>
+        <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleViewClick}>
+          View
         </Button>
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleBuyClick}>
           Buy

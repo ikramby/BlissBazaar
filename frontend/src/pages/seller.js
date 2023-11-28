@@ -30,8 +30,9 @@ import Checkbox from '@mui/material/Checkbox';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import MediaCard from '../component/mediaCard';
+import { Link } from 'react-router-dom';
 
-// AppBar styles
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -50,24 +51,38 @@ const Search = styled("div")(({ theme }) => ({
 
 
 export default function Seller() {
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   const [tabValue, setTabValue] = useState(0);
-  const [manufacturer, setManufacturer] = useState("HP"); // Set default value
+  const [manufacturer, setManufacturer] = useState(""); // Set default value
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    address1: "",
+    manufacturer: "",
   });
+  const [updatedUserInfo, setUpdatedUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    purpose: "",
+    manufacturer:"",
+    });
+    const [products, setProducts] = useState([]);
+
   const { userId } = useParams(); 
-console.log("userid",userId )
+  const email = localStorage.getItem("email");
+  console.log("email", email); 
   useEffect(() => {
-    // Fetch user information when the component mounts
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:7000/tech/getMyInformation/${userId}`);
+        const response = await axios.get(
+          `http://localhost:7000/tech/getMyInformation/${email}`
+        );
         setUserInfo(response.data);
+        setManufacturer(response.data.manufacturer);
+
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
@@ -76,7 +91,7 @@ console.log("userid",userId )
     if (tabValue === 0) {
       fetchUserInfo();
     }
-  }, [tabValue, userId]);
+  }, [tabValue, userId, email]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -85,6 +100,80 @@ console.log("userid",userId )
   const onChangeManufacturer = (event) => {
     setManufacturer(event.target.value);
   };
+const handleUpdate = async () => {
+  try {
+    setUpdatedUserInfo({
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      email: userInfo.email,
+      purpose: userInfo.purpose,
+      manufacturer: manufacturer,
+    });
+
+    await axios.put(`http://localhost:7000/tech/updateUserInfo/${email}`, {
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      email: userInfo.email,
+      purpose: userInfo.purpose,
+      manufacturer: manufacturer,
+    });
+
+    const response = await axios.get(
+      `http://localhost:7000/tech/getMyInformation/${email}`
+    );
+    setUserInfo(response.data);
+
+    setUpdatedUserInfo({
+      firstName: "",
+      lastName: "",
+      email: "",
+      purpose: "",
+      manufacturer: "",
+    });
+
+    alert("User information updated successfully!");
+  } catch (error) {
+    console.error("Error updating user information:", error);
+    alert("Error updating user information. Please try again.");
+  }
+};
+console.log("manufacturer", userInfo.manufacturer);
+
+const fetchProducts = async () => {
+  try {
+    const userInfoResponse = await axios.get(
+      `http://localhost:7000/tech/getMyInformation/${email}`
+    );
+    
+    console.log("User information response:", userInfoResponse.data);
+
+    const userManufacturer = userInfoResponse.data.manufacturer;
+
+    if (userManufacturer) {
+      const productsResponse = await axios.get(
+        `http://localhost:7000/products/manufacturer/${userManufacturer}`
+      );
+
+      const fetchedProducts = productsResponse.data;
+      setProducts(fetchedProducts); 
+    } else {
+      console.error('Manufacturer is undefined in user information');
+    }
+  } catch (error) {
+    console.error('Error fetching user information or products:', error);
+  }
+};
+
+
+
+
+
+useEffect(() => {
+  if (tabValue === 1) {
+    fetchProducts();
+  }
+}, [tabValue, userInfo.manufacturer]);
+
 
   return (
     <>
@@ -198,14 +287,14 @@ console.log("userid",userId )
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
-                    id="password"
-                    name="password"
-                    label="Password"
+                    id="purpose"
+                    name="purpose"
+                    label="Purpose"
                     fullWidth
                     autoComplete="family-name"
                     variant="standard"
-                    value={userInfo.password}
-                    onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
+                    value={userInfo.purpose}
+                    onChange={(e) => setUserInfo({ ...userInfo, purpose: e.target.value })}
                   />
                 </Grid>
 
@@ -267,14 +356,49 @@ console.log("userid",userId )
         
         </Grid>
       </Grid>
+      <Button variant="contained" onClick={handleUpdate}>
+              Update
+            </Button>
     </React.Fragment>
     </Box>
         )}
-        {tabValue === 1 && (
-          <Box>
-          
-          </Box>
-        )}
+      {tabValue === 1 && (
+        <Box id="allProduct-component">
+          {products.map((product) => (
+            <MediaCard
+              key={product.id}
+              productId={product.id}
+              name={product.name}
+              description={product.description}
+              imageUrl={product.imageUrl}
+              price={product.price}
+              category={product.categories}
+            />
+          ))}
+
+<div>
+<br></br>
+          <Link to="/NewProduct">
+        <Button
+          size="small"
+          style={{
+            color: 'white',
+            backgroundColor: isButtonClicked ? 'blue' : '#6495ED',
+            fontSize: '15px',
+            cursor: 'pointer',
+            marginRight: '100px', 
+            marginTop: '700px', 
+          }}
+          onClick={() => setIsButtonClicked(!isButtonClicked)}
+        >
+          New Product
+        </Button>
+      </Link>
+</div>
+        </Box>
+
+
+      )}
       </Container>
 
       <Container

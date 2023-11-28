@@ -43,7 +43,13 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    manufacturer: "",
+  });
   const { setAuth } = useContext(AuthContext);
 
   const handleEmailChange = (event) => {
@@ -56,30 +62,44 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await axios.post("http://localhost:7000/tech/login", {
+      // First, get user information
+      const userInfoResponse = await axios.get(
+        `http://localhost:7000/tech/getMyInformation/${email}`
+      );
+      const userInfo = userInfoResponse.data;
+  
+      // Set user information in context or state if needed
+      setUserInfo(userInfo);
+  
+      // Continue with the login request
+      const loginResponse = await axios.post("http://localhost:7000/tech/login", {
         email,
         password,
       });
-      console.log("Login successful", response.data);
-
-      localStorage.setItem("token", response.data.token);
+      console.log("Login successful", loginResponse.data);
+  
+      localStorage.setItem("token", loginResponse.data.token);
       localStorage.setItem("email", email);
-
-     
-
+  
       alert("Logged in successfully!");
       setAuth(true);
-      /* setEmail(email); */
+  
       console.log("Email set in context:", email);
-      navigate("/");
+  
+      // Check the purpose from the user information
+      if (userInfo.purpose === "Selling") {
+        navigate("/seller");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login error:", error);
       alert("Email or password is incorrect. Please try again.");
     }
   };
-
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>

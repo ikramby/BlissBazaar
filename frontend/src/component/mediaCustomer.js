@@ -1,54 +1,74 @@
 import * as React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { styled } from '@mui/system';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Grid, Button, Paper, Link } from "@mui/material";
 
-export default function MediaCustomer({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- console.log("id",productId)
-  const shadowStyle = {
-        boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
-        WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
-        MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
-      };
+const StyledCard = styled(Card)(({ theme }) => ({
+ maxWidth: 345,
+ boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
+ [theme.breakpoints.down('md')]: {
+    maxWidth: 200,
+ },
+}));
 
-      const navigate = useNavigate();
-    
-      
+const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
+ height: 200,
+ [theme.breakpoints.down('md')]: {
+    height: 150,
+ },
+}));
 
-  return (
-    <Grid  xs={12} sm={6} md={4}>
-    <Card
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <CardMedia
-        component="div"
-        sx={{
-          pt: "100%",
-        }}
-        image={imageUrl}
-      />
-      <CardContent sx={{ flexGrow: 1 }}>
-      
+export default function MediaCustomer() {
+ const location = useLocation();
+ const { productId, name, description, imageUrl, price, category, color, manufacturer, onSale } = location.state || {};
+
+ const navigate = useNavigate();
+
+ const handleBuyClick = async () => {
+    try {
+      // Send a POST request to addToCart endpoint
+      await axios.post('http://localhost:7000/cart/addToCart', {
+        imageUrl,
+        name,
+        price,
+        quantity: 1, // You may adjust the quantity as needed
+      });
+
+      console.log('Product added to cart successfully');
+    } catch (error) {
+      console.error('Error adding product to cart', error);
+    }
+ };
+
+ if (!productId) {
+    // Handle the case where productId is not available (optional)
+    return <div>Product not found.</div>;
+ }
+
+ return (
+    <div style={{ padding: '16px' }}>
+      <StyledCard>
+        <StyledCardMedia component="img" image={imageUrl} alt={name} style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
+        <CardContent>
           <>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5" component="div">
              {name}
             </Typography>
             <Typography>{description}</Typography>
             <Typography>{price} DT</Typography>
           </>
-          <Button size="small" style={{ fontSize: '20px' }}>
-          BUY
-        </Button>
-      </CardContent>
-    </Card>
-  </Grid>
-);
+          <CardActions>
+            <Button size="small" style={{ fontSize: '20px' }} onClick={handleBuyClick}>
+             BUY
+            </Button>
+          </CardActions>
+        </CardContent>
+      </StyledCard>
+    </div>
+ );
 }

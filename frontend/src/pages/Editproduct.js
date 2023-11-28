@@ -254,7 +254,9 @@ const EditProductForm = ({
             </Select>
           </FormControl>
           <br></br>
-          <TextField
+          {/*
+
+           <TextField
             label="On Sale (%)"
             variant="outlined"
             type="number"
@@ -266,6 +268,8 @@ const EditProductForm = ({
             fullWidth
             margin="normal"
           />
+          */}
+         
           <br></br>
           <Button
             type="submit"

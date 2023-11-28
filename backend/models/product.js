@@ -93,13 +93,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-
-    cartId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
   });
 
-  
   return Product;
 };
