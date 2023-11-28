@@ -81,6 +81,8 @@ export default function Seller() {
           `http://localhost:7000/tech/getMyInformation/${email}`
         );
         setUserInfo(response.data);
+        setManufacturer(response.data.manufacturer);
+
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
@@ -374,22 +376,25 @@ useEffect(() => {
             />
           ))}
 
-          
-<Link to="/NewProduct">
-          
-          <Button
-            size="small"
-            style={{
-              color: 'white',
-              backgroundColor: isButtonClicked ? 'blue' : '#6495ED', 
-              fontSize: '15px',
-              cursor: 'pointer',
-            }}
-            onClick={() => setIsButtonClicked(!isButtonClicked)}
-          >
-            New Product
-          </Button>
-          </Link>
+<div>
+<br></br>
+          <Link to="/NewProduct">
+        <Button
+          size="small"
+          style={{
+            color: 'white',
+            backgroundColor: isButtonClicked ? 'blue' : '#6495ED',
+            fontSize: '15px',
+            cursor: 'pointer',
+            marginRight: '100px', 
+            marginTop: '700px', 
+          }}
+          onClick={() => setIsButtonClicked(!isButtonClicked)}
+        >
+          New Product
+        </Button>
+      </Link>
+</div>
         </Box>
 
 
