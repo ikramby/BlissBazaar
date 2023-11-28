@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 import { Container, Typography } from "@mui/material";
 import Footer from "./Footer";
-import Data from './Data.json'
+//import Data from './Data.json'
 
 
 
 export default function AllProduct() {
-  const [data,setData] = useState(Data)
+  const [data,setData] = useState()
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -70,11 +70,56 @@ export default function AllProduct() {
   ];
 
 
+ // useEffect(() => {
+   // const fetchProducts = async () => {
+ //     try {
+   //     let url = 'http://localhost:7000/products/';
+
+     //   if (selectedCategory) {
+    //      url = `http://localhost:7000/products/category/${selectedCategory}`;
+      //  } else if (selectedColor) {
+     //     url = `http://localhost:7000/products/color/${selectedColor}`;
+      //  } else if (selectedManufacturer) {
+        //  url = `http://localhost:7000/products/manufacturer/${selectedManufacturer}`;
+       // } else if (selectedPrice) {
+      //    url = `http://localhost:7000/products/price/${selectedPrice}`;
+       // }
+
+       // const response = await axios.get(url);
+        //setProducts(response.data);
+        //setProductCount(response.data.length);
+
+        // Fetch count for color
+       // if (selectedColor) {
+        //  const colorCountResponse = await axios.get(`http://localhost:7000/products/color/${selectedColor}`);
+        //  setColorProductCount(colorCountResponse.data.length);
+       // }
+
+        // Fetch count for manufacturer
+       // if (selectedManufacturer) {
+         // const manufacturerCountResponse = await axios.get(`http://localhost:7000/products/manufacturer/${selectedManufacturer}`);
+         // setManufacturerProductCount(manufacturerCountResponse.data.length);
+      //  }
+
+    // Fetch count for price range
+    //if (selectedPrice) {
+    // const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
+    // setPriceProductCount(priceCountResponse.data.length);
+    //}
+
+
+      //} catch (error) {
+      //  console.error('Error fetching products', error);
+     // }
+    //};
+
+    //fetchProducts();
+  //}, [selectedCategory, selectedColor, selectedManufacturer, selectedPrice]);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         let url = 'http://localhost:7000/products/';
-
+  
         if (selectedCategory) {
           url = `http://localhost:7000/products/category/${selectedCategory}`;
         } else if (selectedColor) {
@@ -84,38 +129,37 @@ export default function AllProduct() {
         } else if (selectedPrice) {
           url = `http://localhost:7000/products/price/${selectedPrice}`;
         }
-
+  
         const response = await axios.get(url);
         setProducts(response.data);
         setProductCount(response.data.length);
-
+  
         // Fetch count for color
         if (selectedColor) {
           const colorCountResponse = await axios.get(`http://localhost:7000/products/color/${selectedColor}`);
           setColorProductCount(colorCountResponse.data.length);
         }
-
+  
         // Fetch count for manufacturer
         if (selectedManufacturer) {
           const manufacturerCountResponse = await axios.get(`http://localhost:7000/products/manufacturer/${selectedManufacturer}`);
           setManufacturerProductCount(manufacturerCountResponse.data.length);
         }
-
-    // Fetch count for price range
-    if (selectedPrice) {
-     const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
-     setPriceProductCount(priceCountResponse.data.length);
-    }
-
-
+  
+        // Fetch count for price range
+        if (selectedPrice) {
+          const priceCountResponse = await axios.get(`http://localhost:7000/products/price/${selectedPrice}`);
+          setPriceProductCount(priceCountResponse.data.length);
+        }
       } catch (error) {
         console.error('Error fetching products', error);
       }
     };
-
+  
+  
     fetchProducts();
   }, [selectedCategory, selectedColor, selectedManufacturer, selectedPrice]);
-
+  
   const handlePriceChange = (e) => {
     setSelectedPrice(e.target.value);
     setSelectedCategory('');
@@ -142,6 +186,8 @@ export default function AllProduct() {
     setSelectedCategory('');
     setSelectedColor('');
   };
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   return (
     <>
         <div id="container-body">
@@ -191,10 +237,14 @@ export default function AllProduct() {
   <option value='4000-5000' style={{ color: 'blue' }}>4000-5000 DT</option>
   <option value='5000-6000' style={{ color: 'blue' }}>5000-6000 DT</option>
 </select>
-          
-           <select name="on sale" id="on sale" >
+      {/*
+      <select name="on sale" id="on sale" >
             <option value='on sale' selected>On Sale</option>
            </select>
+      
+      */}    
+      
+           
         </div>
         <div id="allProduct-detail">
       { /* <div id="totalItems">23,344,420 items</div>    */}  
@@ -208,8 +258,21 @@ export default function AllProduct() {
              {selectedPrice ? `Total products by price range: ${priceProductCount}` : ''}
               </Typography>
           <Link to="/NewProduct">
-            <Button size="small" style={{ color: 'white', fontSize: '15px' }}>New Product</Button>
-          </Link>
+          
+          <Button
+            size="small"
+            style={{
+              color: 'white',
+              backgroundColor: isButtonClicked ? 'blue' : '#6495ED', 
+              fontSize: '15px',
+              cursor: 'pointer',
+            }}
+            onClick={() => setIsButtonClicked(!isButtonClicked)}
+          >
+            New Product
+          </Button>
+          
+              </Link>
             <select name="items" id="items">
             <option value='on sale' selected>All Items</option>
 
@@ -221,21 +284,21 @@ export default function AllProduct() {
 
           </div>
           <div id="allProduct-component">
-              {/* Map through the products and render a MediaCard for each */}
-              {data.map((product) => (
-                 <MediaCard
-                 key={product.id} 
-                 productId={product.id} // Pass the product ID as a prop
-                 name={product.name}
-                 description={product.description}
-                 imageUrl={product.imageUrl}
-                 price={product.price}
-                 category={product.categories}
-                //  color={product.color}
-                //  manufacturer={product.manufacturer}
-                //  onSale={product.onSale}
-               />
-              ))}
+              <div id="allProduct-component">
+              {products.map((product) => (
+
+      <MediaCard
+        key={product.id}
+        productId={product.id}
+        name={product.name}
+        description={product.description}
+        imageUrl={product.imageUrl}
+        price={product.price}
+        category={product.categories}
+      />
+      ))}
+</div>
+
             </div>
         </div>
  
