@@ -7,6 +7,7 @@ import React from "react";
 import EditProfile from "./pages/EditProfile";
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import FAQ from './pages/faq';
 import TermOfUse from './pages/TermOfUse'; 
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
@@ -14,6 +15,9 @@ import { AuthProvider } from './component/AuthContext';
 import AllProduct from './pages/allProduct';
 import BasketCard from "./pages/basketCard";
 import MediaCustomer from "./component/mediaCustomer";
+import FeaturesPage from "./pages/feature";
+import PartnerWithUsPage from './pages/partner';
+import OurTeamPage from './pages/teams';
 
 
 import EditProductForm from './pages/Editproduct';
@@ -42,8 +46,12 @@ function App() {
 
         <Route path="/allproduct" element={<AllProduct />} />
         <Route path="/basket" element={<BasketCard/>} />
-
+        <Route path="/FAQ" element={<FAQ />} />
+        <Route path="/Feature" element={<FeaturesPage />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/Team" element={<OurTeamPage />} />
+
+        <Route path="/OurPartner" element={<PartnerWithUsPage />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
         <Route path="/dashboard" element={<Dashboard />} />
         

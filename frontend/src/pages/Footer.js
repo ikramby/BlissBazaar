@@ -54,8 +54,7 @@ const FooterContent = () => {
           </Link>
         </Typography>
         <Typography variant="body2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sclerisque
-          donec non pellentesque ut.
+        TechBazaar is your premier online marketplace, providing a seamless platform for buying and selling a diverse range of high-quality tech products with ease and convenience.
         </Typography>
       </Grid>
 
@@ -68,7 +67,7 @@ const FooterContent = () => {
           About Us
         </Link>
         <br />
-        <Link href="#" color="inherit">
+        <Link href="/allproduct" color="inherit">
           Product
         </Link>
         <br />
@@ -76,7 +75,7 @@ const FooterContent = () => {
           Terms & Condition
         </Link>
         <br />
-        <Link href="#" color="inherit">
+        <Link href="/FAQ" color="inherit">
           FAQ
         </Link>
       </Grid>
@@ -86,11 +85,11 @@ const FooterContent = () => {
         <Typography variant="h6" gutterBottom>
           Company
         </Typography>
-        <Link href="#" color="inherit">
+        <Link href="/Team" color="inherit">
           Our Team
         </Link>
         <br />
-        <Link href="#" color="inherit">
+        <Link href="/OurPartner" color="inherit">
           Partner With Us
         </Link>
         <br />
