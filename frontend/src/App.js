@@ -24,6 +24,7 @@ import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
 
+
 function App() {
   return (
     <AuthProvider>
