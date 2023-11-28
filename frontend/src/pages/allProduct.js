@@ -1,19 +1,24 @@
-import React from 'react';
-import './allProduct.css';
-import MediaCard from '../component/mediaCard';
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import MediaCard from '../component/mediaCard';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-
 import { Container, Typography } from "@mui/material";
 import Footer from "./Footer";
+
+
+import './allProduct.css';
+// import Data from './Data.json'
+// import  { useState, useEffect } from 'react';
 //import Data from './Data.json'
 
 
 
+
 export default function AllProduct() {
-  const [data,setData] = useState()
+
+  const [data,setData] = useState([])
+
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -118,7 +123,9 @@ export default function AllProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = 'http://localhost:7000/products/';
+
+        let url = 'http://localhost:7000/products';
+
   
         if (selectedCategory) {
           url = `http://localhost:7000/products/category/${selectedCategory}`;
@@ -131,6 +138,7 @@ export default function AllProduct() {
         }
   
         const response = await axios.get(url);
+        setData(response.data);
         setProducts(response.data);
         setProductCount(response.data.length);
   
@@ -156,10 +164,12 @@ export default function AllProduct() {
       }
     };
   
-  
+
     fetchProducts();
   }, [selectedCategory, selectedColor, selectedManufacturer, selectedPrice]);
   
+
+
   const handlePriceChange = (e) => {
     setSelectedPrice(e.target.value);
     setSelectedCategory('');
@@ -186,7 +196,11 @@ export default function AllProduct() {
     setSelectedCategory('');
     setSelectedColor('');
   };
+
+  console.log(data,'data')
+
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+
 
   return (
     <>

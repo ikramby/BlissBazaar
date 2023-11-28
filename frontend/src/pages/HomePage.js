@@ -12,7 +12,7 @@ import CardActions from "@mui/material/CardActions";
 import Footer from "./Footer";
 import MediaCustomer from '../component/mediaCustomer';
 import axios from 'axios';
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const mainFeaturedPost = {
   title:
@@ -115,9 +115,27 @@ const HomePage = () => {
         console.error('Error fetching products', error);
       }
     };
-  
+
     fetchProducts();
   }, []);
+
+  const handleBuyClick = async (product) => {
+    try {
+      // Send a POST request to addToCart endpoint with product details
+      await axios.post('http://localhost:7000/cart/addToCart', {
+        imageUrl: product.imageUrl,
+        name: product.name,
+        price: product.price,
+        quantity: 1, // You may adjust the quantity as needed
+      });
+  
+      console.log('Product added to cart successfully');
+    } catch (error) {
+      console.error('Error adding product to cart', error);
+    }
+  };
+  
+  
 
 
   return (
@@ -221,43 +239,71 @@ const HomePage = () => {
       https://hotdealszone.in/wp-content/uploads/2017/01/online-mobiles-brands.png 
       https://www.91laptop.com/in/wp-content/uploads/2022/08/best-laptop-brands-in-india-1024x394.jpg*/}
             </div>{" "}
-      
-         {/*  div get all product */}
-         <br></br>
+
+            {/*  div get all product */}
+            <br></br>
+
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-      {products.map((product) => (
-        <MediaCustomer
-          key={product.id}
-          productId={product.id}
-          name={product.name}
-          description={product.description}
-          imageUrl={product.imageUrl}
-          price={product.price}
-          category={product.categories}
-          color={product.color}
-          manufacturer={product.manufacturer}
-          onSale={product.onSale}
-        />
-      ))}
-    </div>
-         {/* end div get all product */}
+
+              <Container sx={{ py: 8 }} maxWidth="md">
+                <br></br>
+                <StyledTypography variant="h4" component="h4">
+                  New Products!
+                </StyledTypography>
+                <br></br>
+                <Grid container spacing={4}>
+                  {products
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    .slice(0, 6)
+                    .map((product, index) => (
+                      <Grid item key={index} xs={12} sm={6} md={4}>
+                        <Card
+                          sx={{
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <CardMedia
+                            component="div"
+                            sx={{
+                              pt: "100%",
+                            }}
+                            image={product.imageUrl}
+                          />
+                          <CardContent sx={{ flexGrow: 1 }}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                              {product.name}
+                            </Typography>
+                            <Typography>{product.description}</Typography>
+                          </CardContent>
+                          <CardActions style={{ justifyContent: "center" }}>
+                            {/* <Button size="small">View</Button> */}
+                            <Button size="small"onClick={() => handleBuyClick(product)}>
+                              Buy</Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    ))}
+                </Grid>
+                <br></br>
+                <StyledButton variant="contained" color="primary" href="/allproduct">
+                  See All Products
+                </StyledButton>
+              </Container>
+
+            </div>
+            {/* end div get all product */}
 
 
-         
+
             <br></br> <br></br>
             <Container sx={{ py: 8 }} maxWidth="md">
               <StyledTypography variant="h4" component="h4">
                 New Device
               </StyledTypography>
               <br></br>
-             
 
-
-
-            
-             
-             
-             
               <Grid container spacing={4}>
                 {cardMediaImages.map((image, index) => (
                   <Grid item key={index} xs={12} sm={6} md={4}>
@@ -299,14 +345,8 @@ const HomePage = () => {
                   </Grid>
                 ))}
               </Grid>
-              <StyledTypography variant="body1" component="p">
-                showing products..
-              </StyledTypography>
-              <StyledButton variant="contained" color="primary" href="/allproduct">
-                See All Products
-              </StyledButton>
             </Container>
-            <StyledTypography variant="h4" component="h4">
+            {/* <StyledTypography variant="h4" component="h4">
               Sale!
             </StyledTypography>
             <Container sx={{ py: 8 }} maxWidth="md">
@@ -354,11 +394,11 @@ const HomePage = () => {
                   </Grid>
                 ))}
               </Grid>
-            </Container>
+            </Container> */}
           </div>
         </Grid>
 
-    
+
 
         <Grid item xs={12}>
           <div style={{ marginTop: "50px", textAlign: "center" }}>
