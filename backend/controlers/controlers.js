@@ -51,7 +51,7 @@ module.exports = {
                 return res.status(401).send('Invalid password');
               }
           
-              const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+              const token = jwt.sign({ id: user.id, role:user.purpose, email:user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
               res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
               res.json({ message: "Logged in successfully", token });
             } catch (error) {
