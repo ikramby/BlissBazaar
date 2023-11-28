@@ -10,12 +10,12 @@ const ProtectedRoute = ({ element: Element, allowedRoles, adminOnly, ...rest }) 
 
   const isAuthorized = () => {
     if (adminOnly) {
-      return  isAdmin();
+      return auth && isAdmin();
     }
     if (allowedRoles) {
       return auth && allowedRoles.includes(UseRole());
     }
-    return isAdmin();
+    return auth;
   };
   console.log(isAdmin());
   console.log(auth)
