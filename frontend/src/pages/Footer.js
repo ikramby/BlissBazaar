@@ -97,7 +97,7 @@ const FooterContent = () => {
           Privacy & Policy
         </Link>
         <br />
-        <Link href="#" color="inherit">
+        <Link href="/Feature" color="inherit">
           Features
         </Link>
       </Grid>
