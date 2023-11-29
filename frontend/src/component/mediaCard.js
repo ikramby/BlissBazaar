@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from 'axios'
 
 export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
  
