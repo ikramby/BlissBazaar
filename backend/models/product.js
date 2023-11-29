@@ -38,10 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     
   //  status: {
-    //  type: DataTypes.STRING,
-      //allowNull: true,
-     // values: ['available', 'out of stock'],
-    //},
+  //    type: DataTypes.STRING,
+  //     allowNull: true,
+  //    values: ['available', 'out of stock'],
+  //   },
     color: {
       type: DataTypes.STRING,
       allowNull: true,
