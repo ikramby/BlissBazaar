@@ -5,7 +5,7 @@ export default function Dashboard() {
   return (
     <>
     <div id='body'>
-     <div class="dashboard-container">
+     <div className="dashboard-container">
      <div id="dashboard-title">
         <h1>Top Market Statistic</h1>
         <h4>Top NTF on ___, ranked by volume, floor price and other statistic</h4>
@@ -22,12 +22,12 @@ export default function Dashboard() {
     </div>
        
      </div>
-     <div class="dashboard-tab">
-        <div class="title">
+     <div className="dashboard-tab">
+        <div className="title">
             <div>
-              <span class="collec" >Collection</span>  
+              <span className="collec" >Collection</span>  
             </div>
-            <div class="collection">
+            <div className="collection">
                 <span>volume</span>
             <span>24%</span>
             <span>7D%</span>
@@ -39,13 +39,13 @@ export default function Dashboard() {
 
         </div>
        
-        <div class="dhaboard-row">
+        <div className="dhaboard-row">
             <div>
                 <span>1.</span>
                 
-              <span class="collec" >DELL</span>  
+              <span className="collec" >DELL</span>  
             </div>
-            <div class="collection">
+            <div className="collection">
                 <span>27,465465</span>
             <span>+92.96</span>
             <span>-16.38</span>
@@ -57,13 +57,13 @@ export default function Dashboard() {
 
         </div>
         
-           <div class="dhaboard-row">
+           <div className="dhaboard-row">
             <div>
                 <span>1.</span>
                 
-              <span class="collec" >LG</span>  
+              <span className="collec" >LG</span>  
             </div>
-            <div class="collection">
+            <div className="collection">
                 <span>27,465465</span>
             <span>+92.96</span>
             <span>-16.38</span>
@@ -75,13 +75,13 @@ export default function Dashboard() {
 
         </div>
        
-           <div class="dhaboard-row">
+           <div className="dhaboard-row">
             <div>
                 <span>2.</span>
                 
-              <span class="collec" >Samsung</span>  
+              <span className="collec" >Samsung</span>  
             </div>
-            <div class="collection">
+            <div className="collection">
                 <span>27,465465</span>
             <span>+92.96</span>
             <span>-16.38</span>
@@ -93,13 +93,13 @@ export default function Dashboard() {
 
         </div>
        
-           <div class="dhaboard-row">
+           <div className="dhaboard-row">
             <div>
                 <span>3.</span>
                 
-              <span class="collec" >HP</span>  
+              <span className="collec" >HP</span>  
             </div>
-            <div class="collection">
+            <div className="collection">
                 <span>27,465465</span>
             <span>+92.96</span>
             <span>-16.38</span>

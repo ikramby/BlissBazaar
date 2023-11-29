@@ -1,27 +1,31 @@
-import React from 'react';
+
+
+import React, { useContext, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import {  UseRole } from './AuthContext';
-import { useContext } from 'react';
-import { AuthContext } from './AuthContext';
+import { AuthContext, UseRole } from './AuthContext';
 
-const ProtectedRoute = ({ element: Element, allowedRoles, adminOnly, ...rest }) => {
-    const { auth,  isAdmin } = useContext(AuthContext);
-  
+const ProtectedRoute = ({ component: Component, allowedRoles, adminOnly, ...rest }) => {
+    const { auth, isAdmin } = useContext(AuthContext);
 
-  const isAuthorized = () => {
-    if (adminOnly) {
-      return auth && isAdmin();
-    }
-    if (allowedRoles) {
-      return auth && allowedRoles.includes(UseRole());
-    }
-    return auth;
-  };
-  console.log(isAdmin());
-  console.log(auth)
-  console.log(isAuthorized())
+    useEffect(() => {
+        console.log("Authentication State Changed");
+        console.log("isAdmin():", isAdmin());
+        console.log("auth:", auth);
+        // Any other relevant checks or actions
+    }, [auth]); // Run this effect when 'auth' changes
 
-  return isAuthorized() ? <Element {...rest} /> : <Navigate to="/login" />;
+    const isAuthorized = () => {
+        if (adminOnly) {
+            return auth && isAdmin();
+        }
+        if (allowedRoles) {
+            return auth && allowedRoles.includes(UseRole());
+        }
+        return auth;
+    };
+
+    return isAuthorized() ? <Component {...rest} /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
+

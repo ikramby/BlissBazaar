@@ -69,9 +69,9 @@ export default function SearchAppBar() {
 
   const { auth, setAuth, isAdmin } = useContext(AuthContext);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
