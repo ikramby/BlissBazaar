@@ -5,7 +5,7 @@ import SignInSide from "./pages/login";
 import React from "react";
 import EditProfile from "./pages/EditProfile";
 import AboutUs from './pages/AboutUs';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+import PrivacyPolicy from './pages/Privacy';
 import FAQ from './pages/faq';
 import TermOfUse from './pages/TermOfUse'; 
 import NewProductForm from './pages/Newproduct';
