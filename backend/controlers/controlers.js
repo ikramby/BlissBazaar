@@ -1,17 +1,17 @@
+const db = require("../models/index");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const db = require('../models/index'); 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-db.sequelize.sync()
+db.sequelize
+  .sync()
   .then(() => console.log("Database synced"))
-  .catch(err => {
+  .catch((err) => {
     console.error("Failed to sync database: ", err);
-    process.exit(1); 
+    process.exit(1);
   });
- 
 
 module.exports = {
+
     
       register: async (req, res) => {
             try {
@@ -60,71 +60,65 @@ module.exports = {
           },
 
         // Create a middleware function to verify JWT tokens
- verifyToken :(req, res, next) => {
-  const token = req.cookies.token;
+// verifyToken :(req, res, next) => {
+//  const token = req.cookies.token;
 
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
+//  if (!token) {
+//    return res.status(401).json({ message: 'Unauthorized' });
+//  }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token is not valid' });
+//  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+ //   if (err) {
+ //     return res.status(401).json({ message: 'Token is not valid' });
+
+ //   }
+ // },
+
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await db.users.findOne({ where: { email } });
+
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).send("Invalid password");
+      }
+
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
+      res.json({
+        message: "Logged in successfully",
+        token,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        id: user.id,
+      });
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+
+  // Create a middleware function to verify JWT tokens
+  verifyToken: (req, res, next) => {
+    const token = req.query.token;
+    console.log("token", token);
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // You can access the user ID with decoded.id if needed
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: "Token is not valid" });
+      }
 
-    next();
-  })
-},
-getMyInformation: async (req, res) => {
-  try {
-    const email = req.params.email;
-    console.log("email",email)
-    const user = await db.users.findOne({
-      where: { email },
-      attributes: ['firstName', 'lastName', 'email', 'password', 'purpose', 'manufacturer'],
+      next();
     });
-   // console.log("password",password)
-
-   // if (!user) {
-   //   return res.status(404).json({ message: 'User not found' });
-    //}
-
-    res.json(user);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-},
-
-updateUserInfo: async (req, res) => {
-  try {
-    const email = req.params.email;
-    const { firstName, lastName, purpose, manufacturer } = req.body;
-
-    const user = await db.users.findOne({
-      where: { email },
-    });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Update user information
-    user.firstName = firstName || user.firstName;
-    user.lastName = lastName || user.lastName;
-    user.purpose = purpose || user.purpose;
-    user.manufacturer = manufacturer || user.manufacturer;
-
-    await user.save();
-
-    res.json({ message: 'User information updated successfully' });
-  } catch (error) {
-    console.error('Error updating user information:', error);
-    res.status(500).send(error.message);
-  }
-},
-          
-        
-
-}
+  },
+};

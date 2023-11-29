@@ -6,6 +6,7 @@ import React from "react";
 import EditProfile from "./pages/EditProfile";
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import FAQ from './pages/faq';
 import TermOfUse from './pages/TermOfUse'; 
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
