@@ -14,6 +14,7 @@ import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
+import MediaCustomer from "./component/mediaCustomer";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/seller" element={<Seller />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
+        <Route path="/products/:productId" element={<MediaCustomer />} />
 
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
