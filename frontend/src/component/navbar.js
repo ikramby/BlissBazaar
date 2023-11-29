@@ -1,66 +1,71 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext";
-import { Link as RouterLink } from "react-router-dom";
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import  { useState } from 'react';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
+import './navbar.css'; 
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
+  '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: "auto",
+    width: 'auto',
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
+  color: 'inherit',
+  '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
       },
     },
   },
 }));
 
 export default function SearchAppBar() {
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
-
 
   const { auth, setAuth, isAdmin } = useContext(AuthContext);
 
@@ -74,18 +79,35 @@ export default function SearchAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  
+      // Remove the token from local storage and mark the user as not authenticated
+      localStorage.removeItem('token');
+      setAuth(false);
+    
   };
+  const [showCategories, setShowCategories] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    setAuth(false);
-    handleClose();
+  // List of categories
+  const categories = [
+    'computers',
+    'phones',
+    'electronics',
+    'laptops',
+    'tablets',
+    'smartphones',
+    'wearables',
+    'accessories',
+  ];
+
+  // Function to toggle the visibility of categories
+  const toggleCategories = () => {
+    setShowCategories(!showCategories);
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 } } >
       <AppBar position="static" color="transparent">
+
         <Toolbar>
           <IconButton
             size="large"
@@ -93,78 +115,73 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={toggleCategories}
+
           >
+    
             <MenuIcon />
           </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href="/" sx={{ color: "white" }}>
-              {" "}
-              TechBazar
-            </Link>
+            <Link href='/' sx={{color:'white'}}>  TechBazar</Link>
+           
           </Typography>
-
-          {!auth && (
-            <>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-              >
-                <Link href="/login" sx={{ color: "white" }}>
-                  LOGIN
-                </Link>
-              </Typography>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-              >
-                <Link href="/register" sx={{ color: "white" }}>
-                  REGESTER
-                </Link>
-              </Typography>
-            </>
-          )}
-
-          <Typography
+          
+          
+          {!auth && 
+          (<>
+            <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href="/AboutUs" sx={{ color: "white" }}>
-              About Us
-            </Link>
+            <Link href='/login' sx={{color:'white'}}>
+           LOGIN
+         </Link>
           </Typography>
 
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href="/allproduct" sx={{ color: "white" }}>
-              All products
-            </Link>
-          </Typography>
+         <Link href='/register' sx={{color:'white'}}>
+            REGESTER
+         </Link>
+         </Typography>
+           
 
-          <Typography
+          </>)}
+         
+           
+         <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href="/dashboard" sx={{ color: "white" }}>
-              Dashboard
-            </Link>
-          </Typography>
+         <Link href='/AboutUs' sx={{color:'white'}}>
+            About Us
+         </Link>
+        
+         </Typography>
+
+         <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+         <Link href='/allproduct' sx={{color:'white'}}>
+            All products
+         </Link>
+         </Typography>
 
        
          {(auth && isAdmin()) && (
@@ -188,8 +205,7 @@ export default function SearchAppBar() {
          </Link>
 
 
-
-          {auth && (
+         {auth && (
             <div>
               <IconButton
                 size="large"
@@ -205,37 +221,43 @@ export default function SearchAppBar() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem component={RouterLink} to="/edit-profile">
-                  Edit Profile
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                <MenuItem onClick={handleClose}>Log out</MenuItem>
+               
               </Menu>
             </div>
           )}
-
+         
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              style={{ backgroundColor: "white" }}
+              inputProps={{ 'aria-label': 'search' }}
+              style={{backgroundColor:'white'}}
             />
           </Search>
         </Toolbar>
+  
       </AppBar>
+      {showCategories && (
+        <ul className="categories-list">
+        {categories.map((category) => (
+          <li key={category}>{category}</li>
+        ))}
+      </ul>
+      )}
     </Box>
   );
 }

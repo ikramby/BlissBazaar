@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
+import React from "react";
+import { styled, alpha } from "@mui/material/styles";
 import {
+  AppBar,
+  Toolbar,
   Typography,
+  InputBase,
+  IconButton,
   Box,
   Card,
   CardContent,
@@ -9,11 +13,51 @@ import {
   Button,
   Container,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import WalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 import Footer from "./Footer";
-import axios from "axios";
-import { AuthContext } from "../component/AuthContext";
-import EditProfileForm from "../component/EditProfileForm";
+
+// AppBar styles
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
 // User profile card styles
 const UserProfileCard = styled(Card)({
@@ -27,52 +71,52 @@ const UserProfileCard = styled(Card)({
 });
 
 export default function PageLayout() {
-  // Retrieve first name and last name from localStorage
-  //const { firstName } = useContext(AuthContext);
-  //const { lastName } = useContext(AuthContext);
-  const [userData, setUserData] = useState({ firstName: "", lastName: "" });
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        console.log("token", localStorage.getItem("token"));
-        console.log("id", localStorage.getItem("id"));
-
-        const response = await axios.get(
-          `http://localhost:7000/edit-profile/${localStorage.getItem(
-            "id"
-          )}?token=${localStorage.getItem("token")}`
-        );
-
-        console.log("response", response.data);
-        setUserData({
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
-        });
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-
-  const handleEditProfile = () => {
-    setIsEditFormOpen(true);
-  };
-
-  const handleCloseForm = () => {
-    setIsEditFormOpen(false);
-  };
-
-  const saveUserData = (updatedData) => {
-    setUserData(updatedData);
-  };
+  // State and handlers for menu items
 
   return (
     <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            TechBazaar
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-haspopup="true"
+            // Add onClick handler to open menu
+          >
+            <MoreIcon />
+          </IconButton>
+          <IconButton size="large" aria-label="wallet">
+            <WalletIcon />
+          </IconButton>
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-haspopup="true"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
       {/* Profile section */}
       <Container maxWidth="lg" sx={{ mt: 8, mb: 4 }}>
         <UserProfileCard>
@@ -90,32 +134,22 @@ export default function PageLayout() {
                 alt="User Name"
               />
               <Typography variant="h5" gutterBottom>
-                {userData.firstName} {userData.lastName}
+                Anis Jemail
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="textSecondary"
                 gutterBottom
               >
-                @{userData.firstName}
+                @Anis
               </Typography>
               <Typography variant="body2" sx={{ px: 3, textAlign: "center" }}>
-                {userData.description}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor,
+                consectetur purus amet...
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
-                onClick={handleEditProfile}
-              >
+              <Button variant="contained" color="primary" sx={{ mt: 2 }}>
                 Edit Profile
               </Button>
-              <EditProfileForm
-                open={isEditFormOpen}
-                onClose={handleCloseForm}
-                userData={userData}
-                saveUserData={saveUserData}
-              />
             </Box>
           </CardContent>
         </UserProfileCard>

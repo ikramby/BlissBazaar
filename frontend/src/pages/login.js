@@ -43,14 +43,14 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // Destructure methods from AuthContext
-  const {
-    setAuth,
-    setEmail: setContextEmail,
-    setFirstName,
-    setLastName,
-  } = useContext(AuthContext);
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    manufacturer: "",
+  });
+  const { setAuth } = useContext(AuthContext);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -62,39 +62,44 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Login successful");
-
+  
     try {
-      const response = await axios.post("http://localhost:7000/tech/login", {
+      // First, get user information
+      const userInfoResponse = await axios.get(
+        `http://localhost:7000/tech/getMyInformation/${email}`
+      );
+      const userInfo = userInfoResponse.data;
+  
+      // Set user information in context or state if needed
+      setUserInfo(userInfo);
+  
+      // Continue with the login request
+      const loginResponse = await axios.post("http://localhost:7000/tech/login", {
         email,
         password,
       });
-      console.log("Login successful", response.data);
-
-      // Destructure token and firstName from the response
-      const { token, firstName, lastName, id } = response.data;
-
-      // Set token, email, and firstName in localStorage
-      localStorage.setItem("token", token);
+      console.log("Login successful", loginResponse.data);
+  
+      localStorage.setItem("token", loginResponse.data.token);
       localStorage.setItem("email", email);
-      localStorage.setItem("firstName", firstName);
-      localStorage.setItem("lastName", lastName);
-      localStorage.setItem("id", id);
-
-      // Update AuthContext
-      setAuth(true);
-      setEmail(email);
-      setFirstName(firstName);
-      setLastName(lastName);
-
+  
       alert("Logged in successfully!");
-      navigate("/");
+      setAuth(true);
+  
+      console.log("Email set in context:", email);
+  
+      // Check the purpose from the user information
+      if (userInfo.purpose === "Selling") {
+        navigate("/seller");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login error:", error);
       alert("Email or password is incorrect. Please try again.");
     }
   };
-
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>

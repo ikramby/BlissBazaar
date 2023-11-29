@@ -5,8 +5,7 @@ import SignInSide from "./pages/login";
 import React from "react";
 import EditProfile from "./pages/EditProfile";
 import AboutUs from './pages/AboutUs';
-import PrivacyPolicy from './pages/Privacy';
-import FAQ from './pages/faq';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermOfUse from './pages/TermOfUse'; 
 import NewProductForm from './pages/Newproduct';
 import SearchAppBar from './component/navbar';
@@ -15,7 +14,7 @@ import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
-
+import MediaCustomer from "./component/mediaCustomer";
 function App() {
   return (
     <AuthProvider>
@@ -35,11 +34,11 @@ function App() {
         <Route path="/seller" element={<Seller />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
-
+        <Route path="/products/:productId" element={<MediaCustomer />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        
+
 
         TermsOfUse
       </Routes>

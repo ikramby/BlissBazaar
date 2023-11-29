@@ -7,7 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState("");
   const [userRole, setUserRole] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setAuth(false);
     }
-  }, [token]);
+  }, []);
   
 
   const login = (token, userEmail) => {
@@ -42,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
   const isAdmin = () => {
     const token = localStorage.getItem('token');
-    if (token && auth) {
+    if (token) {
       const decoded = jwt_decode(token);
    
       return decoded.email === 'admin@gmail.com'; // Assuming the role is stored in the token
