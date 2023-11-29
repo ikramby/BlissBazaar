@@ -184,7 +184,7 @@ export default function SearchAppBar() {
            </IconButton>
          </Link>
 
-n
+
 
           {auth && (
             <div>
