@@ -38,7 +38,6 @@ const BasketCardItem = ({ product, removeFromCart }) => {
 };
 
 
-// ... (your imports remain unchanged)
 
 const BasketCard = () => {
   const [cartData, setCartData] = React.useState([]);
@@ -47,6 +46,9 @@ const BasketCard = () => {
   const [fullName, setFullName] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
   const [address, setAddress] = React.useState('');
+  const [fullNameError, setFullNameError] = React.useState('');
+  const [phoneNumberError, setPhoneNumberError] = React.useState('');
+  const [addressError, setAddressError] = React.useState('');
 
   const navigate = useNavigate();
 
@@ -84,19 +86,37 @@ const BasketCard = () => {
 
   const handlePurchase = async () => {
     try {
-      // Ensure required fields are not empty
-      if (!fullName || !phoneNumber || !address) {
-        // You can show an error message or handle this case as needed
+
+      if (!fullName) {
+        setFullNameError('Please enter your full name.');
+      } else {
+        setFullNameError('');
+      }
+
+      if (!phoneNumber || isNaN(phoneNumber) || phoneNumber.toString().length < 8) {
+        setPhoneNumberError('Please enter a valid phone number.');
+      } else {
+        setPhoneNumberError('');
+      }
+
+      if (!address) {
+        setAddressError('Please enter your address.');
+      } else {
+        setAddressError('');
+      }
+
+      if (fullNameError || phoneNumberError || addressError) {
+
         return;
       }
 
-      // Extract the required data from the states
+
       const userOrder = {
         totalPrice: totalAmount,
         fullName,
         phoneNumber,
         address,
-        
+
         // products: cartData.map(product => ({
         //   id: product.id,
         //   name: product.name,
@@ -105,8 +125,11 @@ const BasketCard = () => {
         // })),
       };
 
-      // Example: Send the user order to the server
       await axios.post('http://localhost:7000/orders', userOrder);
+
+      setFullNameError('');
+      setPhoneNumberError('');
+      setAddressError('');
 
       setDialogOpen(false);
       setPurchaseComplete(true);
@@ -115,9 +138,22 @@ const BasketCard = () => {
     }
   };
 
-  const handlePurchaseCompleteClose = () => {
-    setPurchaseComplete(false);
+  const handlePurchaseCompleteClose = async () => {
+    try {
+
+      await axios.delete('http://localhost:7000/cart/deleteAllCartList');
+
+
+      setCartData([]);
+      setPurchaseComplete(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Error clearing shopping cart', error);
+    }
   };
+
+
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -150,14 +186,27 @@ const BasketCard = () => {
           py: [3, 6],
         }}
       >
-        {/* Your Footer component */}
+
         <Footer />
       </Container>
 
-      {/* User details dialog */}
+
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
         <DialogTitle>User Details</DialogTitle>
         <DialogContent>
+
+          {fullNameError && (
+            <div style={{ color: 'red', marginTop: '10px' }}>{fullNameError}</div>
+          )}
+
+          {phoneNumberError && (
+            <div style={{ color: 'red', marginTop: '10px' }}>{phoneNumberError}</div>
+          )}
+
+          {addressError && (
+            <div style={{ color: 'red', marginTop: '10px' }}>{addressError}</div>
+          )}
+
           <TextField
             label="Full Name"
             variant="outlined"

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const Product = require('./product'); // Assuming your Product model is in the same directory
+const Product = require('./product'); 
 
 module.exports = (sequelize) => {
   const Order = sequelize.define('Order', {
@@ -12,8 +12,15 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     phoneNumber: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        isEightDigits: (value) => {
+          if (value.toString().length !== 8) {
+            throw new Error('Phone number must be exactly 8 digits.');
+          }
+        },
+      },
     },
     address: {
       type: DataTypes.STRING,
