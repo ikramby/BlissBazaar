@@ -11,12 +11,19 @@ const productController = {
 
   getAllProducts: async (req, res) => {
     try {
-      const products = await  db.products.findAll();
-      res.json(products);
+      const products = await db.products.findAll();
+      
+      const productsWithImageUrl = products.map(product => ({
+        ...product.toJSON(),
+        imageUrl: product.imageUrl ? `${process.env.CLOUDINARY_BASE_URL}/${process.env.CLOUD_NAME}/uploads/${product.imageUrl}` : null,
+      }));
+  
+      res.json(productsWithImageUrl);
     } catch (error) {
       res.status(500).send(error.message);
     }
   },
+  
 
   getProductById: async (req, res) => {
     try {
@@ -33,9 +40,7 @@ const productController = {
     }
   },
 
- // controllers/productController.js
-
-createProduct: async (req, res) => {
+ createProduct: async (req, res) => {
   try {
     const {
       name,
@@ -46,18 +51,23 @@ createProduct: async (req, res) => {
       status,
       color,
       manufacturer,
+      imageUrl: imageUrlFromBody, 
     } = req.body;
 
-    const imageUrl = req.file ? req.file.path : '';
+    let imageUrl = ''; 
 
-    console.log(req.body);
-    console.log('imageUrl', imageUrl);
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageUrl = result.secure_url;
+    } else if (imageUrlFromBody) {
+      imageUrl = imageUrlFromBody;
+    }
 
     const newProduct = await db.products.create({
       name,
       description,
       price,
-      imageUrl, 
+      imageUrl,
       category,
       quantity,
       status,
@@ -69,7 +79,9 @@ createProduct: async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-},updateProduct: async (req, res) => {
+},
+
+updateProduct: async (req, res) => {
   try {
     const { id } = req.params;
     const product = await db.products.findByPk(id);
@@ -78,26 +90,25 @@ createProduct: async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    let newImageUrl; // Declare newImageUrl in the outer scope
-
     if (req.file) {
-      newImageUrl = req.file.path;
+      const result = await cloudinary.uploader.upload(req.file.path);
+      const newImageUrl = result.secure_url;
       product.imageUrl = newImageUrl;
       await product.update({ imageUrl: newImageUrl });
-
+    } else if (req.body.imageUrl) {
+      product.imageUrl = req.body.imageUrl;
+      await product.update({ imageUrl: req.body.imageUrl });
     }
-
-    console.log("file", newImageUrl); 
 
     await product.update(req.body);
 
-    
     res.json({ message: 'Product updated successfully' });
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 },
+
 
   deleteProduct: async (req, res) => {
     try {

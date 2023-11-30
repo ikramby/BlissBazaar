@@ -19,7 +19,17 @@ const storage = new CloudinaryStorage({ // Use CloudinaryStorage
   }
 });
 
+app.post('/upload', upload.single('image'), async (req, res) => {
+  try {
+      const file = req.file;
+      const result = await cloudinary.uploader.upload(file.path);
 
+      res.json({ message: 'Upload successful', imageUrl: result.url });
+  } catch (error) {
+      console.error('Error uploading to Cloudinary:', error);
+      res.status(500).send('Error uploading image');
+  }
+});
 require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
