@@ -20,6 +20,7 @@ import Menu from '@mui/material/Menu';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import './navbar.css'; 
+import axios from 'axios';  
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,6 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [product, setProduct] = useState('');
 
   const { auth, setAuth, isAdmin } = useContext(AuthContext);
 
@@ -98,6 +100,22 @@ export default function SearchAppBar() {
     'wearables',
     'accessories',
   ];
+  const [input, setInput] = useState("")
+   
+ 
+ // const handleChange = (e) => {
+   //   setInput(e.target.value);
+    //};
+ 
+    const handleSearch = async () => {
+      try {
+          const response = await axios.get(`http://localhost:7000/products/search/${input}`);
+console.log("input", input)
+          setProduct(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
   // Function to toggle the visibility of categories
   const toggleCategories = () => {
