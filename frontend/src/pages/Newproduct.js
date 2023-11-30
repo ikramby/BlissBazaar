@@ -10,6 +10,8 @@ import {
   FormControl,
   Typography,
   Container,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 
 import InputAdornment from "@mui/material/InputAdornment";
@@ -26,43 +28,56 @@ const NewProductForm = ({ addNewProduct }) => {
   const [color, setColor] = useState([]);
   const [manufacturer, setManufacturer] = useState([]);
   const [onSale, setOnSale] = useState(false);
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(null); 
+  const [useImageUrl, setUseImageUrl] = useState(false);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      name,
-      description,
-      imageUrl,
-      price,
-      category,
-      status,
-      color,
-      manufacturer,
-      onSale,
-      quantity,
-    };
-    console.log("new product", newProduct);
-    axios
-      .post("http://localhost:7000/products/", newProduct)
-      .then((response) => {
-        console.log("Operation completed successfully", response);
-      })
-      .catch((error) => {
-        console.error("Error adding product", error);
-      });
-
-    setName("");
-    setDescription("");
-    setImageUrl("");
-    setPrice("");
-    setCategory("");
+  
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    if (useImageUrl) {
+      formData.append("imageUrl", imageUrl);
+    } else {
+      formData.append("image", imageFile);
+    }
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('status', status);
+    formData.append('color', color);
+    formData.append('manufacturer', manufacturer);
+    formData.append('onSale', onSale);
+    if (quantity !== null) {
+      formData.append('quantity', quantity);
+    }  
+    try {
+      // Use axios.post to send a FormData with the image file to the server
+      const response = await axios.post('http://localhost:7000/products/', formData);
+      console.log('Operation completed successfully', response);
+    } catch (error) {
+      console.error('Error adding product', error);
+    }
+  
+    // Reset form fields
+    setName('');
+    setDescription('');
+    setImageUrl('');
+    setPrice('');
+    setCategory('');
     setStatus([]);
     setColor([]);
     setManufacturer([]);
     setOnSale(false);
-    setQuantity("");
+    setQuantity('');
   };
+  
+  
+
+  const [imageFile, setImageFile] = useState(null);
+
+
   const onChangeCategory = (e) => {
     console.log(e.target.value);
     setCategory(e.target.value);
@@ -84,9 +99,23 @@ const NewProductForm = ({ addNewProduct }) => {
     setOnSalePercentage(e.target.value);
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImageFile(file);
+    }
+  };
+
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit} encType="multipart/form-data">
         <Card
           variant="outlined"
           style={{
@@ -159,22 +188,58 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
-          {/* Conditionally render CardMedia if imageUrl is not empty */}
-          {imageUrl && (
-            <CardMedia
-              sx={{ height: 500, width: "100%" }}
-              image={imageUrl}
-              title={name}
-            />
-          )}
-          <TextField
-            label="Image URL"
-            variant="outlined"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            fullWidth
-            margin="normal"
+         {/* Checkbox to choose between URL and file upload */}
+         <FormControlLabel
+            control={
+              <Checkbox
+                checked={useImageUrl}
+                onChange={() => setUseImageUrl(!useImageUrl)}
+                color="primary"
+              />
+            }
+            label="Use Image URL"
           />
+          {/* Conditionally render URL input or file upload input based on the checkbox */}
+          {useImageUrl ? (
+            <TextField
+              label="Image URL"
+              variant="outlined"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+          ) : (
+            <div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+                id="image-input"
+                name="image"
+              />
+              <label htmlFor="image-input">
+                <Button
+                  component="span"
+                  color="primary"
+                  variant="contained"
+                  style={{ marginTop: "20px" }}
+                >
+                  Upload Image
+                </Button>
+              </label>
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="Uploaded Preview"
+                  style={{ width: "100%", marginTop: "10px" }}
+                />
+              )}
+            </div>
+          )}
+
+          {/* ... other input fields ... */}
           <TextField
             label="Price"
             variant="outlined"
