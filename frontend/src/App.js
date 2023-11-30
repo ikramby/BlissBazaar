@@ -16,6 +16,8 @@ import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
 import MediaCustomer from "./component/mediaCustomer";
 import BasketCard from "./pages/basketCard";
+
+
 function App() {
   return (
     <AuthProvider>
