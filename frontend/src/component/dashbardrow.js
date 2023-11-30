@@ -1,21 +1,21 @@
 import React from 'react';
 
-export default function DashRow() {
+export default function DashRow({product , index}) {
   return (
     <>
       <div class="dhaboard-row">
             <div>
-                <span>1.</span>
+                <span>{index +1}</span>
                 
-              <span className="collec" >DELL</span>  
+              <span className="collec" >{product.manufacturer}</span>  
             </div>
             <div className="collection">
-                <span>27,465465</span>
-            <span>+92.96</span>
-            <span>-16.38</span>
-            <span>12.98</span>
-            <span>5.9k</span>
-            <span>10K</span>
+                <span>{product.quantity}</span>
+            <span>{product.createdAt.slice(0,10)}</span>
+            <span>{product.updatedAt.slice(0,10)}</span>
+            <span>{product.price}</span>
+            <span>{product.name}</span>
+            <span>{product.color}</span>
             </div>
             
 
