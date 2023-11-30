@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 
-export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
+export default function MediaCardSeller({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
  
   const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
@@ -109,9 +109,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
       </CardContent>
       <CardActions>
    
-       {/*
-       <Button size="small" style={{ color: 'black', fontSize:'20px' }} >price:   {price}</Button>
-       */} 
+     
 
        {userRole==='Selling' && (
         <>
@@ -129,9 +127,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleViewClick}>
           View
         </Button>
-        <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleBuyClick}>
-          Buy
-        </Button>
+     
       </CardActions>
     </Card>
   );
