@@ -10,6 +10,8 @@ router.put('/:id', upload.single('image'), productController.updateProduct);
 
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);
+router.get('/search/:input', productController.searchProducts);
+
 //router.post('/', productController.createProduct);
 //router.put('/:id', productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);

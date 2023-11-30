@@ -7,7 +7,6 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer'); // Add this line to import multer
 const upload = multer({ dest: 'uploads' }); // specify the destination folder for temporary storage
 
-
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_Name, 
   api_key: process.env.CLOUD_API_KEY, 
@@ -29,12 +28,12 @@ const port = 7000;
 app.use(cors());
 const routeApp = require("./route/singin");
 const productroute = require("./route/product");
+const messageroute = require("./route/Message");
 const userRoutes = require("./route/user");
 const cartroute = require("./route/cart");
-const orderRoutes =require('./route/orders')
+const orderRoutes = require('./route/orders')
 const path = require('path'); 
 const imageRoutes = require('./route/imageRoutes');
-
 
 app.use('/images', imageRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -54,8 +53,8 @@ app.use(cookieParser());
 
 app.use("/products", productroute);
 app.use("/cart", cartroute);
+app.use("/message", messageroute);
 app.use('/orders', orderRoutes);
-
 
 app.use("/tech", routeApp);
 app.use("/", userRoutes);

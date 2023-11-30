@@ -188,7 +188,36 @@ const HomePage = () => {
 
   ];
   
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    message: '',
+  });
 
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async () => {
+    try {
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+  
+      const response = await axios.post('http://localhost:7000/message/', {
+        fullName,
+        subject: formData.message, 
+      });
+  
+      console.log('Message created successfully:', response.data);
+  
+    } catch (error) {
+      console.error('Error creating message:', error);
+    }
+  };
+  
   return (
     <div>
       <MainFeaturedPost post={mainFeaturedPost} />
@@ -369,8 +398,8 @@ const HomePage = () => {
             <br></br> <br></br>
             <Container sx={{ py: 8 }} maxWidth="md">
               <StyledTypography variant="h4" component="h4">
-                New Device
-              </StyledTypography>
+              Arriving Soon
+                            </StyledTypography>
               <br></br>
 
               <Grid container spacing={4}>
@@ -511,54 +540,55 @@ const HomePage = () => {
       </Grid>
       <React.Fragment>
         <Typography variant="h6" gutterBottom style={{ color: "white" }}>
-          Frequently Asked Questions
-        </Typography>
+Contact Us        </Typography>
         <Grid container spacing={4}>
-          <Grid item xs={5} sm={5}>
-            <TextField
-              id="Question1"
-              name="Question1"
-              label="Question 1"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-              style={{ color: "white" }}
-            />
-          </Grid>
-          <Grid item xs={5} sm={5}>
-            <TextField
-              id="Question2"
-              name="Question2"
-              label="Question 2"
-              fullWidth
-              variant="standard"
-              style={{ color: "white" }}
-            />
-          </Grid>
-          <Grid item xs={5} sm={5}>
-            <TextField
-              id="Question3"
-              name="Question3"
-              label="Question 3"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={5} sm={5}>
-            <TextField
-              id="Question4"
-              name="Question4"
-              label="Question 4"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-          </Grid>
+          
+        <Grid item xs={5} sm={5}>
+        <TextField
+          id="firstName"
+          name="firstName"
+          label="FirstName"
+          fullWidth
+          autoComplete="given-name"
+          variant="standard"
+          style={{ color: 'white' }}
+          value={formData.firstName}
+          onChange={handleFormChange}
+        />
+      </Grid>
+      <Grid item xs={5} sm={5}>
+        <TextField
+          id="lastName"
+          name="lastName"
+          label="LastName"
+          fullWidth
+          variant="standard"
+          style={{ color: 'white' }}
+          value={formData.lastName}
+          onChange={handleFormChange}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          id="message"
+          name="message"
+          label="Message"
+          multiline
+          fullWidth
+          rows={4}
+          variant="standard"
+          value={formData.message}
+          onChange={handleFormChange}
+        />
+      </Grid>
+
+        
         </Grid>
         <br></br>
-        <StyledButton variant="contained" color="primary">
-          <StyledLink href="/AboutUs">Submit</StyledLink>
-        </StyledButton>
+        <StyledButton variant="contained" color="primary" onClick={handleFormSubmit}>
+  <StyledLink >Submit</StyledLink>
+</StyledButton>
+
         <br></br>
       </React.Fragment>
       <br></br>
