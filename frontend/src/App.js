@@ -14,14 +14,9 @@ import AllProduct from './pages/allProduct';
 import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
-import FAQPage from "./pages/faq";
-import Team from "./pages/teams";
-
 import MediaCustomer from "./component/mediaCustomer";
 import BasketCard from "./pages/basketCard";
 
-
-import PartnerWithUsPage from "./pages/partner";
 function App() {
   return (
     <AuthProvider>
@@ -39,9 +34,9 @@ function App() {
 
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/seller" element={<Seller />} />
-        <Route path="/basket" element={<BasketCard/>} />
 
         <Route path="/allproduct" element={<AllProduct />} />
+        <Route path="/basket" element={<BasketCard/>} />
         <Route path="/products/:productId" element={<MediaCustomer />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
