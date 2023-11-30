@@ -1,19 +1,24 @@
 import React from 'react';
 import './dashboard.css';
 import DashRow from '../component/dashbardrow';
+import DenseTable from '../component/dashboardUser'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
-
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     // Inner function that calls the API
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:7000/products'); 
+         
+
         setProducts(response.data);
-        console.log(response);
+       
+      
+      
       } catch (error) {
         console.error('Error fetching products:', error);
        
@@ -24,6 +29,28 @@ export default function Dashboard() {
    
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    // Inner function that calls the API
+    const fetchUsers = async () => {
+      try {
+       
+        const resp = await axios.get('http://localhost:7000/tech/getAllUsers'); 
+
+       
+        setUsers(resp.data);
+        console.log(resp.data);
+      
+      } catch (error) {
+        console.error('Error fetching users:', error);
+       
+      }
+    };
+ 
+
+   
+    fetchUsers();
+  }, [])
 
   return (
     <>
@@ -67,7 +94,8 @@ export default function Dashboard() {
               <DashRow key={index} product={product} index={index} />
              
             ))}
-          
+            
+          <DenseTable users ={users}/>
        
      </div>
 

@@ -59,6 +59,24 @@ module.exports = {
             }
           },
 
+          getAllUsers: async (req, res) => {
+            try {
+              const users = await db.users.findAll({
+                attributes: ['id', 'firstName', 'lastName', 'email', 'purpose', 'manufacturer'],
+                where: {
+                  email: {
+                    [db.Sequelize.Op.ne]: 'admin@gmail.com',
+                  },
+                },
+              });
+          
+              res.json(users);
+            } catch (error) {
+              console.error('Error fetching all users:', error);
+              res.status(500).send(error.message);
+            }
+          },
+
         // Create a middleware function to verify JWT tokens
  verifyToken :(req, res, next) => {
   const token = req.cookies.token;
