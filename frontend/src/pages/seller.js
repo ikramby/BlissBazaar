@@ -30,7 +30,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import MediaCard from '../component/mediaCard';
+import MediaCardSeller from '../component/mediaCardSeller';
 import { Link } from 'react-router-dom';
 
 const Search = styled("div")(({ theme }) => ({
@@ -289,7 +289,7 @@ useEffect(() => {
                     required
                     id="purpose"
                     name="purpose"
-                    label="Purpose"
+                   
                     fullWidth
                     autoComplete="family-name"
                     variant="standard"
@@ -298,22 +298,7 @@ useEffect(() => {
                   />
                 </Grid>
 
-             {/* 
-             <Grid item xs={12}>
-                  <TextField
-                    required
-                    id="address1"
-                    name="address1"
-                    label="Address line 1"
-                    fullWidth
-                    autoComplete="shipping address-line1"
-                    variant="standard"
-                    value={userInfo.address1}
-                    onChange={(e) => setUserInfo({ ...userInfo, address1: e.target.value })}
-                  />
-                </Grid>
-             */}   
-      
+                
       
         <Grid item xs={12} sm={6}>
                   <Select
@@ -347,12 +332,7 @@ useEffect(() => {
                   </Select>
                 </Grid>
         <Grid item xs={12}>
-          {/* 
-            <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-          */}
+        
         
         </Grid>
       </Grid>
@@ -365,7 +345,7 @@ useEffect(() => {
       {tabValue === 1 && (
         <Box id="allProduct-component">
           {products.map((product) => (
-            <MediaCard
+            <MediaCardSeller
               key={product.id}
               productId={product.id}
               name={product.name}
