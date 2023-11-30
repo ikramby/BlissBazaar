@@ -41,6 +41,7 @@ function App() {
         <Route path="/Team" element={<Team />} />
         <Route path="/OurPartner" element={<PartnerWithUsPage />} />
         <Route path="/basket" element={<BasketCard/>} />
+        {/* test  */}
 
         <Route path="/allproduct" element={<AllProduct />} />
         <Route path="/products/:productId" element={<MediaCustomer />} />
