@@ -19,6 +19,8 @@ import Team from "./pages/teams";
 
 import MediaCustomer from "./component/mediaCustomer";
 import PartnerWithUsPage from "./pages/partner";
+import BasketCard from "./pages/basketCard";
+
 function App() {
   return (
     <AuthProvider>
@@ -41,6 +43,7 @@ function App() {
         <Route path="/OurPartner" element={<PartnerWithUsPage />} />
 
         <Route path="/allproduct" element={<AllProduct />} />
+        <Route path="/basket" element={<BasketCard/>} />
         <Route path="/products/:productId" element={<MediaCustomer />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermOfUse" element={<TermOfUse />} />
