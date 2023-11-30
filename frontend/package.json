@@ -13,8 +13,10 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
     "buffer": "^6.0.3",
+    "cloudinary": "^1.41.0",
     "crypto-browserify": "^3.12.0",
     "jsonwebtoken": "^9.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
@@ -29,7 +31,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"
-},
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

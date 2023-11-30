@@ -20,7 +20,7 @@ import BasketCard from "./pages/basketCard";
 
 import MediaCustomer from "./component/mediaCustomer";
 import PartnerWithUsPage from "./pages/partner";
-import BasketCard from "./pages/basketCard";
+
 
 function App() {
   return (
