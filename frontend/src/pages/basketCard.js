@@ -274,6 +274,7 @@ const BasketCard = () => {
           ))}
 
           <Typography variant="h6">Total Price: ${totalAmount}</Typography>
+          
         </DialogContent>
         <DialogActions>
           <Button onClick={handlePurchaseCompleteClose} color="primary" variant="contained">
