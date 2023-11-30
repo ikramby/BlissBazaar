@@ -17,6 +17,7 @@ import {
 import InputAdornment from "@mui/material/InputAdornment";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
+//import InputFileUpload from '../component/uploadButton';
 
 const NewProductForm = ({ addNewProduct }) => {
   const [name, setName] = useState("");
@@ -229,6 +230,7 @@ const NewProductForm = ({ addNewProduct }) => {
                   Upload Image
                 </Button>
               </label>
+              
               {imageUrl && (
                 <img
                   src={imageUrl}
