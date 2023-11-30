@@ -11,8 +11,9 @@ import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 
 export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- 
-  const shadowStyle = {
+ console.log("imageUrl", imageUrl)
+ const absoluteImageUrl = imageUrl ? `/uploads/${imageUrl.replace(/\\/g, '/')}` : '';
+ const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
@@ -26,7 +27,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
             productId,
             name,
             description,
-            imageUrl,
+            absoluteImageUrl,
             price,
             category,
             color,
@@ -88,7 +89,14 @@ export default function MediaCard({ productId,name, description, imageUrl, price
     borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)'
     
      }} style={shadowStyle}>
-            <CardMedia style={{ minHeight: '50vh', maxHeight:'50vh'  }} image={imageUrl} title={name} />
+<CardMedia
+  style={{ minHeight: '50vh', maxHeight: '50vh' }}
+  image={absoluteImageUrl}
+  title={name}
+  onError={(e) => {
+    console.error('Error loading image:', e);
+  }}
+/>
 
      {/*<CardMedia
         sx={{ height: 240 }}

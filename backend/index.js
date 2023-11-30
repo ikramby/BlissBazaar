@@ -30,6 +30,11 @@ const routeApp = require("./route/singin");
 const productroute = require("./route/product");
 const userRoutes = require("./route/user");
 const cartroute = require("./route/cart");
+const path = require('path'); 
+const imageRoutes = require('./route/imageRoutes');
+
+app.use('/images', imageRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const db = require("./models");
 

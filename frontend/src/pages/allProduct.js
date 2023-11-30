@@ -300,7 +300,6 @@ export default function AllProduct() {
           <div id="allProduct-component">
               <div id="allProduct-component">
               {products.map((product) => (
-
       <MediaCard
         key={product.id}
         productId={product.id}
