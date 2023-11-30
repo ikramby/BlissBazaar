@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
  
@@ -15,6 +17,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
       };
+      const { userRole } = useContext(AuthContext);
 
       const navigate = useNavigate();
       const handleViewClick = () => {
@@ -97,7 +100,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         <Typography gutterBottom variant="h5" component="div" color="white">
         {name}
         </Typography>
-        <Typography variant="body2" color="white" style={{maxHeight:'10vh', minHeight:'10vh'}}>
+        <Typography variant="body2" color="white" style={{maxHeight:'10vh', minHeight:'10vh', minWidth:'300px'}}>
         {description}
         </Typography>
         <Typography variant="body2" color="white">
@@ -109,12 +112,20 @@ export default function MediaCard({ productId,name, description, imageUrl, price
        {/*
        <Button size="small" style={{ color: 'black', fontSize:'20px' }} >price:   {price}</Button>
        */} 
-          <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleEditClick}>
+
+       {userRole==='Selling' && (
+        <>
+           <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleEditClick}>
           Edit
         </Button>      
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleDeleteClick}>
           Delete
         </Button>
+        </>
+       )
+
+       }
+       
         <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleViewClick}>
           View
         </Button>

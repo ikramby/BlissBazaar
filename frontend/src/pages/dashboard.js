@@ -1,7 +1,30 @@
 import React from 'react';
 import './dashboard.css';
+import DashRow from '../component/dashbardrow';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Inner function that calls the API
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/'); // Replace 3000 with your actual server port
+        setProducts(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        // Handle errors here, such as displaying a message to the user
+      }
+    };
+ 
+
+    // Call the inner function
+    fetchProducts();
+  }, []);
+
   return (
     <>
     <div id='body'>
@@ -56,60 +79,11 @@ export default function Dashboard() {
             
 
         </div>
-        
-           <div class="dhaboard-row">
-            <div>
-                <span>1.</span>
-                
-              <span class="collec" >LG</span>  
-            </div>
-            <div class="collection">
-                <span>27,465465</span>
-            <span>+92.96</span>
-            <span>-16.38</span>
-            <span>12.98</span>
-            <span>5.9k</span>
-            <span>10K</span>
-            </div>
-            
-
-        </div>
-       
-           <div class="dhaboard-row">
-            <div>
-                <span>2.</span>
-                
-              <span class="collec" >Samsung</span>  
-            </div>
-            <div class="collection">
-                <span>27,465465</span>
-            <span>+92.96</span>
-            <span>-16.38</span>
-            <span>12.98</span>
-            <span>5.9k</span>
-            <span>10K</span>
-            </div>
-            
-
-        </div>
-       
-           <div class="dhaboard-row">
-            <div>
-                <span>3.</span>
-                
-              <span class="collec" >HP</span>  
-            </div>
-            <div class="collection">
-                <span>27,465465</span>
-            <span>+92.96</span>
-            <span>-16.38</span>
-            <span>12.98</span>
-            <span>5.9k</span>
-            <span>10K</span>
-            </div>
-            
-
-        </div>
+        {Array.isArray(products) && products.map((product, index) => (
+              <DashRow key={index} product={product} />
+             
+            ))}
+          
        
      </div>
 
