@@ -11,19 +11,12 @@ const productController = {
 
   getAllProducts: async (req, res) => {
     try {
-      const products = await db.products.findAll();
-      
-      const productsWithImageUrl = products.map(product => ({
-        ...product.toJSON(),
-        imageUrl: product.imageUrl ? `${process.env.CLOUDINARY_BASE_URL}/${process.env.CLOUD_NAME}/uploads/${product.imageUrl}` : null,
-      }));
-  
-      res.json(productsWithImageUrl);
+      const products = await  db.products.findAll();
+      res.json(products);
     } catch (error) {
       res.status(500).send(error.message);
     }
   },
-  
 
   getProductById: async (req, res) => {
     try {
@@ -40,7 +33,9 @@ const productController = {
     }
   },
 
- createProduct: async (req, res) => {
+ // controllers/productController.js
+
+createProduct: async (req, res) => {
   try {
     const {
       name,
@@ -51,23 +46,18 @@ const productController = {
       status,
       color,
       manufacturer,
-      imageUrl: imageUrlFromBody, 
     } = req.body;
 
-    let imageUrl = ''; 
+    const imageUrl = req.file ? req.file.path : '';
 
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      imageUrl = result.secure_url;
-    } else if (imageUrlFromBody) {
-      imageUrl = imageUrlFromBody;
-    }
+    console.log(req.body);
+    console.log('imageUrl', imageUrl);
 
     const newProduct = await db.products.create({
       name,
       description,
       price,
-      imageUrl,
+      imageUrl, 
       category,
       quantity,
       status,
@@ -79,9 +69,7 @@ const productController = {
   } catch (error) {
     res.status(500).send(error.message);
   }
-},
-
-updateProduct: async (req, res) => {
+},updateProduct: async (req, res) => {
   try {
     const { id } = req.params;
     const product = await db.products.findByPk(id);
@@ -90,25 +78,26 @@ updateProduct: async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
+    let newImageUrl; // Declare newImageUrl in the outer scope
+
     if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      const newImageUrl = result.secure_url;
+      newImageUrl = req.file.path;
       product.imageUrl = newImageUrl;
       await product.update({ imageUrl: newImageUrl });
-    } else if (req.body.imageUrl) {
-      product.imageUrl = req.body.imageUrl;
-      await product.update({ imageUrl: req.body.imageUrl });
+
     }
+
+    console.log("file", newImageUrl); 
 
     await product.update(req.body);
 
+    
     res.json({ message: 'Product updated successfully' });
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 },
-
 
   deleteProduct: async (req, res) => {
     try {
