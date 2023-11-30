@@ -33,58 +33,71 @@ const productController = {
     }
   },
 
-  createProduct: async (req, res) => {
-    try {
-      const {
-        name,
-        description,
-        price,
-        imageUrl,
-        category,
-        quantity,
-        status,
-        color,
-        manufacturer,
-     //   onSale,
-      } = req.body;
-console.log(req.body)
+ // controllers/productController.js
 
-      const newProduct = await db.products.create({
-        name,
-        description,
-        price,
-        imageUrl,
-        category,
-        quantity,
-        status,
-        color,
-        manufacturer,
-     //   onSale,
-      });
-      res.json({ message: "created new product", newProduct });
-      //res.json(newProduct);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
-  },
+createProduct: async (req, res) => {
+  try {
+    const {
+      name,
+      description,
+      price,
+      category,
+      quantity,
+      status,
+      color,
+      manufacturer,
+    } = req.body;
 
-  updateProduct: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const product = await db.products.findByPk(id);
-  
-      if (!product) {
-        return res.status(404).json({ error: 'Product not found' });
-      }
-  
-      await product.update(req.body);
-  
-      res.json({ message: 'Product updated successfully' });
-    } catch (error) {
-      console.error('Error updating product:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    const imageUrl = req.file ? req.file.path : '';
+
+    console.log(req.body);
+    console.log('imageUrl', imageUrl);
+
+    const newProduct = await db.products.create({
+      name,
+      description,
+      price,
+      imageUrl, 
+      category,
+      quantity,
+      status,
+      color,
+      manufacturer,
+    });
+
+    res.json({ message: 'created new product', newProduct });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+},updateProduct: async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await db.products.findByPk(id);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
     }
-  },
+
+    let newImageUrl; // Declare newImageUrl in the outer scope
+
+    if (req.file) {
+      newImageUrl = req.file.path;
+      product.imageUrl = newImageUrl;
+      await product.update({ imageUrl: newImageUrl });
+
+    }
+
+    console.log("file", newImageUrl); 
+
+    await product.update(req.body);
+
+    
+    res.json({ message: 'Product updated successfully' });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+},
 
   deleteProduct: async (req, res) => {
     try {
