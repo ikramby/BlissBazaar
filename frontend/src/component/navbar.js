@@ -198,7 +198,7 @@ export default function SearchAppBar() {
           )}
 
 
-         <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
+           <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
            <IconButton color="inherit">
            <ShoppingCartIcon />
            </IconButton>

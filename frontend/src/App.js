@@ -15,6 +15,7 @@ import EditProductForm from './pages/Editproduct';
 import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
 import MediaCustomer from "./component/mediaCustomer";
+import BasketCard from "./pages/basketCard";
 function App() {
   return (
     <AuthProvider>
@@ -32,6 +33,7 @@ function App() {
 
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/seller" element={<Seller />} />
+        <Route path="/basket" element={<BasketCard/>} />
 
         <Route path="/allproduct" element={<AllProduct />} />
         <Route path="/products/:productId" element={<MediaCustomer />} />
