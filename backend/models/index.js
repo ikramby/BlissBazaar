@@ -17,6 +17,7 @@ db.message = require('./Message')(sequelize, DataTypes);
 db.products = require('./product')(sequelize, DataTypes);
 db.cart = require('./cart')(sequelize, DataTypes);
 db.users = require('./user')(sequelize, DataTypes);
+db.orders = require('./orders')(sequelize, DataTypes);
 
 db.cart.belongsTo(db.users, { foreignKey: 'iduser' });
 db.Cart = db.cart; 

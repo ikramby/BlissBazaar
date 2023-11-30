@@ -29,7 +29,6 @@ app.use(cors());
 const routeApp = require("./route/singin");
 const productroute = require("./route/product");
 const messageroute = require("./route/Message");
-
 const userRoutes = require("./route/user");
 const cartroute = require("./route/cart");
 const path = require('path'); 

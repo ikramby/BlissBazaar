@@ -16,10 +16,11 @@ import Dashboard from './pages/dashboard'
 import Seller from "./pages/seller";
 import FAQPage from "./pages/faq";
 import Team from "./pages/teams";
+import BasketCard from "./pages/basketCard";
 
 import MediaCustomer from "./component/mediaCustomer";
 import PartnerWithUsPage from "./pages/partner";
-import BasketCard from "./pages/basketCard";
+
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
         <Route path="/Team" element={<Team />} />
         <Route path="/OurPartner" element={<PartnerWithUsPage />} />
         <Route path="/product/:productId" element={<MediaCustomer />} />
+        <Route path="/basket" element={<BasketCard/>} />
+        {/* test  */}
+
         <Route path="/allproduct" element={<AllProduct />} />
         <Route path="/basket" element={<BasketCard/>} />
         <Route path="/products/:productId" element={<MediaCustomer />} />
