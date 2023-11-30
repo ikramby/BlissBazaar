@@ -13,6 +13,9 @@ import Footer from "./Footer";
 import MediaCustomer from '../component/mediaCustomer';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import ImageList from "@mui/material/ImageList";
+import  ImageListItem from '@mui/material/ImageListItem';
+import Box from "@mui/material/Box";
 
 const mainFeaturedPost = {
   title:
@@ -137,6 +140,54 @@ const HomePage = () => {
   
   
 
+  const itemData = [
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc5l-eOwbd2zI8OPDaL--OM_WrHST_jl9TYwn0zf1DTjUhRBC3SOZj5VKsyZfdhwpLRKQ&usqp=CAU',
+      title: 'Bed',
+    },
+    {
+      img: 'https://assets-prd.ignimgs.com/2022/05/06/apple-accessory-sale-1651854444712.png',
+      title: 'Books',
+    },
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxtgaBcXlyDA_LK-H6NrqZh9wMs6jrTmz2DSOjOWu7bQIu0AoAAIp5yapgR3pcZfZgiuc&usqp=CAU',
+      title: 'Sink',
+    },
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQFdOp1sm9K1ZwFHgIa-igUMrgsyTDJNvwuHwQt5QckRapaJo4VJHZQojC-xN-YvFqs94&usqp=CAU',
+      title: 'Kitchen',
+    },
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXgOpS7LyrX1g2oZ77IaarjvLfVA0y4W5tIZP7f8J7cG7CODr3ULhOOPQDQGi58RIUKPk&usqp=CAU',
+      title: 'Blinds',
+    },
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMYEJgI2GtUSLNrQVON1jY5LllpsTsTEJYaD1WDzGqFpYZ_eIzVgvmYprDlSldmMgWsUo&usqp=CAU',
+      title: 'Chairs',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
+      title: 'Laptop',
+    },
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRiyH1_OcdzCatkeUUgql544d96DJgAu0ekR4qJ0MjIzHQhP_K4w8HI2IERPKtaJ0tI8w&usqp=CAU',
+      title: 'Doors',
+    },
+    {
+      img: 'https://www.hp.com/fr-fr/shop/Html/Merch/Images/8C1D3EA-ABF_7_390x286.jpg',
+      title: 'Coffee',
+    },
+    {
+      img: 'https://www.hp.com/fr-fr/shop/Html/Merch/Images/c08482761_390x286.jpg',
+      title: 'Storage',
+    },
+    {
+      img: 'https://www.hp.com/fr-fr/shop/Html/Merch/Images/7Q884EA-ABF_2_390x286.jpg',
+      title: 'Candle',
+    },
+
+  ];
+  
 
   return (
     <div>
@@ -194,12 +245,30 @@ const HomePage = () => {
              */}
 
             <div className="section-image">
-              <img
+            <Box sx={{ width: 500, height: 450 }}>
+      <ImageList variant="masonry" cols={3} gap={8}>
+        {itemData.map((item) => (
+          <ImageListItem key={item.img}>
+            <img
+              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.img}?w=248&fit=crop&auto=format`}
+              alt={item.title}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Box>
+            {/*
+            <img
                 src="/images/HomePage1.jpg"
                 alt="Placeholder"
-              />
+              /> */}  
             </div>
           </div>
+  
+   
+
 
           <div className="section section-right">
             <div className="section-image">
