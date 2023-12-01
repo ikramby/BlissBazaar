@@ -76,15 +76,27 @@ export default function SignInSide() {
   
       alert("Logged in successfully!");
       setAuth(true);
-  
-     
-  
-      // Check the purpose from the user information
-      if (userInfo.purpose === "Selling") {
+   
+          const userInfoResponse = await axios.get(
+            `http://localhost:7000/tech/getMyInformation/${email}`
+          );
+          
+          console.log("User information response:", userInfoResponse.data);
+      
+          const purpose = userInfoResponse.data.purpose;
+      
+          // Check the purpose from the user information
+      if (purpose === "Selling") {
         navigate("/seller");
       } else {
         navigate("/");
       }
+      
+      
+      
+     
+  
+    
     } catch (error) {
       console.error("Login error:", error);
       alert("Email or password is incorrect. Please try again.");
