@@ -23,30 +23,38 @@ const productController = {
       res.status(500).send(error.message);
     }
   },
+
+
+  
   searchProducts: async (req, res) => {
     try {
-      const { input } = req.query;
-console.log(input)
-      const products = await Product.findAll({
+      const { input } = req.params;
+  
+      const products = await db.products.findAll({
         where: {
           [Op.or]: [
-            { name: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by name
-            { description: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by description
-            { manufacturer: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by manufacturer
-            { color: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by color
-            { category: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by category
-
-            
+            { name: { [Op.like]: `%${input}%` } },
+            { description: { [Op.like]: `%${input}%` } },
+            { manufacturer: { [Op.like]: `%${input}%` } },
+            { color: { [Op.like]: `%${input}%` } },
+            { category: { [Op.like]: `%${input}%` } },
           ],
         },
       });
-
+  
       res.json(products);
     } catch (error) {
-      console.error(error);
+      console.error('Error searching products:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   },
+  
+  
+  
+
+
+
+
   getProductById: async (req, res) => {
     try {
       const { id } = req.params;

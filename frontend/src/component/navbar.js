@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import  { useState } from 'react';
+import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -66,11 +66,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-  
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [product, setProduct] = useState('');
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [productSearch, setProductSearch] = useState('');
+  const [showCategories, setShowCategories] = useState(false);
   const { auth, setAuth, isAdmin } = useContext(AuthContext);
+  const [input, setInput] = useState("")
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -91,7 +92,7 @@ export default function SearchAppBar() {
       navigate('/login');
 
   };
-  const [showCategories, setShowCategories] = useState(false);
+
 
   // List of categories
   const categories = [
@@ -104,22 +105,29 @@ export default function SearchAppBar() {
     'wearables',
     'accessories',
   ];
-  const [input, setInput] = useState("")
-   
- 
- // const handleChange = (e) => {
-   //   setInput(e.target.value);
-    //};
- 
-    const handleSearch = async () => {
-      try {
-          const response = await axios.get(`http://localhost:7000/products/search/${input}`);
-console.log("input", input)
-          setProduct(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+
+
+
+  // const handleChange = (e) => {
+  //   setInput(e.target.value);
+  //};
+
+  const handleSearch = async () => {
+    try {
+
+      // const response = await axios.get(`http://localhost:7000/products/search/${input}`);
+      const searchUrl = `http://localhost:7000/products/search/${input}`;
+      
+
+      const response = await axios.get(searchUrl);
+
+      console.log("input", input);
+      setProductSearch(response.data);
+      
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   // Function to toggle the visibility of categories
   const toggleCategories = () => {
@@ -127,7 +135,7 @@ console.log("input", input)
   };
 
   return (
-    <Box sx={{ flexGrow: 1 } } >
+    <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static" color="transparent">
 
         <Toolbar>
@@ -140,7 +148,7 @@ console.log("input", input)
          //   onClick={toggleCategories}
 
           >
-    
+
             <MenuIcon />
           </IconButton>
           <Typography
@@ -149,22 +157,49 @@ console.log("input", input)
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href='/' sx={{color:'white'}}>  TechBazar</Link>
-           
+            <Link href='/' sx={{ color: 'white' }}>  TechBazar</Link>
+
           </Typography>
-          
-          
-          {!auth && 
-          (<>
-            <Typography
+
+
+          {!auth &&
+            (<>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              >
+                <Link href='/login' sx={{ color: 'white' }}>
+                  LOGIN
+                </Link>
+              </Typography>
+
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              >
+                <Link href='/register' sx={{ color: 'white' }}>
+                  REGESTER
+                </Link>
+              </Typography>
+
+
+            </>)}
+
+
+          <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link href='/login' sx={{color:'white'}}>
-           LOGIN
-         </Link>
+            <Link href='/AboutUs' sx={{ color: 'white' }}>
+              About Us
+            </Link>
+
           </Typography>
 
           <Typography
@@ -173,61 +208,34 @@ console.log("input", input)
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-         <Link href='/register' sx={{color:'white'}}>
-            REGESTER
-         </Link>
-         </Typography>
-           
+            <Link href='/allproduct' sx={{ color: 'white' }}>
+              All products
+            </Link>
+          </Typography>
 
-          </>)}
-         
-           
-         <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-         <Link href='/AboutUs' sx={{color:'white'}}>
-            About Us
-         </Link>
-        
-         </Typography>
 
-         <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-         <Link href='/allproduct' sx={{color:'white'}}>
-            All products
-         </Link>
-         </Typography>
-
-       
-         {(auth && isAdmin()) && (
+          {(auth && isAdmin()) && (
             <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              <Link href='/dashboard' sx={{color:'white'}}>
+              <Link href='/dashboard' sx={{ color: 'white' }}>
                 Dashboard
               </Link>
             </Typography>
           )}
 
 
-           <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
-           <IconButton color="inherit">
-           <ShoppingCartIcon />
-           </IconButton>
-         </Link>
+          <Link href="/basket" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <IconButton color="inherit">
+              <ShoppingCartIcon />
+            </IconButton>
+          </Link>
 
 
-         {auth && (
+          {auth && (
             <div>
               <IconButton
                 size="large"
@@ -255,11 +263,11 @@ console.log("input", input)
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Log out</MenuItem>
-               
+
               </Menu>
             </div>
           )}
-         
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -267,18 +275,37 @@ console.log("input", input)
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              style={{backgroundColor:'white'}}
+              style={{ backgroundColor: 'white' }}
+              onChange={(e) => {
+                setInput(e.target.value);
+                handleSearch(); // Call handleSearch on input change
+              }}
             />
           </Search>
         </Toolbar>
-  
       </AppBar>
+
       {showCategories && (
         <ul className="categories-list">
-        {categories.map((category) => (
-          <li key={category}>{category}</li>
-        ))}
-      </ul>
+          {categories.map((category) => (
+            <li key={category}>{category}</li>
+          ))}
+        </ul>
+      )}
+
+      {/* Display search results */}
+      {productSearch && productSearch.length > 0 && (
+        // <Box sx={{ p: 2, backgroundColor: 'lightgray' }}>
+        //   <Typography variant="h6" component="div" sx={{ color: 'black' }}>
+        //     Search Results:
+        //   </Typography>
+        //   <ul>
+        //     {product.map((result) => (
+        //       <li key={result.id}>{result.name}</li>
+        //     ))}
+        //   </ul>
+        // </Box>
+        <AllProduct productSearch={productSearch}/>
       )}
     </Box>
   );
