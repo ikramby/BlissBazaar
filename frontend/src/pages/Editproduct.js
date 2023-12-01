@@ -17,7 +17,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
-import UploadFile from "./UploadFile"; 
+import UploadFile from "./UploadFiles"; 
 
 const EditProductForm = ({
   productId,
@@ -47,8 +47,9 @@ const EditProductForm = ({
   const [imageFile, setImageFile] = useState(null);
   const [useImageUrl, setUseImageUrl] = useState(false);
 
-  const handleFileUpload = (imageUrl) => {
-    setImageUrl(imageUrl);
+  const handleFileUpload = (file) => {
+    console.log("Selected file for upload:", file);
+    setImageFile(file);
   };
 
   useEffect(() => {
@@ -78,8 +79,21 @@ const EditProductForm = ({
   }, [paramProductId]);
   const [cloudName] = useState("dsozaejvw");
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      console.log("Selected file for upload:", file);
+      setImageFile(file);
+      setImageUrl(file);
+      setFileInput(file);
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    console.log("Submitting form...");
   
     const formData = new FormData();
     formData.append("name", nameInput);
@@ -91,40 +105,28 @@ const EditProductForm = ({
     formData.append("quantity", quantityInput);
   
     if (useImageUrl) {
-      formData.append("imageUrl", imageUrl);
+      formData.append("imageUrl", imageUrlInput);
     } else {
-      // Check if imageFile is not null before making the Cloudinary request
-      if (imageFile) {
-        try {
-          const cloudinaryResponse = await axios.post(
-            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-            imageFile,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-      
-          formData.append("imageUrl", cloudinaryResponse.data.secure_url);
-        } catch (error) {
-          console.error("Error uploading image to Cloudinary", error);
-          return; // Stop the submission if image upload fails
-        }
-      } else {
-        console.error("No image file selected");
-        return; // Stop the submission if no image file is selected
-      }
-      
+      formData.append("image", imageFile);
     }
   
     try {
       const response = await axios.put(
         `http://localhost:7000/products/${paramProductId}`,
-        formData
+        {
+          name: nameInput,
+          description: descriptionInput,
+          price: priceInput,
+          category: categoryInput,
+          color: colorInput,
+          manufacturer: manufacturerInput,
+          quantity: quantityInput,
+          imageUrl: imageFile, 
+        }
       );
+      
   
-      setImageUrl(response.data.imageUrl);
+      //setImageUrl(response.data.imageUrl);
       console.log("Product updated successfully");
       navigate(`/allproduct`);
     } catch (error) {
@@ -145,26 +147,6 @@ const EditProductForm = ({
   const onChangeManufacturer = (e) => {
     setManufacturer(e.target.value);
   };
-
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-  
-    if (file) {
-      setFileInput(file);
-  
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
-        setImageFile(file); // Set the image file
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
-
-
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -263,14 +245,15 @@ const EditProductForm = ({
             />
           ) : (
             <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-                id="image-input"
-                name="image"
-              />
+             <input
+  type="file"
+  accept="image/*"
+  onChange={handleImageChange}
+  style={{ display: "none" }} // Ensure it is not set to "none"
+  id="image-input"
+  name="image"
+/>
+
               <label htmlFor="image-input">
               <UploadFile onFileUpload={handleFileUpload} />
 
