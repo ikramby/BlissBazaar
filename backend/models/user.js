@@ -29,26 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    avatar: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    facebook: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    twitter: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    instagram: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    linkedIn: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+  
     manufacturer: {
       type: DataTypes.STRING,
       allowNull: true,

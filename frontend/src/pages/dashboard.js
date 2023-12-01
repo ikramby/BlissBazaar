@@ -8,6 +8,24 @@ import { useState, useEffect } from 'react';
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
+
+  const deleteUser = async (userId) => {
+    try {
+      const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+
+      if(confirmDelete){
+         await axios.delete(`http://localhost:7000/tech/delete/${userId}`);
+      // Update the users state to reflect the deletion
+      const updatedUsers = users.filter(user => user.id !== userId);
+      setUsers(updatedUsers);
+      }
+     
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+
   useEffect(() => {
     // Inner function that calls the API
     const fetchProducts = async () => {
@@ -34,7 +52,7 @@ export default function Dashboard() {
     // Inner function that calls the API
     const fetchUsers = async () => {
       try {
-       
+        
         const resp = await axios.get('http://localhost:7000/tech/getAllUsers'); 
 
        
@@ -63,12 +81,12 @@ export default function Dashboard() {
      <div id="dhashboard-filter">
         <div id="market-place-performance">Market Place Performance</div>
         <div id="select"> 
-            <select name="days" id="days">
+            {/* <select name="days" id="days">
 
         </select>
         <select name="all-categ" id="all-categ">
 
-        </select>
+        </select> */}
     </div>
        
      </div>
@@ -82,7 +100,7 @@ export default function Dashboard() {
             <span>Created at </span>
             <span>Updated at </span>
             <span>Price</span>
-            <span>Oweners</span>
+            <span>Description</span>
             <span>Color</span>
             </div>
             
@@ -95,7 +113,7 @@ export default function Dashboard() {
              
             ))}
             
-          <DenseTable users ={users}/>
+          <DenseTable users ={users} deleteUser={deleteUser} />
        
      </div>
 
