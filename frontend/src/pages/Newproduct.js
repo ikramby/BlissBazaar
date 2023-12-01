@@ -13,12 +13,15 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 import InputAdornment from "@mui/material/InputAdornment";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
 import UploadFile from "./UploadFile"; 
 const NewProductForm = ({ addNewProduct }) => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -73,6 +76,7 @@ const NewProductForm = ({ addNewProduct }) => {
       setManufacturer('');
       setOnSale(false);
       setQuantity('');
+      navigate('/allproduct');
 
     } catch (error) {
       console.error('Error adding product', error);
@@ -194,7 +198,7 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
-          <UploadFile onFileUpload={handleFileUpload} />
+        
 
          {/* Checkbox to choose between URL and file upload */}
         
@@ -230,14 +234,8 @@ const NewProductForm = ({ addNewProduct }) => {
                 name="image"
               />
               <label htmlFor="image-input">
-                <Button
-                  component="span"
-                  color="primary"
-                  variant="contained"
-                  style={{ marginTop: "20px" }}
-                >
-                  Upload Image
-                </Button>
+              <UploadFile onFileUpload={handleFileUpload} />
+              
               </label>
 
               {imageUrl && (
