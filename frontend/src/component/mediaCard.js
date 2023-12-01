@@ -115,7 +115,7 @@ export default function MediaCard({
      }} style={shadowStyle}>
 <CardMedia
   style={{ minHeight: '50vh', maxHeight: '50vh' }}
-  image={absoluteImageUrl}
+  image={imageUrl}
   title={name}
   onError={(e) => {
     console.error('Error loading image:', e);
