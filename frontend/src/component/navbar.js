@@ -133,7 +133,7 @@ console.log("input", input)
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
-            onClick={toggleCategories}
+         //   onClick={toggleCategories}
 
           >
     
