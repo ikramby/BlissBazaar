@@ -5,8 +5,8 @@ const multer = require('multer');
 const {storage}= require('../index')
 
 const upload = multer({ dest: 'uploads' });
-router.post('/', upload.single('image'), productController.createProduct);
-router.put('/:id', upload.single('image'), productController.updateProduct);
+router.post('/', productController.createProduct);
+router.put('/:id',  productController.updateProduct);
 
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);

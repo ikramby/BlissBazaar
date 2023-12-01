@@ -200,6 +200,7 @@ export default function AllProduct({productSearch}) {
   console.log(data,'data')
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [cloudName] = useState("dsozaejvw");
 
 
   return (
@@ -329,7 +330,7 @@ export default function AllProduct({productSearch}) {
  
         </div>
     </div>
-          {/* Footer */}
+       
 
           <Container
         maxWidth="md"
@@ -343,7 +344,6 @@ export default function AllProduct({productSearch}) {
         <Footer />
       </Container>
 
-      {/* End footer */}
     </>
     
   )

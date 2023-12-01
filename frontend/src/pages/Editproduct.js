@@ -17,6 +17,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
+import UploadFile from "./UploadFiles"; 
 
 const EditProductForm = ({
   productId,
@@ -46,6 +47,11 @@ const EditProductForm = ({
   const [imageFile, setImageFile] = useState(null);
   const [useImageUrl, setUseImageUrl] = useState(false);
 
+  const handleFileUpload = (file) => {
+    console.log("Selected file for upload:", file);
+    setImageFile(file);
+  };
+
   useEffect(() => {
     if (paramProductId) {
       const fetchProduct = async () => {
@@ -71,9 +77,23 @@ const EditProductForm = ({
       fetchProduct();
     }
   }, [paramProductId]);
+  const [cloudName] = useState("dsozaejvw");
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      console.log("Selected file for upload:", file);
+      setImageFile(file);
+      setImageUrl(file);
+      setFileInput(file);
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    console.log("Submitting form...");
   
     const formData = new FormData();
     formData.append("name", nameInput);
@@ -82,29 +102,39 @@ const EditProductForm = ({
     formData.append("category", categoryInput);
     formData.append("color", colorInput);
     formData.append("manufacturer", manufacturerInput);
-  //  formData.append("onSale", onSaleInput);
     formData.append("quantity", quantityInput);
   
     if (useImageUrl) {
-      formData.append("imageUrl", imageUrl);
+      formData.append("imageUrl", imageUrlInput);
     } else {
       formData.append("image", imageFile);
     }
-    console.log("image",imageFile)
   
     try {
       const response = await axios.put(
         `http://localhost:7000/products/${paramProductId}`,
-        formData
+        {
+          name: nameInput,
+          description: descriptionInput,
+          price: priceInput,
+          category: categoryInput,
+          color: colorInput,
+          manufacturer: manufacturerInput,
+          quantity: quantityInput,
+          imageUrl: imageFile, 
+        }
       );
-        setImageUrl(response.data.imageUrl);
+      
   
+      //setImageUrl(response.data.imageUrl);
       console.log("Product updated successfully");
       navigate(`/allproduct`);
     } catch (error) {
       console.error("Error updating product", error);
     }
   };
+  
+  
   
   const onChangeCategory = (e) => {
     setCategory(e.target.value);
@@ -117,26 +147,6 @@ const EditProductForm = ({
   const onChangeManufacturer = (e) => {
     setManufacturer(e.target.value);
   };
-
-  const handleFileChange = (e) => {
-    setFileInput(e.target.files[0]);
-  };
-  
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setImageFile(file);
-    }
-    console.log("file",file)
-
-  };
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -209,6 +219,9 @@ const EditProductForm = ({
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
+
+
+
   {/* Checkbox to choose between URL and file upload */}
   <FormControlLabel
             control={
@@ -232,23 +245,18 @@ const EditProductForm = ({
             />
           ) : (
             <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-                id="image-input"
-                name="image"
-              />
+             <input
+  type="file"
+  accept="image/*"
+  onChange={handleImageChange}
+  style={{ display: "none" }} // Ensure it is not set to "none"
+  id="image-input"
+  name="image"
+/>
+
               <label htmlFor="image-input">
-                <Button
-                  component="span"
-                  color="primary"
-                  variant="contained"
-                  style={{ marginTop: "20px" }}
-                >
-                  Upload Image
-                </Button>
+              <UploadFile onFileUpload={handleFileUpload} />
+
               </label>
               {imageUrl && (
                 <img

@@ -3,23 +3,16 @@ const app = express();
 const router = express.Router();
 const cors = require("cors");
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary'); 
-const multer = require('multer'); // Add this line to import multer
-const upload = multer({ dest: 'uploads' }); // specify the destination folder for temporary storage
-
+const fileupload = require('express-fileupload');
+require("dotenv").config();
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_Name, 
   api_key: process.env.CLOUD_API_KEY, 
   api_secret: process.env.CLOUD_API_SECRET
 });
+app.use(fileupload({ useTempFiles: true }));
 
-const storage = new CloudinaryStorage({ // Use CloudinaryStorage
-  cloudinary: cloudinary,
-  params: {
-    folder: 'uploads',
-    allowedFormats: ['jpeg', 'png', 'jpg']
-  }
-});
+
 
 require("dotenv").config();
 app.use(express.json());
@@ -35,8 +28,8 @@ const orderRoutes = require('./route/orders')
 const path = require('path'); 
 const imageRoutes = require('./route/imageRoutes');
 
-app.use('/images', imageRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+//app.use('/images', imageRoutes);
+//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const db = require("./models");
 
@@ -59,16 +52,25 @@ app.use('/orders', orderRoutes);
 app.use("/tech", routeApp);
 app.use("/", userRoutes);
 
-app.post('/upload', upload.single('image'), async (req, res) => {
-    try {
-        const file = req.file;
-        const result = await cloudinary.uploader.upload(file.path);
-        res.json({ message: 'Upload successful', imageUrl: result.url });
-    } catch (error) {
-        console.error('Error uploading to Cloudinary:', error);
-        res.status(500).send('Error uploading image');
-    }
-});
+//app.post('/upload', async (req, res) => {
+//  try {
+ //   if (!req.files || !req.files.image) {
+ //     return res.status(400).json({ error: 'No image file provided' });
+ //   }
+
+   // const file = req.files.image;
+
+//    const result = await cloudinary.uploader.upload(file.tempFilePath, {
+  //    public_id: `${Date.now()}`,
+  //    resource_type: 'auto'
+  //  });
+
+    //res.json({ message: 'Upload successful', imageUrl: result.secure_url });
+  //} catch (error) {
+  //  console.error('Error uploading to Cloudinary:', error);
+  //  res.status(500).send('Error uploading image');
+ // }
+//});
 
 app.listen(port, () => {
   console.log(`server is running on port:${port}`);

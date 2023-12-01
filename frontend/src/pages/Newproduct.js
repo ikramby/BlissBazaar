@@ -13,13 +13,15 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 import InputAdornment from "@mui/material/InputAdornment";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
-//import InputFileUpload from '../component/uploadButton';
-
+import UploadFile from "./UploadFile"; 
 const NewProductForm = ({ addNewProduct }) => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -32,48 +34,66 @@ const NewProductForm = ({ addNewProduct }) => {
   const [quantity, setQuantity] = useState(null); 
   const [useImageUrl, setUseImageUrl] = useState(false);
 
+  const handleFileUpload = (imageUrl) => {
+    setImageUrl(imageUrl);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('description', description);
-    if (useImageUrl) {
-      formData.append("imageUrl", imageUrl);
-    } else {
-      formData.append("image", imageFile);
-    }
-    formData.append('price', price);
-    formData.append('category', category);
-    formData.append('status', status);
-    formData.append('color', color);
-    formData.append('manufacturer', manufacturer);
-    formData.append('onSale', onSale);
-    if (quantity !== null) {
-      formData.append('quantity', quantity);
-    }  
+
     try {
-      // Use axios.post to send a FormData with the image file to the server
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("description", description);
+      if (useImageUrl) {
+        formData.append("imageUrl", imageUrl);
+      } else {
+        formData.append("image", imageUrl); // Assuming imageUrl is a file blob
+      }
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("status", status);
+      formData.append("color", color);
+      formData.append("manufacturer", manufacturer);
+      formData.append("onSale", onSale);
+      if (quantity !== null) {
+        formData.append("quantity", quantity);
+      }
+
+      // Use axios.post to send FormData with the image file to the server
       const response = await axios.post('http://localhost:7000/products/', formData);
       console.log('Operation completed successfully', response);
+
+      // Reset form fields
+      setName('');
+      setDescription('');
+      setImageUrl('');
+      setPrice('');
+      setCategory('');
+      setStatus([]);
+      setColor([]);
+      setManufacturer('');
+      setOnSale(false);
+      setQuantity('');
+      navigate('/allproduct');
+
     } catch (error) {
       console.error('Error adding product', error);
     }
-  
-    // Reset form fields
-    setName('');
-    setDescription('');
-    setImageUrl('');
-    setPrice('');
-    setCategory('');
-    setStatus([]);
-    setColor([]);
-    setManufacturer([]);
-    setOnSale(false);
-    setQuantity('');
   };
-  
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   
 
   const [imageFile, setImageFile] = useState(null);
@@ -100,23 +120,12 @@ const NewProductForm = ({ addNewProduct }) => {
     setOnSalePercentage(e.target.value);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setImageFile(file);
-    }
-  };
 
 
   return (
     <div>
-<form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <Card
           variant="outlined"
           style={{
@@ -189,8 +198,12 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
+        
+
          {/* Checkbox to choose between URL and file upload */}
-         <FormControlLabel
+        
+           {/* Checkbox to choose between URL and file upload */}
+           <FormControlLabel
             control={
               <Checkbox
                 checked={useImageUrl}
@@ -221,16 +234,10 @@ const NewProductForm = ({ addNewProduct }) => {
                 name="image"
               />
               <label htmlFor="image-input">
-                <Button
-                  component="span"
-                  color="primary"
-                  variant="contained"
-                  style={{ marginTop: "20px" }}
-                >
-                  Upload Image
-                </Button>
-              </label>
+              <UploadFile onFileUpload={handleFileUpload} />
               
+              </label>
+
               {imageUrl && (
                 <img
                   src={imageUrl}
@@ -240,8 +247,6 @@ const NewProductForm = ({ addNewProduct }) => {
               )}
             </div>
           )}
-
-          {/* ... other input fields ... */}
           <TextField
             label="Price"
             variant="outlined"

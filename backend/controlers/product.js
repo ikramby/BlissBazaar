@@ -2,10 +2,14 @@ const { Product } = require('../models/product');
 const db = require('../models/index');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Op, Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
+const cloudinary = require('cloudinary').v2;
 
-
-
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_Name, 
+  api_key: process.env.CLOUD_API_KEY, 
+  api_secret: process.env.CLOUD_API_SECRET
+});
 
 
 const productController = {
@@ -93,8 +97,7 @@ const productController = {
   },
 
  // controllers/productController.js
-
-createProduct: async (req, res) => {
+ createProduct: async (req, res) => {
   try {
     const {
       name,
@@ -107,16 +110,13 @@ createProduct: async (req, res) => {
       manufacturer,
     } = req.body;
 
-    const imageUrl = req.file ? req.file.path : '';
-
-    console.log(req.body);
-    console.log('imageUrl', imageUrl);
+    const imageUrl = req.body.image; // Assuming the image URL is sent in the request body
 
     const newProduct = await db.products.create({
       name,
       description,
       price,
-      imageUrl, 
+      imageUrl, // Use the provided image URL
       category,
       quantity,
       status,
@@ -126,9 +126,12 @@ createProduct: async (req, res) => {
 
     res.json({ message: 'created new product', newProduct });
   } catch (error) {
-    res.status(500).send(error.message);
+    console.error('Error creating product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-},updateProduct: async (req, res) => {
+},
+
+updateProduct: async (req, res) => {
   try {
     const { id } = req.params;
     const product = await db.products.findByPk(id);
@@ -137,26 +140,24 @@ createProduct: async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    let newImageUrl; // Declare newImageUrl in the outer scope
+    let newImageUrl;
 
-    if (req.file) {
-      newImageUrl = req.file.path;
+    if (req.body.image) {
+      // Assuming the image URL is sent in the request body
+      newImageUrl = req.body.image;
       product.imageUrl = newImageUrl;
       await product.update({ imageUrl: newImageUrl });
-
     }
-
-    console.log("file", newImageUrl); 
 
     await product.update(req.body);
 
-    
     res.json({ message: 'Product updated successfully' });
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 },
+
 
   deleteProduct: async (req, res) => {
     try {

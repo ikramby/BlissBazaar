@@ -76,6 +76,23 @@ module.exports = {
               res.status(500).send(error.message);
             }
           },
+          deleteUser: async (req, res) => {
+            try {
+              const { id } = req.params;
+        
+              const user = await  db.users.findByPk(id);
+        
+              if (!user) {
+                return res.status(404).send('User not found');
+              }
+        
+              await user.destroy();
+        
+              res.json({ message: 'user deleted successfully' });
+            } catch (error) {
+              res.status(500).send(error.message);
+            }
+          },
 
         // Create a middleware function to verify JWT tokens
  verifyToken :(req, res, next) => {

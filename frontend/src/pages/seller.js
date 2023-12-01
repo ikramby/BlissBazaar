@@ -165,7 +165,7 @@ const fetchProducts = async () => {
 };
 
 
-
+const [cloudName] = useState("dsozaejvw");
 
 
 useEffect(() => {
@@ -353,6 +353,8 @@ useEffect(() => {
               imageUrl={product.imageUrl}
               price={product.price}
               category={product.categories}
+              cloudName={cloudName} 
+
             />
           ))}
 
