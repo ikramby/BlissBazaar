@@ -21,6 +21,7 @@ import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import './navbar.css'; 
 import axios from 'axios';  
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -78,6 +79,7 @@ export default function SearchAppBar() {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -85,7 +87,8 @@ export default function SearchAppBar() {
       // Remove the token from local storage and mark the user as not authenticated
       localStorage.removeItem('token');
       setAuth(false);
-    
+      navigate('/');
+
   };
   const [showCategories, setShowCategories] = useState(false);
 
