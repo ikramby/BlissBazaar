@@ -237,7 +237,7 @@ const BasketCard = () => {
             <div key={product.id}>
               <Typography>{product.name}</Typography>
               <Typography>Quantity: {product.quantity}</Typography>
-              <Typography>Total: ${product.price * product.quantity}</Typography>
+              <Typography>Total: DT{product.price * product.quantity}</Typography>
               <hr />
             </div>
           ))}
@@ -268,7 +268,7 @@ const BasketCard = () => {
             <div key={product.id}>
               <Typography>{product.name}</Typography>
               <Typography>Quantity: {product.quantity}</Typography>
-              <Typography>Total: ${product.price * product.quantity}</Typography>
+              <Typography>Total: DT{product.price * product.quantity}</Typography>
               <hr />
             </div>
           ))}

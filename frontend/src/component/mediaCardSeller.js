@@ -110,8 +110,9 @@ export default function MediaCard({
     borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)'
     
      }} style={shadowStyle}>
-            <CardMedia style={{ minHeight: '50vh', maxHeight:'50vh'  }}
-        image={absoluteImageUrl}
+            <CardMedia 
+  style={{ minHeight: '40vh', maxHeight: '40vh', width: '100%', objectFit: 'cover', height: '20px'}}
+  image={absoluteImageUrl}
         title={name} />
 
      {/*<CardMedia
