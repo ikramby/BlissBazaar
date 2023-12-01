@@ -320,7 +320,7 @@ export default function AllProduct() {
  
         </div>
     </div>
-          {/* Footer */}
+       
 
           <Container
         maxWidth="md"
@@ -334,7 +334,6 @@ export default function AllProduct() {
         <Footer />
       </Container>
 
-      {/* End footer */}
     </>
     
   )

@@ -24,6 +24,7 @@ const productroute = require("./route/product");
 const messageroute = require("./route/Message");
 const userRoutes = require("./route/user");
 const cartroute = require("./route/cart");
+const orderRoutes = require('./route/orders')
 const path = require('path'); 
 const imageRoutes = require('./route/imageRoutes');
 
@@ -46,6 +47,7 @@ app.use(cookieParser());
 app.use("/products", productroute);
 app.use("/cart", cartroute);
 app.use("/message", messageroute);
+app.use('/orders', orderRoutes);
 
 app.use("/tech", routeApp);
 app.use("/", userRoutes);
