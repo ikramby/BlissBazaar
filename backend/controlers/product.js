@@ -54,32 +54,6 @@ const productController = {
 
 
 
-//   searchProducts: async (req, res) => {
-//     try {
-//       const { input } = req.query;
-// console.log(input)
-//       const products = await Product.findAll({
-//         where: {
-//           [Op.or]: [
-//             { name: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by name
-//             { description: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by description
-//             { manufacturer: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by manufacturer
-//             { color: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by color
-//             { category: { [Op.iLike]: `%${input}%` } }, // Case-insensitive search by category
-
-            
-//           ],
-//         },
-//       });
-
-//       res.json(products);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//     }
-//   },
-
-
 
   getProductById: async (req, res) => {
     try {
