@@ -17,7 +17,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
       };
-      const { userRole } = useContext(AuthContext);
+      const { userRole, isAdmin  } = useContext(AuthContext);
 
       const navigate = useNavigate();
       const handleViewClick = () => {
@@ -113,7 +113,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
        <Button size="small" style={{ color: 'black', fontSize:'20px' }} >price:   {price}</Button>
        */} 
 
-       {userRole==='Selling' && (
+       {(userRole==='Selling' || isAdmin()) && (
         <>
            <Button size="small" style={{ color: 'white', fontSize: '20px' }} onClick={handleEditClick}>
           Edit

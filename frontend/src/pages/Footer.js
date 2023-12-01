@@ -128,7 +128,7 @@ const Footer = () => {
   return (
     <>
       <FooterBox>
-        <Container maxWidth={false} disableGutters>
+        <Container maxWidth={false} disableGutters >
           <FooterContent />
         </Container>
       </FooterBox>
@@ -145,6 +145,7 @@ const Footer = () => {
           position: "relative",
           left: "50%",
         }}
+        style={{marginBottom:'-10vh'}}
       >
         <Typography
           variant="subtitle1"

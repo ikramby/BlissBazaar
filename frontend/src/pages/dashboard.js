@@ -8,6 +8,19 @@ import { useState, useEffect } from 'react';
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
+
+  const deleteUser = async (userId) => {
+    try {
+      await axios.delete(`http://localhost:7000/tech/delete/${userId}`);
+      // Update the users state to reflect the deletion
+      const updatedUsers = users.filter(user => user.id !== userId);
+      setUsers(updatedUsers);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+
   useEffect(() => {
     // Inner function that calls the API
     const fetchProducts = async () => {
@@ -95,7 +108,7 @@ export default function Dashboard() {
              
             ))}
             
-          <DenseTable users ={users}/>
+          <DenseTable users ={users} deleteUser={deleteUser} />
        
      </div>
 

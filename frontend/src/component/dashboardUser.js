@@ -8,13 +8,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useStepperContext } from '@mui/material';
 
+
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
 
 
-export default function DenseTable({users}) {
+
+
+
+export default function DenseTable({users, deleteUser}) {
    
   return (
     <TableContainer component={Paper} style={{background:'transparent', marginTop:'20vh', color:'white'}}>
@@ -42,7 +46,10 @@ export default function DenseTable({users}) {
               <TableCell align="right" style={{ color:'white'}}>{user.lastName}</TableCell>
               <TableCell align="right" style={{ color:'white'}}>{user.email}</TableCell>
               <TableCell align="right" style={{ color:'white'}}>{user.purpose}</TableCell>
-              <TableCell align="right" style={{ color:'white'}}><button>Delete</button></TableCell>
+              <TableCell align="right" style={{ color:'white'}}>
+              <button  onClick={() => deleteUser(user.id)}
+              
+              >Delete</button></TableCell>
             </TableRow>
           ))}
         </TableBody>

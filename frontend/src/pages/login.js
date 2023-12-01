@@ -64,16 +64,7 @@ export default function SignInSide() {
     event.preventDefault();
   
     try {
-      // First, get user information
-      const userInfoResponse = await axios.get(
-        `http://localhost:7000/tech/getMyInformation/${email}`
-      );
-      const userInfo = userInfoResponse.data;
-  
-      // Set user information in context or state if needed
-      setUserInfo(userInfo);
-  
-      // Continue with the login request
+      
       const loginResponse = await axios.post("http://localhost:7000/tech/login", {
         email,
         password,
@@ -86,7 +77,7 @@ export default function SignInSide() {
       alert("Logged in successfully!");
       setAuth(true);
   
-      console.log("Email set in context:", email);
+     
   
       // Check the purpose from the user information
       if (userInfo.purpose === "Selling") {
