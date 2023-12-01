@@ -15,7 +15,7 @@ import './allProduct.css';
 
 
 
-export default function AllProduct() {
+export default function AllProduct({productSearch}) {
 
   const [data,setData] = useState([])
 
@@ -299,19 +299,29 @@ export default function AllProduct() {
 
           </div>
           <div id="allProduct-component">
-              <div id="allProduct-component">
-              {products.map((product) => (
-      <MediaCard
-        key={product.id}
-        productId={product.id}
-        name={product.name}
-        description={product.description}
-        imageUrl={product.imageUrl} 
-        price={product.price}
-        category={product.categories}
-        cloudName={cloudName} // Pass the cloudName as a prop
-
-      />
+          <div id="allProduct-component">
+  {productSearch && productSearch.length > 0
+    ? productSearch.map((product) => (
+        <MediaCard
+          key={product.id}
+          productId={product.id}
+          name={product.name}
+          description={product.description}
+          imageUrl={product.imageUrl}
+          price={product.price}
+          category={product.categories}
+        />
+      ))
+    : products.map((product) => (
+        <MediaCard
+          key={product.id}
+          productId={product.id}
+          name={product.name}
+          description={product.description}
+          imageUrl={product.imageUrl}
+          price={product.price}
+          category={product.categories}
+        />
       ))}
 </div>
 
