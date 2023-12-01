@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
+const cloudName = 'dsozaejvw';
 
 export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
  console.log("imageUrl", imageUrl)
- const absoluteImageUrl = imageUrl ? `/uploads/${imageUrl.replace(/\\/g, '/')}` : '';
  const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
@@ -27,7 +27,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
             productId,
             name,
             description,
-            absoluteImageUrl,
+            imageUrl,
             price,
             category,
             color,
@@ -91,7 +91,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
      }} style={shadowStyle}>
 <CardMedia
   style={{ minHeight: '50vh', maxHeight: '50vh' }}
-  image={absoluteImageUrl}
+  image={imageUrl}
   title={name}
   onError={(e) => {
     console.error('Error loading image:', e);

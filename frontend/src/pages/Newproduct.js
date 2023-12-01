@@ -31,6 +31,9 @@ const NewProductForm = ({ addNewProduct }) => {
   const [quantity, setQuantity] = useState(null); 
   const [useImageUrl, setUseImageUrl] = useState(false);
 
+  const handleFileUpload = (imageUrl) => {
+    setImageUrl(imageUrl);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -191,7 +194,7 @@ const NewProductForm = ({ addNewProduct }) => {
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
-          <UploadFile /> {/* Include the UploadFile component */}
+          <UploadFile onFileUpload={handleFileUpload} />
 
          {/* Checkbox to choose between URL and file upload */}
         

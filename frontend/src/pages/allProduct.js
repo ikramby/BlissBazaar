@@ -305,7 +305,7 @@ export default function AllProduct() {
         productId={product.id}
         name={product.name}
         description={product.description}
-        imageUrl={product.imageUrl}
+        imageUrl={product.imageUrl} 
         price={product.price}
         category={product.categories}
       />
