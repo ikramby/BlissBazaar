@@ -205,18 +205,31 @@ const HomePage = () => {
   const handleFormSubmit = async () => {
     try {
       const fullName = `${formData.firstName} ${formData.lastName}`;
-  
+
       const response = await axios.post('http://localhost:7000/message/', {
         fullName,
-        subject: formData.message, 
+        subject: formData.message,
       });
-  
+
       console.log('Message created successfully:', response.data);
-  
+
+      // Alert user
+      alert('Message sent successfully!');
+
+      // Reset form fields
+      setFormData({
+        firstName: '',
+        lastName: '',
+        message: '',
+      });
+
+      // Reload the page
+      window.location.reload();
     } catch (error) {
       console.error('Error creating message:', error);
     }
   };
+
   
   return (
     <div>
