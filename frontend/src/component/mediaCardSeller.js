@@ -10,15 +10,37 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 
-export default function MediaCardSeller({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- 
+export default function MediaCard({
+  productId,
+  name,
+  description,
+  imageUrl,
+  price,
+  category,
+  color,
+  manufacturer,
+  onSale,
+  cloudName,
+}) { 
   const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
       };
       const { userRole } = useContext(AuthContext);
-
+      const getPublicId = (imageUrl) => {
+        if (!imageUrl) {
+          return null;
+        }
+        const match = imageUrl.match(/\/([^/]+)\/?$/);
+        return match ? match[1] : null;
+      };
+    
+      const publicId = getPublicId(imageUrl);
+      const absoluteImageUrl = publicId
+        ? `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}`
+        : '';
+    
       const navigate = useNavigate();
       const handleViewClick = () => {
         navigate(`/products/${productId}`, {
@@ -88,7 +110,9 @@ export default function MediaCardSeller({ productId,name, description, imageUrl,
     borderRadius:'10px',margin:'10px', backgroundColor:'hsla(0, 0%, 100%, 0.1)'
     
      }} style={shadowStyle}>
-            <CardMedia style={{ minHeight: '50vh', maxHeight:'50vh'  }} image={imageUrl} title={name} />
+            <CardMedia style={{ minHeight: '50vh', maxHeight:'50vh'  }}
+        image={absoluteImageUrl}
+        title={name} />
 
      {/*<CardMedia
         sx={{ height: 240 }}

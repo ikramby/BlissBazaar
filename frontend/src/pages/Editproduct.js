@@ -17,7 +17,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
-
+import UploadFile from "./UploadFile"; 
 const EditProductForm = ({
   productId,
   name,
@@ -46,6 +46,10 @@ const EditProductForm = ({
   const [imageFile, setImageFile] = useState(null);
   const [useImageUrl, setUseImageUrl] = useState(false);
 
+  const handleFileUpload = (imageUrl) => {
+    setImageUrl(imageUrl);
+  };
+
   useEffect(() => {
     if (paramProductId) {
       const fetchProduct = async () => {
@@ -71,6 +75,7 @@ const EditProductForm = ({
       fetchProduct();
     }
   }, [paramProductId]);
+  const [cloudName] = useState("dsozaejvw");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,22 +87,38 @@ const EditProductForm = ({
     formData.append("category", categoryInput);
     formData.append("color", colorInput);
     formData.append("manufacturer", manufacturerInput);
-  //  formData.append("onSale", onSaleInput);
     formData.append("quantity", quantityInput);
   
     if (useImageUrl) {
       formData.append("imageUrl", imageUrl);
     } else {
-      formData.append("image", imageFile);
+      // Check if imageFile is not null before making the Cloudinary request
+      if (imageFile) {
+        try {
+          const cloudinaryResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+            imageFile,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+  
+          formData.append("imageUrl", cloudinaryResponse.data.secure_url);
+        } catch (error) {
+          console.error("Error uploading image to Cloudinary", error);
+          return; // Stop the submission if image upload fails
+        }
+      } else {
+        console.error("No image file selected");
+        return; // Stop the submission if no image file is selected
+      }
     }
-    console.log("image",imageFile)
   
     try {
-      const response = await axios.put(
-        `http://localhost:7000/products/${paramProductId}`,
-        formData
-      );
-        setImageUrl(response.data.imageUrl);
+      const response = await axios.put(`http://localhost:7000/products/${paramProductId}`, formData);
+      setImageUrl(response.data.imageUrl);
   
       console.log("Product updated successfully");
       navigate(`/allproduct`);
@@ -105,6 +126,7 @@ const EditProductForm = ({
       console.error("Error updating product", error);
     }
   };
+  
   
   const onChangeCategory = (e) => {
     setCategory(e.target.value);
@@ -118,24 +140,38 @@ const EditProductForm = ({
     setManufacturer(e.target.value);
   };
 
-  const handleFileChange = (e) => {
-    setFileInput(e.target.files[0]);
-  };
-  
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
 
+  
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFileInput(file);
+  
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageUrl(reader.result);
       };
       reader.readAsDataURL(file);
-      setImageFile(file);
     }
-    console.log("file",file)
-
   };
+  
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      setFileInput(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+
+
 
   return (
     <div>
@@ -209,6 +245,10 @@ const EditProductForm = ({
               <MenuItem value="Purple">Purple</MenuItem>
             </Select>
           </FormControl>
+
+
+          <UploadFile onFileUpload={handleFileUpload} />
+
   {/* Checkbox to choose between URL and file upload */}
   <FormControlLabel
             control={

@@ -200,6 +200,7 @@ export default function AllProduct() {
   console.log(data,'data')
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [cloudName] = useState("dsozaejvw");
 
 
   return (
@@ -308,6 +309,8 @@ export default function AllProduct() {
         imageUrl={product.imageUrl} 
         price={product.price}
         category={product.categories}
+        cloudName={cloudName} // Pass the cloudName as a prop
+
       />
       ))}
 </div>

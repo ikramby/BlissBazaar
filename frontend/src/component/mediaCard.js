@@ -9,16 +9,40 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
-const cloudName = 'dsozaejvw';
 
-export default function MediaCard({ productId,name, description, imageUrl, price, category, color, manufacturer, onSale }) {
- console.log("imageUrl", imageUrl)
+export default function MediaCard({
+  productId,
+  name,
+  description,
+  imageUrl,
+  price,
+  category,
+  color,
+  manufacturer,
+  onSale,
+  cloudName, 
+}) {  
+
+  console.log("imageUrl", imageUrl)
  const shadowStyle = {
         boxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         WebkitBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
         MozBoxShadow: '10px 10px 52px 0px rgba(0, 0, 0, 0.75)',
       };
+      const getPublicId = (imageUrl) => {
+        if (!imageUrl) {
+          return null;
+        }
+      
+        const match = imageUrl.match(/\/([^/]+)\/?$/);
+        return match ? match[1] : null;
+      };
+      
+      const publicId = getPublicId(imageUrl);
+      const absoluteImageUrl = publicId ? `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}` : '';
+    
       const { userRole, isAdmin  } = useContext(AuthContext);
+     // const absoluteImageUrl = imageUrl ? `https://res.cloudinary.com/${cloudName}/image/upload/{publicID}` : '';
 
       const navigate = useNavigate();
       const handleViewClick = () => {
@@ -91,7 +115,7 @@ export default function MediaCard({ productId,name, description, imageUrl, price
      }} style={shadowStyle}>
 <CardMedia
   style={{ minHeight: '50vh', maxHeight: '50vh' }}
-  image={imageUrl}
+  image={absoluteImageUrl}
   title={name}
   onError={(e) => {
     console.error('Error loading image:', e);
