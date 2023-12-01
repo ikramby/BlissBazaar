@@ -21,8 +21,8 @@ function createData(name, calories, fat, carbs, protein) {
 export default function DenseTable({users, deleteUser}) {
    
   return (
-    <TableContainer component={Paper} style={{background:'transparent', marginTop:'20vh', color:'white'}}>
-     <h1>Dashboard User</h1>
+    <TableContainer component={Paper} style={{background:'transparent', marginTop:'5vh', color:'white',marginBottom:'5vh'}}>
+     <h2 style={{textAlign:'center', padding:'5vh'}}>Dashboard User</h2>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
         <TableHead>
           <TableRow >
