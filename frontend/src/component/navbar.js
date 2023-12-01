@@ -87,7 +87,8 @@ export default function SearchAppBar() {
       // Remove the token from local storage and mark the user as not authenticated
       localStorage.removeItem('token');
       setAuth(false);
-      navigate('/');
+
+      navigate('/login');
 
   };
   const [showCategories, setShowCategories] = useState(false);
