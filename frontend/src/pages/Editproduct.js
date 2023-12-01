@@ -18,6 +18,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Footer from "./Footer";
 import UploadFile from "./UploadFile"; 
+
 const EditProductForm = ({
   productId,
   name,
@@ -104,7 +105,7 @@ const EditProductForm = ({
               },
             }
           );
-  
+      
           formData.append("imageUrl", cloudinaryResponse.data.secure_url);
         } catch (error) {
           console.error("Error uploading image to Cloudinary", error);
@@ -114,18 +115,23 @@ const EditProductForm = ({
         console.error("No image file selected");
         return; // Stop the submission if no image file is selected
       }
+      
     }
   
     try {
-      const response = await axios.put(`http://localhost:7000/products/${paramProductId}`, formData);
-      setImageUrl(response.data.imageUrl);
+      const response = await axios.put(
+        `http://localhost:7000/products/${paramProductId}`,
+        formData
+      );
   
+      setImageUrl(response.data.imageUrl);
       console.log("Product updated successfully");
       navigate(`/allproduct`);
     } catch (error) {
       console.error("Error updating product", error);
     }
   };
+  
   
   
   const onChangeCategory = (e) => {
@@ -141,30 +147,16 @@ const EditProductForm = ({
   };
 
 
-  
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFileInput(file);
-  
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
-  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
   
     if (file) {
       setFileInput(file);
+  
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageUrl(reader.result);
+        setImageFile(file); // Set the image file
       };
       reader.readAsDataURL(file);
     }
@@ -247,7 +239,6 @@ const EditProductForm = ({
           </FormControl>
 
 
-          <UploadFile onFileUpload={handleFileUpload} />
 
   {/* Checkbox to choose between URL and file upload */}
   <FormControlLabel
@@ -281,14 +272,8 @@ const EditProductForm = ({
                 name="image"
               />
               <label htmlFor="image-input">
-                <Button
-                  component="span"
-                  color="primary"
-                  variant="contained"
-                  style={{ marginTop: "20px" }}
-                >
-                  Upload Image
-                </Button>
+              <UploadFile onFileUpload={handleFileUpload} />
+
               </label>
               {imageUrl && (
                 <img
