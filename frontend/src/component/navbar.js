@@ -22,6 +22,7 @@ import { AuthContext } from './AuthContext';
 import './navbar.css'; 
 import axios from 'axios';  
 import { useNavigate } from 'react-router-dom';
+import AllProduct from '../pages/allProduct'; 
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
