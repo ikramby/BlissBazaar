@@ -62,47 +62,43 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
-      
-      const loginResponse = await axios.post("http://localhost:7000/tech/login", {
-        email,
-        password,
-      });
+      const loginResponse = await axios.post(
+        "http://localhost:7000/tech/login",
+        {
+          email,
+          password,
+        }
+      );
       console.log("Login successful", loginResponse.data);
-  
+
       localStorage.setItem("token", loginResponse.data.token);
       localStorage.setItem("email", email);
-  
+
       alert("Logged in successfully!");
       setAuth(true);
-   
-          const userInfoResponse = await axios.get(
-            `http://localhost:7000/tech/getMyInformation/${email}`
-          );
-          
-          console.log("User information response:", userInfoResponse.data);
-      
-          const purpose = userInfoResponse.data.purpose;
-      
-          // Check the purpose from the user information
+
+      const userInfoResponse = await axios.get(
+        `http://localhost:7000/tech/getMyInformation/${email}`
+      );
+
+      console.log("User information response:", userInfoResponse.data);
+
+      const purpose = userInfoResponse.data.purpose;
+
+      // Check the purpose from the user information
       if (purpose === "Selling") {
         navigate("/seller");
       } else {
         navigate("/");
       }
-      
-      
-      
-     
-  
-    
     } catch (error) {
       console.error("Login error:", error);
       alert("Email or password is incorrect. Please try again.");
     }
   };
-  
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
