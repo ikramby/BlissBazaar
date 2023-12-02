@@ -29,7 +29,7 @@ const TeamMember = ({ image, firstName, lastName, role }) => {
 const OurTeamPage = () => {
   // Sample data for team members
   const teamMembers = [
-    { firstName: 'Anis', lastName: 'Jmeail', role: 'Lead Developer FULLSTACK JS', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxvxYLGfR5ht2tpDCbjrG3w5zhFiQCvxPVGerhjup7xqYL-Wh7h26aoAuXz76UgJHlL5Y&usqp=CAU' },
+    { firstName: 'Anis', lastName: 'Jemail', role: 'Lead Developer FULLSTACK JS', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxvxYLGfR5ht2tpDCbjrG3w5zhFiQCvxPVGerhjup7xqYL-Wh7h26aoAuXz76UgJHlL5Y&usqp=CAU' },
     { firstName: 'Tarek', lastName: 'Ben Zaied', role: 'Lead Developer FULLSTACK JS', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkS8v2vSpIzK2HCPWDdfZP3vbvQhEm5fxuwkNENSNSswbBoWScLb0h3GjVFqgZB9FEpSg&usqp=CAU' },
     { firstName: 'Wifek', lastName: 'Benkhoud', role: 'Lead Developer FULLSTACK JS', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy9JvlIX5iEtOTXjtnxMm5zO5bM26J-qT9-mrwpV4Cn0sCUCkSKn1xznHSJ20Ia4wj_Qw&usqp=CAU' },
     { firstName: 'Ikram', lastName: 'Ben Yahia', role: 'Lead Developer FULLSTACK JS', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgREtbJGplFmbA3tCSTKAUDmgH1vPrefWgjEsRxBQEBay1FF4W3WCFnwC7jcz8yXBSVqo&usqp=CAU' },
