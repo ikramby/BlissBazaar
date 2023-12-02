@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -8,8 +8,23 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-const EditProfileForm = ({ open, onClose, userData, saveUserData }) => {
-  const [formValues, setFormValues] = useState(userData);
+const EditProfileForm = ({ open, onClose, userData, onSaveSuccess }) => {
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    description: "",
+    avatar: "",
+    facebook: "",
+    twitter: "",
+    instagram: "",
+    linkedIn: "",
+  });
+
+  useEffect(() => {
+    if (userData) {
+      setFormValues(userData);
+    }
+  }, [userData]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -18,23 +33,17 @@ const EditProfileForm = ({ open, onClose, userData, saveUserData }) => {
 
   const handleSubmit = async () => {
     try {
-      const userId = userData.id;
+      const email = localStorage.getItem("email");
+      if (!email) {
+        throw new Error("No email found in local storage.");
+      }
 
-      const endpoint = `http://localhost:7000/edit-profile/${localStorage.getItem(
-        "id"
-      )}?token=${localStorage.getItem("token")}`;
+      const endpoint = `http://localhost:7000/edit-profile/${email}`;
+      const response = await axios.put(endpoint, formValues);
 
-      const token = localStorage.getItem("token");
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
-      const response = await axios.put(endpoint, formValues, config);
-
-      console.log("User data updated successfully", response.data);
-
-      saveUserData(response.data);
-
+      if (response.data) {
+        onSaveSuccess(response.data);
+      }
       onClose();
     } catch (error) {
       console.error("There was an error updating the user data", error);

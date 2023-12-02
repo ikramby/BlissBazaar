@@ -1,15 +1,14 @@
-// userController.js
 const db = require("../models/index");
 
 exports.getUserData = async (req, res) => {
   try {
     console.log("req.params", req.params);
 
-    const userId = req.params.userId; 
+    const userId = req.params.userId;
     console.log("hi", userId);
 
     const user = await db.users.findByPk(userId, {
-      attributes: ["email", "firstName", "lastName", "purpose"],
+      attributes: ["email", "firstName", "lastName", "purpose", "description"],
     });
     console.log("user", user);
     if (user) {
@@ -22,29 +21,30 @@ exports.getUserData = async (req, res) => {
   }
 };
 
-
-
 exports.updateUserData = async (req, res) => {
   try {
-    const userId = req.params.userId; 
-    const updates = req.body; 
+    const userEmail = req.params.email;
+    const updates = req.body;
 
-    
-    const [updatedRows] = await db.users.update(updates, {
-      where: { id: userId }
-    });
-
-    if (updatedRows > 0) {
-      
-      const updatedUser = await db.users.findByPk(userId, {
-        attributes: ["id", "email", "firstName", "lastName", "purpose", "description", "avatar", "facebook", "twitter", "instagram", "linkedIn"],
-      });
-      res.json(updatedUser);
-    } else {
-      res.status(404).send("User not found or no changes made");
+    const user = await db.users.findOne({ where: { email: userEmail } });
+    if (!user) {
+      return res.status(404).send("User not found");
     }
+
+    await user.update(updates);
+
+    const updatedUser = await db.users.findByPk(user.id, {
+      attributes: [
+        "id",
+        "email",
+        "firstName",
+        "lastName",
+        "purpose",
+        "description",
+      ],
+    });
+    res.json(updatedUser);
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
-
